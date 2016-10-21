@@ -29,7 +29,7 @@ paths:
             description: Unexpected error
             schema:
               $ref: '#/definitions/Error'
-  /_goxdcr/controller/bucketSettings/[bucket_id]:
+  /_goxdcr/controller/bucketSettings/{bucket_id}:
     get:
       summary: Test
       description: Test
@@ -41,7 +41,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /_metakv/[key]:
+  /_metakv/{key}:
     get:
       summary: Test
       description: Test
@@ -53,7 +53,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /_p/[rest_prefix]:
+  /_p/{rest_prefix}:
     get:
       summary: Test
       description: Test
@@ -65,7 +65,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /_p/ui/[rest_prefix]:
+  /_p/ui/{rest_prefix}:
     get:
       summary: Test
       description: Test
@@ -113,7 +113,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /couchBase/[url]:
+  /couchBase/{url}:
     get:
       summary: Test
       description: Test
@@ -185,7 +185,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /dot/[bucket_id]:
+  /dot/{bucket_id}:
     get:
       summary: Test
       description: Test
@@ -197,7 +197,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /dotsvg/[bucket_id]:
+  /dotsvg/{bucket_id}:
     get:
       summary: Test
       description: Test
@@ -209,7 +209,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /images/[image_name]:
+  /images/{image_name}:
     get:
       summary: Test
       description: Test
@@ -281,7 +281,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /nodes/[node_id]:
+  /nodes/{node_id}:
     get:
       summary: Test
       description: Test
@@ -329,7 +329,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/bucket/[bucket_name]/recoveryStatus:
+  /pools/default/bucket/{bucket_name}/recoveryStatus:
     get:
       summary: Test
       description: Test
@@ -353,7 +353,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/buckets/@fts-[fts-id]/stats:
+  /pools/default/buckets/@fts-{fts-id}/stats:
     get:
       summary: Test
       description: Test
@@ -365,7 +365,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/buckets/@index-[index-id]/stats:
+  /pools/default/buckets/@index-{index-id}/stats:
     get:
       summary: Test
       description: Test
@@ -389,7 +389,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/buckets/@xdcr-[xdcr-id]/stats:
+  /pools/default/buckets/@xdcr-{xdcr-id}/stats:
     get:
       summary: Test
       description: Test
@@ -401,7 +401,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/buckets/[bucket_name]:
+  /pools/default/buckets/{bucket_name}:
     get:
       summary: Test
       description: Test
@@ -413,7 +413,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/buckets/[bucket_name]/ddocs:
+  /pools/default/buckets/{bucket_name}/ddocs:
     get:
       summary: Test
       description: Test
@@ -425,7 +425,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/buckets/[bucket_name]/docs:
+  /pools/default/buckets/{bucket_name}/docs:
     get:
       summary: Test
       description: Test
@@ -437,7 +437,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/buckets/[bucket_name]/docs/[doc_id]:
+  /pools/default/buckets/{bucket_name}/docs/{doc_id}:
     get:
       summary: Test
       description: Test
@@ -449,7 +449,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/buckets/[bucket_name]/localRandomKey:
+  /pools/default/buckets/{bucket_name}/localRandomKey:
     get:
       summary: Test
       description: Test
@@ -461,7 +461,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/buckets/[bucket_name]/nodes:
+  /pools/default/buckets/{bucket_name}/nodes:
     get:
       summary: Test
       description: Test
@@ -473,7 +473,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/buckets/[bucket_name]/nodes/[node_id]:
+  /pools/default/buckets/{bucket_name}/nodes/{node_id}:
     get:
       summary: Test
       description: Test
@@ -485,7 +485,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/buckets/[bucket_name]/nodes/[node_id]/stats:
+  /pools/default/buckets/{bucket_name}/nodes/{node_id}/stats:
     get:
       summary: Test
       description: Test
@@ -497,7 +497,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/buckets/[bucket_name]/stats:
+  /pools/default/buckets/{bucket_name}/stats:
     get:
       summary: Test
       description: Test
@@ -509,7 +509,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/buckets/[bucket_name]/stats/[stat_name]:
+  /pools/default/buckets/{bucket_name}/stats/{stat_name}:
     get:
       summary: Test
       description: Test
@@ -521,7 +521,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/bucketsStreaming/[bucket_name]:
+  /pools/default/bucketsStreaming/{bucket_name}:
     get:
       summary: Test
       description: Test
@@ -545,7 +545,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/certificate/node/[node_id]:
+  /pools/default/certificate/node/{node_id}:
     get:
       summary: Test
       description: Test
@@ -617,7 +617,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/settings/memcached/effective/[node_id]:
+  /pools/default/settings/memcached/effective/{node_id}:
     get:
       summary: Test
       description: Test
@@ -641,7 +641,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/settings/memcached/node/[node_id]:
+  /pools/default/settings/memcached/node/{node_id}:
     get:
       summary: Test
       description: Test
@@ -653,7 +653,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /pools/default/settings/memcached/node/[node_id]/setting/[setting_name]:
+  /pools/default/settings/memcached/node/{node_id}/setting/{setting_name}:
     get:
       summary: Test
       description: Test
@@ -725,7 +725,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /sasl_logs/[log_name]:
+  /sasl_logs/{log_name}:
     get:
       summary: Test
       description: Test
@@ -857,7 +857,7 @@ paths:
             schema:
               $ref: '#/definitions/Error'
               
-  /settings/replications/[replication_id]:
+  /settings/replications/{replication_id}:
     get:
       summary: Test
       description: Test
