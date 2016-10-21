@@ -5,8 +5,8 @@ info:
   title: Couchbase Server API
   description: API for interacting with Couchbase Server
   version: "4.5.1"
-  
-host: localhost:8091
+
+host: host_name:8091
 
 # array of all schemes that your API supports
 schemes:
@@ -18,170 +18,917 @@ consumes:
   - application/json
   - formData
 paths:
+  /_cbauth/checkPermission:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+  /_goxdcr/controller/bucketSettings/[bucket_id]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /_metakv/[key]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /_p/[rest_prefix]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /_p/ui/[rest_prefix]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /_uiEnv:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /_uistats:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /classic-index.html:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /couchBase/[url]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /diag:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /diag/ale:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /diag/masterEvents:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /diag/password:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /diag/vbuckets:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /dot/[bucket_id]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /dotsvg/[bucket_id]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /images/[image_name]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /index.html:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /indexStatus:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /internalSettings:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /logs:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /nodeStatuses:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /nodes/[node_id]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /nodes/self/xdcrSSLPorts:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
   /pools/default:
     get:
-      summary: Basic Cluster Information
-      description: |
-        This endpoint returns basic information about the Couchbase Server that the node is a part of.
-      parameters:
-        - name: etag
-          in: query
-          description: An opaque identifier.
-          required: false
-          type: number
-          format: double
-        - name: waitChange
-          in: query
-          description: How long for the server to wait before sending changes.
-          required: false
-          type: number
-          format: double
-      tags:
-        - Cluster
+      summary: Test
+      description: Test
       responses:
-        200:
-          description: A json response
-          examples:
-            application/json:
-              storageTotals:
-                ram:
-                  total: 1044230144
-                  quotaTotal: 268435456
-                  quotaUsed: 268435456
-                  used: 870629376
-                  usedByData: 165288104
-                  quotaUsedPerNode: 268435456
-                  quotaTotalPerNode: 268435456
-                hdd:
-                  total: 19195224064
-                  quotaTotal: 19195224064
-                  used: 1535617925
-                  usedByData: 184890805
-                  free: 17659606139
-              ftsMemoryQuota: 256
-              indexMemoryQuota: 256
-              memoryQuota: 256
-              name: default
-              alerts: []
-              alertsSilenceURL: "/controller/resetAlerts?token=0&uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-              nodes:
-              - systemStats:
-                  cpu_utilization_rate: 11.45833333333333
-                  swap_total: 1214005248
-                  swap_used: 1023995904
-                  mem_total: 1044230144
-                  mem_free: 253353984
-                interestingStats:
-                  cmd_get: 0
-                  couch_docs_actual_disk_size: 141932951
-                  couch_docs_data_size: 126060544
-                  couch_spatial_data_size: 21442736
-                  couch_spatial_disk_size: 21478927
-                  couch_views_actual_disk_size: 21478927
-                  couch_views_data_size: 0
-                  curr_items: 63184
-                  curr_items_tot: 63184
-                  ep_bg_fetched: 0
-                  get_hits: 0
-                  mem_used: 165288104
-                  ops: 0
-                  vb_replica_curr_items: 0
-                uptime: '20708'
-                memoryTotal: 1044230144
-                memoryFree: 253353984
-                mcdMemoryReserved: 796
-                mcdMemoryAllocated: 796
-                couchApiBase: http://172.17.0.2:8092/
-                couchApiBaseHTTPS: https://172.17.0.2:18092/
-                otpCookie: dydhamdaoyshdxls
-                clusterMembership: active
-                recoveryType: none
-                status: healthy
-                otpNode: ns_1@127.0.0.1
-                thisNode: true
-                hostname: 172.17.0.2:8091
-                clusterCompatibility: 262149
-                version: 4.5.1-2844-enterprise
-                os: x86_64-unknown-linux-gnu
-                ports:
-                  sslProxy: 11214
-                  httpsMgmt: 18091
-                  httpsCAPI: 18092
-                  proxy: 11211
-                  direct: 11210
-                services:
-                - fts
-                - index
-                - kv
-                - n1ql
-              buckets:
-                uri: "/pools/default/buckets?v=124191207&uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                terseBucketsBase: "/pools/default/b/"
-                terseStreamingBucketsBase: "/pools/default/bs/"
-              remoteClusters:
-                uri: "/pools/default/remoteClusters?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                validateURI: "/pools/default/remoteClusters?just_validate=1"
-              controllers:
-                addNode:
-                  uri: "/controller/addNodeV2?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                rebalance:
-                  uri: "/controller/rebalance?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                failOver:
-                  uri: "/controller/failOver?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                startGracefulFailover:
-                  uri: "/controller/startGracefulFailover?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                reAddNode:
-                  uri: "/controller/reAddNode?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                reFailOver:
-                  uri: "/controller/reFailOver?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                ejectNode:
-                  uri: "/controller/ejectNode?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                setRecoveryType:
-                  uri: "/controller/setRecoveryType?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                setAutoCompaction:
-                  uri: "/controller/setAutoCompaction?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                  validateURI: "/controller/setAutoCompaction?just_validate=1"
-                clusterLogsCollection:
-                  startURI: "/controller/startLogsCollection?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                  cancelURI: "/controller/cancelLogsCollection?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                replication:
-                  createURI: "/controller/createReplication?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                  validateURI: "/controller/createReplication?just_validate=1"
-              rebalanceStatus: none
-              rebalanceProgressUri: "/pools/default/rebalanceProgress"
-              stopRebalanceUri: "/controller/stopRebalance?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-              nodeStatusesUri: "/nodeStatuses"
-              maxBucketCount: 10
-              autoCompactionSettings:
-                parallelDBAndViewCompaction: false
-                databaseFragmentationThreshold:
-                  percentage: 30
-                  size: undefined
-                viewFragmentationThreshold:
-                  percentage: 30
-                  size: undefined
-                indexCompactionMode: circular
-                indexCircularCompaction:
-                  daysOfWeek: Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday
-                  interval:
-                    fromHour: 0
-                    toHour: 0
-                    fromMinute: 0
-                    toMinute: 0
-                    abortOutside: false
-                indexFragmentationThreshold:
-                  percentage: 30
-              tasks:
-                uri: "/pools/default/tasks?v=54267904"
-              counters: {}
-              indexStatusURI: "/indexStatus?v=68121364"
-              checkPermissionsURI: "/pools/default/checkPermissions?v=11740780"
-              serverGroupsUri: "/pools/default/serverGroups?v=52184775"
-
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/bucket/[bucket_name]/recoveryStatus:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/buckets:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/buckets/@fts-[fts-id]/stats:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/buckets/@index-[index-id]/stats:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/buckets/@query/stats:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/buckets/@xdcr-[xdcr-id]/stats:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/buckets/[bucket_name]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/buckets/[bucket_name]/ddocs:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/buckets/[bucket_name]/docs:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/buckets/[bucket_name]/docs/[doc_id]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/buckets/[bucket_name]/localRandomKey:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/buckets/[bucket_name]/nodes:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/buckets/[bucket_name]/nodes/[node_id]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/buckets/[bucket_name]/nodes/[node_id]/stats:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/buckets/[bucket_name]/stats:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/buckets/[bucket_name]/stats/[stat_name]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/bucketsStreaming/[bucket_name]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/certificate:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/certificate/node/[node_id]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/overviewStats:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/rebalanceProgress:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/remoteClusters:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/saslBucketsStreaming:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/serverGroups:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/settings/memcached/effective/[node_id]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/settings/memcached/global:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/settings/memcached/node/[node_id]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/settings/memcached/node/[node_id]/setting/[setting_name]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/default/tasks:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /pools/nodes:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /poolsStreaming/default:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /sampleBuckets:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /sasl_logs:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /sasl_logs/[log_name]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /settings/alerts:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /settings/audit:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /settings/autoCompaction:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /settings/autoFailover:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /settings/indexes:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /settings/maxParallelIndexers:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /settings/rbac/roles:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /settings/rbac/users:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /settings/readOnlyAdminName:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /settings/replications:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /settings/replications/[replication_id]:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /settings/saslauthdAuth:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /settings/stats:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /settings/viewUpdateDaemon:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /settings/web:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
+  /ui/index.html:
+    get:
+      summary: Test
+      description: Test
+      responses:
+          200:
+            description: A json response
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+              
 
 definitions:
   Error:
@@ -194,3 +941,4 @@ definitions:
         type: string
       fields:
         type: string
+
