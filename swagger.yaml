@@ -78,6 +78,8 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - diag
       responses:
           200:
             description: A json response
