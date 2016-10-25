@@ -957,7 +957,8 @@ parameters:
     in: formData
     type: string
     maxLength: 24
-  
+    allowEmptyValue: true
+ 
   ThreadsNumber:
     name: threadsNumber
     description: The bucket I/O priority. 2 represents 'low' priority while 8 represents 'high' priority.
