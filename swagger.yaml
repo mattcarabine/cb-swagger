@@ -871,41 +871,129 @@ definitions:
     properties:
       name:
         type: string
+        example: travel-sample
       bucketType:
         type: string
         enum: ["membase", "memcached"]
+        example: membase
       authType:
         type: string
         enum: ["sasl", "none"]
+        example: sasl
       saslPassword:
         type: string
+        example: password
       proxyPort:
         type: integer
         minimum: 0
+        example: 0
       replicaIndex:
         type: boolean
+        example: true
       uri:
         type: string
+        example: /pools/default/buckets/travel-sample?bucket_uuid=c7c90595e051674062df7736c28e8dad
       streamingUri:
         type: string
+        example: /pools/default/bucketsStreaming/travel-sample?bucket_uuid=c7c90595e051674062df7736c28e8dad
       localRandomKeyUri:
         type: string
+        example: /pools/default/buckets/travel-sample/localRandomKey
       controllers:
         type: object
         properties:
           compactAll:
             type: string
-          compactDB:
-            type: string
+            example: /pools/default/buckets/travel-sample/controller/compactBucket
           purgeDeletes:
             type: string
+            example: /pools/default/buckets/travel-sample/controller/unsafePurgeBucket
           startRecovery:
             type: string
+            example: /pools/default/buckets/travel-sample/controller/startRecovery
       nodes:
         type: array
         items:
           - $ref: "#/definitions/BucketNode"
-  
+      stats:
+        type: object
+        properties:
+          uri:
+            type: string
+            example: /pools/default/buckets/travel-sample/stats
+          directoryURI:
+            type: string
+            example: /pools/default/buckets/travel-sample/statsDirectory
+          nodeStatsListURI:
+            type: string
+            example: /pools/default/buckets/travel-sample/nodes
+      ddocs:
+        type: object
+        properties:
+          uri:
+            type: string
+            example: /pools/default/buckets/travel-sample/ddocs
+      nodeLocator:
+        type: string
+        example: "vbucket"
+      autoCompactionSettings:
+        type: boolean
+        example: false
+      uuid:
+        type: string
+        example: c7c90595e051674062df7736c28e8dad
+      replicaNumber:
+        type: integer
+        minimum: 0
+        maximum: 3
+        example: 1
+      threadsNumber:
+        type: integer
+        minimum: 2
+        maximum: 8
+        example: 3
+      quota:
+        type: object
+        properties:
+          ram:
+            type: integer
+            example: 104857600
+          rawRAM:
+            type: integer
+            example: 104857600
+      basicStats:
+        type: object
+        properties:
+          quotaPercentUsed:
+            type: number
+            format: float
+            example: 69.59330749511719
+          opsPerSec:
+            type: integer
+            example: 30
+          diskFetches:
+            type: integer
+            example: 10
+          itemCount:
+            type: integer
+            example: 31592
+          diskUsed:
+            type: integer
+            example: 150852025
+          dataUsed:
+            type: integer
+            example: 113478832
+          memUsed:
+            type: integer
+            example: 72973872
+      evictionPolicy:
+        type: string
+        enum: ["valueOnly", "fullEviction"]
+        example: valueOnly
+      bucketCapabilitiesVer:
+        type: string
+        example: ""
+
   BucketNode:
     type: object
     properties:
@@ -962,7 +1050,9 @@ definitions:
             type: integer
           direct:
             type: integer
-
+      services:
+        type: string
+      
   SystemStats:
     type: object
     properties:
@@ -1115,8 +1205,8 @@ parameters:
   
   ThreadsNumber:
     name: threadsNumber
-    description: The bucket I/O priority. 2 represents 'low' priority while 8 represents 'high' priority.
+    description: The bucket I/O priority. 3 represents 'low' priority while 8 represents 'high' priority.
     in: formData
     type: integer
-    enum: [2, 8]
-    default: 2
+    enum: [3, 8]
+    default: 3
