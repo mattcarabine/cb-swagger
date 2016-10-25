@@ -1002,10 +1002,10 @@ definitions:
     properties:
       couchApiBaseHTTPS:
         type: string
-        example: https://172.17.0.2:18092/travel-sample%2Bbfaccbdeab775313915cd2cee84cc4b0
+        example: https://192.0.2.0:18092/travel-sample%2Bbfaccbdeab775313915cd2cee84cc4b0
       couchApiBase:
         type: string
-        example: http://172.17.0.2:8092/travel-sample%2Bbfaccbdeab775313915cd2cee84cc4b0
+        example: http://192.0.2.0:8092/travel-sample%2Bbfaccbdeab775313915cd2cee84cc4b0
       systemStats:
         $ref: "#/definitions/SystemStats"
       interestingStats:
