@@ -191,7 +191,7 @@ paths:
       summary: Test
       description: Test
       parameters:
-        - $ref: '#/parameters/BucketName'
+        - $ref: '#/parameters/PathBucketName'
       responses:
           200:
             description: A json response
@@ -204,6 +204,8 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - bucket
       responses:
           200:
             description: A json response
@@ -211,7 +213,29 @@ paths:
             description: Unexpected error
             schema:
               $ref: '#/definitions/Error'
-              
+    post:
+      summary: Create a new bucket
+      description: This rest endpoint accepts a POST request to create a new bucket.
+      tags:
+        - bucket
+      parameters:
+        - $ref: "#/parameters/AuthType"
+        - $ref: "#/parameters/BucketType"
+        - $ref: "#/parameters/EvictionPolicy"
+        - $ref: "#/parameters/FlushEnabled"
+        - $ref: "#/parameters/FormBucketName"
+        - $ref: "#/parameters/ParallelDBAndViewCompaction"
+        - $ref: "#/parameters/ProxyPort"
+        - $ref: "#/parameters/RamQuotaMB"
+        - $ref: "#/parameters/ReplicaIndex"
+        - $ref: "#/parameters/SaslPassword"
+        - $ref: "#/parameters/ThreadsNumber"
+      responses:
+        202:
+          description: The bucket was successfully created
+        400:
+          description: There was an error with the passed parameters
+      
   /pools/default/buckets/@fts-{fts-id}/stats:
     get:
       summary: Test
@@ -280,7 +304,7 @@ paths:
       summary: Test
       description: Test
       parameters:
-        - $ref: '#/parameters/BucketName'
+        - $ref: '#/parameters/PathBucketName'
       responses:
           200:
             description: A json response
@@ -294,7 +318,7 @@ paths:
       summary: Test
       description: Test
       parameters:
-        - $ref: '#/parameters/BucketName'
+        - $ref: '#/parameters/PathBucketName'
       responses:
           200:
             description: A json response
@@ -308,7 +332,7 @@ paths:
       summary: Test
       description: Test
       parameters:
-        - $ref: '#/parameters/BucketName'
+        - $ref: '#/parameters/PathBucketName'
       responses:
           200:
             description: A json response
@@ -322,7 +346,7 @@ paths:
       summary: Test
       description: Test
       parameters:
-        - $ref: '#/parameters/BucketName'
+        - $ref: '#/parameters/PathBucketName'
       responses:
           200:
             description: A json response
@@ -336,7 +360,7 @@ paths:
       summary: Test
       description: Test
       parameters:
-        - $ref: '#/parameters/BucketName'
+        - $ref: '#/parameters/PathBucketName'
         - $ref: '#/parameters/NodeID'
       responses:
           200:
@@ -351,7 +375,7 @@ paths:
       summary: Test
       description: Test
       parameters:
-        - $ref: '#/parameters/BucketName'
+        - $ref: '#/parameters/PathBucketName'
         - $ref: '#/parameters/NodeID'
       responses:
           200:
@@ -366,7 +390,7 @@ paths:
       summary: Test
       description: Test
       parameters:
-        - $ref: '#/parameters/BucketName'
+        - $ref: '#/parameters/PathBucketName'
       responses:
           200:
             description: A json response
@@ -380,7 +404,7 @@ paths:
       summary: Test
       description: Test
       parameters:
-        - $ref: '#/parameters/BucketName'
+        - $ref: '#/parameters/PathBucketName'
         - name: stat_name
           in: path
           required: true
@@ -398,7 +422,7 @@ paths:
       summary: Test
       description: Test
       parameters:
-        - $ref: '#/parameters/BucketName'
+        - $ref: '#/parameters/PathBucketName'
       responses:
           200:
             description: A json response
@@ -826,7 +850,7 @@ definitions:
         type: string
 
 parameters:
-  BucketName:
+  PathBucketName:
     name: bucket_name
     in: path
     type: string
@@ -839,4 +863,95 @@ parameters:
     in: path
     required: true
     description: id of a node
+  
+  AuthType:
+    name: authType
+    description: Type of authentication to be used by a bucket.
+    in: formData
+    type: string
+    enum: ["sasl", "none"]
+    required: true
+    
+  BucketType:
+    name: bucketType
+    description: Type of bucket to create
+    in: formData
+    type: string
+    enum: ["memcached", "couchbase"]
+    required: true
+  
+  EvictionPolicy:
+    name: evictionPolicy
+    description: Eviction policy to be used by a bucket
+    in: formData
+    type: string
+    enum: ["valueOnly", "fullEviction"]
+    default: "valueOnly"
+    
+  FlushEnabled:
+    name: flushEnabled
+    description: Whether or not the 'flush' operation is enabled on this bucket
+    in: formData
+    type: boolean
+    default: false
+    
+  FormBucketName:
+    name: name
+    description: Name of the bucket
+    in: formData
+    type: string
+    maxLength: 100
+    minLength: 1
+    required: true
 
+  ParallelDBAndViewCompaction:
+    name: parallelDBAndViewCompaction
+    description: Indicates whether database and view files on disk can be compacted simultaneously.
+    in: formData
+    type: boolean
+    default: false
+    
+  ProxyPort:
+    name: proxyPort
+    description: Proxy port on which the bucket communicates. Must be a valid network port which is not already in use. You must provide a valid port number if the authorization type is not SASL.
+    in: formData
+    type: integer
+  
+  RamQuotaMB:
+    name: ramQuotaMB
+    description: RAM Quota for new bucket in MB. The maximum can only be as great as the memory quota established for the node. If other buckets are associated with a node, RAM Quota can only be as large as the amount memory remaining for the node, accounting for the other bucket memory quota.
+    in: formData
+    type: integer
+    minimum: 100
+    required: true
+  
+  ReplicaIndex:
+    name: replicaIndex
+    description: Whether replica view indexing is enabled for this bucket.
+    in: formData
+    type: boolean
+    default: true
+    
+  ReplicaNumber:
+    name: replicaNumber
+    description: Number of replicas for the bucket.
+    in: formData
+    type: integer
+    minimum: 0
+    maximum: 3
+    default: 1
+  
+  SaslPassword:
+    name: saslPassword
+    description: Password for SASL authentication. Required if SASL authentication has been enabled. An empty string represents having no password
+    in: formData
+    type: string
+    maxLength: 24
+  
+  ThreadsNumber:
+    name: threadsNumber
+    description: The bucket I/O priority. 2 represents 'low' priority while 8 represents 'high' priority.
+    in: formData
+    type: integer
+    enum: [2, 8]
+    default: 2
