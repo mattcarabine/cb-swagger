@@ -892,10 +892,10 @@ definitions:
         example: true
       uri:
         type: string
-        example: /pools/default/buckets/travel-sample?bucket_uuid=c7c90595e051674062df7736c28e8dad
+        example: /pools/default/buckets/travel-sample?bucket_uuid=bfaccbdeab775313915cd2cee84cc4b0
       streamingUri:
         type: string
-        example: /pools/default/bucketsStreaming/travel-sample?bucket_uuid=c7c90595e051674062df7736c28e8dad
+        example: /pools/default/bucketsStreaming/travel-sample?bucket_uuid=bfaccbdeab775313915cd2cee84cc4b0
       localRandomKeyUri:
         type: string
         example: /pools/default/buckets/travel-sample/localRandomKey
@@ -941,7 +941,7 @@ definitions:
         example: false
       uuid:
         type: string
-        example: c7c90595e051674062df7736c28e8dad
+        example: bfaccbdeab775313915cd2cee84cc4b0
       replicaNumber:
         type: integer
         minimum: 0
@@ -967,7 +967,7 @@ definitions:
           quotaPercentUsed:
             type: number
             format: float
-            example: 69.59330749511719
+            example: 68.45857238769531
           opsPerSec:
             type: integer
             example: 30
@@ -979,17 +979,20 @@ definitions:
             example: 31592
           diskUsed:
             type: integer
-            example: 150852025
+            example: 147902095
           dataUsed:
             type: integer
             example: 113478832
           memUsed:
             type: integer
-            example: 72973872
+            example: 71784016
       evictionPolicy:
         type: string
         enum: ["valueOnly", "fullEviction"]
         example: valueOnly
+      timeSynchronization:
+        type: string
+        example: disabled
       bucketCapabilitiesVer:
         type: string
         example: ""
@@ -999,57 +1002,79 @@ definitions:
     properties:
       couchApiBaseHTTPS:
         type: string
+        example: https://172.17.0.2:18092/travel-sample%2Bbfaccbdeab775313915cd2cee84cc4b0
       couchApiBase:
         type: string
+        example: http://172.17.0.2:8092/travel-sample%2Bbfaccbdeab775313915cd2cee84cc4b0
       systemStats:
         $ref: "#/definitions/SystemStats"
       interestingStats:
         $ref: "#/definitions/InterestingStats"
       uptime:
-        type: integer
+        type: string
+        example: "88214"
       memoryTotal:
         type: integer
+        example: 1044230144
       memoryFree:
         type: integer
+        example: 303661056
       mcdMemoryReserved:
         type: integer
+        example: 796
       mcdMemoryAllocated:
         type: integer
+        example: 796
       replication:
         type: integer
+        example: 0
       clusterMembership:
         type: string
         enum: ["active", "inactiveFailed"]
+        example: active
       recoveryType:
         type: string
+        example: none
       status:
         type: string
         enum: ["healthy"]
+        example: healthy
       otpNode:
         type: string
+        example: ns_1@127.0.0.1
       thisNode:
-        type: string
+        type: boolean
+        example: true
       hostname:
         type: string
+        example: 192.0.2.0:8091
       clusterCompatibility:
         type: integer
+        example: 262149
       version:
         type: string
+        example: "4.5.1-2844-enterprise"
       os:
         type: string
+        example: "x86_64-unknown-linux-gnu"
       ports:
         type: object
         properties:
           sslProxy:
             type: integer
+            example: 11214
           httpsMgmt:
             type: integer
+            example: 18091
           httpsCAPI:
             type: integer
+            example: 18092
           proxy:
             type: integer
+            example: 11211
           direct:
             type: integer
+            example: 11210
       services:
         type: string
       
@@ -1059,50 +1084,68 @@ definitions:
       cpu_utilization_rate:
         type: number
         format: float
+        example: 3.191489361702128
       swap_total:
-        type: number
-        format: float
+        type: integer
+        example: 1214005248
       swap_used:
-        type: number
-        format: float
+        type: integer
+        example: 0
       mem_total:
-        type: number
-        format: float
+        type: integer
+        example: 1044230144
       mem_free:
-        type: number
-        format: float
+        type: integer
+        example: 284753920
   
   InterestingStats:
     type: object
     properties:
       cmd_get:
-        type: integer
+        type: number
+        format: float
+        example: 108.9808274470232
       couch_docs_actual_disk_size:
         type: integer
+        example: 101979001
       couch_docs_disk_size:
         type: integer
+        example: 92036096
       couch_spatial_data_size:
         type: integer
+        example: 21442736
       couch_spatial_disk_size:
         type: integer
+        example: 21478927
       couch_views_actual_disk_size:
         type: integer
+        example: 21478927
       couch_views_data_size:
         type: integer
+        example: 0
       curr_items:
         type: integer
+        example: 31592
       curr_items_tot:
         type: integer
+        example: 31592
       ep_bg_fetched:
         type: integer
+        example: 0
       get_hits:
-        type: integer
+        type: number
+        format: float
+        example: 108.9808274470232
       mem_used:
         type: integer
+        example: 71766320
       ops:
-        type: integer
+        type: number
+        format: float
+        example: 108.9808274470232
       vb_replica_curr_items:
         type: integer
+        example: 0
 	
 parameters:
   PathBucketName:
@@ -1111,7 +1154,7 @@ parameters:
     type: string
     required: true
     description: name of a bucket
-    
+
   NodeID:
     name: node_id
     type: string
