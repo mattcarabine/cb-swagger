@@ -4,7 +4,7 @@ info:
   description: API for interacting with Couchbase Server
   version: "4.5.1"
 
-host: localhost:8091
+host: 192.168.99.100:8091
 
 schemes:
   - https
@@ -216,10 +216,17 @@ paths:
       responses:
           200:
             description: A json response
+            schema:
+              type: array
+              items:
+                - $ref: "#/definitions/Bucket"
+              minItems: 0
+              uniqueItems: true
           default:
             description: Unexpected error
             schema:
               $ref: '#/definitions/Error'
+              
     post:
       summary: Create a new bucket
       description: This rest endpoint accepts a POST request to create a new bucket.
@@ -858,7 +865,155 @@ definitions:
         type: string
       fields:
         type: string
+  
+  Bucket:
+    type: object
+    properties:
+      name:
+        type: string
+      bucketType:
+        type: string
+        enum: ["membase", "memcached"]
+      authType:
+        type: string
+        enum: ["sasl", "none"]
+      saslPassword:
+        type: string
+      proxyPort:
+        type: integer
+        minimum: 0
+      replicaIndex:
+        type: boolean
+      uri:
+        type: string
+      streamingUri:
+        type: string
+      localRandomKeyUri:
+        type: string
+      controllers:
+        type: object
+        properties:
+          compactAll:
+            type: string
+          compactDB:
+            type: string
+          purgeDeletes:
+            type: string
+          startRecovery:
+            type: string
+      nodes:
+        type: array
+        items:
+          - $ref: "#/definitions/BucketNode"
+  
+  BucketNode:
+    type: object
+    properties:
+      couchApiBaseHTTPS:
+        type: string
+      couchApiBase:
+        type: string
+      systemStats:
+        $ref: "#/definitions/SystemStats"
+      interestingStats:
+        $ref: "#/definitions/InterestingStats"
+      uptime:
+        type: integer
+      memoryTotal:
+        type: integer
+      memoryFree:
+        type: integer
+      mcdMemoryReserved:
+        type: integer
+      mcdMemoryAllocated:
+        type: integer
+      replication:
+        type: integer
+      clusterMembership:
+        type: string
+        enum: ["active", "inactiveFailed"]
+      recoveryType:
+        type: string
+      status:
+        type: string
+        enum: ["healthy"]
+      otpNode:
+        type: string
+      thisNode:
+        type: string
+      hostname:
+        type: string
+      clusterCompatibility:
+        type: integer
+      version:
+        type: string
+      os:
+        type: string
+      ports:
+        type: object
+        properties:
+          sslProxy:
+            type: integer
+          httpsMgmt:
+            type: integer
+          httpsCAPI:
+            type: integer
+          proxy:
+            type: integer
+          direct:
+            type: integer
 
+  SystemStats:
+    type: object
+    properties:
+      cpu_utilization_rate:
+        type: number
+        format: float
+      swap_total:
+        type: number
+        format: float
+      swap_used:
+        type: number
+        format: float
+      mem_total:
+        type: number
+        format: float
+      mem_free:
+        type: number
+        format: float
+  
+  InterestingStats:
+    type: object
+    properties:
+      cmd_get:
+        type: integer
+      couch_docs_actual_disk_size:
+        type: integer
+      couch_docs_disk_size:
+        type: integer
+      couch_spatial_data_size:
+        type: integer
+      couch_spatial_disk_size:
+        type: integer
+      couch_views_actual_disk_size:
+        type: integer
+      couch_views_data_size:
+        type: integer
+      curr_items:
+        type: integer
+      curr_items_tot:
+        type: integer
+      ep_bg_fetched:
+        type: integer
+      get_hits:
+        type: integer
+      mem_used:
+        type: integer
+      ops:
+        type: integer
+      vb_replica_curr_items:
+        type: integer
+	
 parameters:
   PathBucketName:
     name: bucket_name
@@ -957,8 +1112,7 @@ parameters:
     in: formData
     type: string
     maxLength: 24
-    allowEmptyValue: true
- 
+  
   ThreadsNumber:
     name: threadsNumber
     description: The bucket I/O priority. 2 represents 'low' priority while 8 represents 'high' priority.
