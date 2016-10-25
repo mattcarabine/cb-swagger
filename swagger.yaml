@@ -4,7 +4,7 @@ info:
   description: API for interacting with Couchbase Server
   version: "4.5.1"
 
-host: host_name:8091
+host: 192.168.99.100:8091
 
 schemes:
   - https
@@ -17,6 +17,11 @@ consumes:
   - application/json
   - formData
 
+securityDefinitions:
+  basicAuth:
+    type: basic
+    description: HTTP Basic Authentication. Works over `HTTP` and `HTTPS`
+    
 paths:
   /diag:
     get:
@@ -204,6 +209,8 @@ paths:
     get:
       summary: Test
       description: Test
+      security:
+        - basicAuth: []
       tags:
         - bucket
       responses:
@@ -216,6 +223,8 @@ paths:
     post:
       summary: Create a new bucket
       description: This rest endpoint accepts a POST request to create a new bucket.
+      security:
+        - basicAuth: []
       tags:
         - bucket
       parameters:
@@ -228,6 +237,7 @@ paths:
         - $ref: "#/parameters/ProxyPort"
         - $ref: "#/parameters/RamQuotaMB"
         - $ref: "#/parameters/ReplicaIndex"
+        - $ref: "#/parameters/ReplicaNumber"
         - $ref: "#/parameters/SaslPassword"
         - $ref: "#/parameters/ThreadsNumber"
       responses:
