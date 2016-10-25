@@ -1076,7 +1076,12 @@ definitions:
             type: integer
             example: 11210
       services:
-        type: string
+        type: array
+        items:
+          - type: string
+            enum: ["fts", "index", "kv", "n1ql"]
+            example: "kv"
+        uniqueItems: true
       
   SystemStats:
     type: object
