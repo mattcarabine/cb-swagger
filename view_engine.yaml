@@ -1,0 +1,164 @@
+swagger: '2.0'
+info:
+  title: Couchbase Server API
+  description: API for interacting with the Couchbase Server cluster manager
+  version: "4.5.1"
+
+host: localhost:1337/192.168.99.100:8092
+
+schemes:
+  - https
+  - http
+
+produces:
+  - application/json
+
+consumes:
+  - application/json
+  - formData
+
+paths:
+  /{bucket_name}/_cleanup:
+    post:
+      summary: Test
+      description: Test
+      parameters:
+        - $ref: '#/parameters/PathBucketName'
+        - $ref: '#/parameters/PathDdocName'
+      tags:
+        - diag
+      responses:
+          200:
+            description: Success
+    
+  /{bucket_name}/_design/{ddoc_name}/_reset_utilization_stats:
+    post:
+      summary: Test
+      description: Test
+      parameters:
+        - $ref: '#/parameters/PathBucketName'
+        - $ref: '#/parameters/PathDdocName'
+      tags:
+        - diag
+      responses:
+          200:
+            description: Success
+
+  /{bucket_name}/_design/{ddoc_name}/_reset_utilization_stats:
+    post:
+      summary: Test
+      description: Test
+      parameters:
+        - $ref: '#/parameters/PathBucketName'
+        - $ref: '#/parameters/PathDdocName'
+      tags:
+        - diag
+      responses:
+          200:
+            description: Success
+
+  /{bucket_name}/_design/{ddoc_name}/_view/{view_name}:
+    post:
+      summary: Test
+      description: Test
+      parameters:
+        - $ref: '#/parameters/PathBucketName'
+        - $ref: '#/parameters/PathDdocName'
+      tags:
+        - diag
+      responses:
+          200:
+            description: Success
+
+  /{bucket_name}/_design/{ddoc_name}/_compact:
+    post:
+      summary: Test
+      description: Test
+      parameters:
+        - $ref: '#/parameters/PathBucketName'
+        - $ref: '#/parameters/PathDdocName'
+      tags:
+        - diag
+      responses:
+          200:
+            description: Success
+
+  /{bucket_name}/_design/{ddoc_name}/_compact/main:
+    post:
+      summary: Test
+      description: Test
+      parameters:
+        - $ref: '#/parameters/PathBucketName'
+        - $ref: '#/parameters/PathDdocName'
+      tags:
+        - diag
+      responses:
+          200:
+            description: Success
+    
+  /{bucket_name}/_design/{ddoc_name}/_compact/replica:
+    post:
+      summary: Test
+      description: Test
+      parameters:
+        - $ref: '#/parameters/PathBucketName'
+        - $ref: '#/parameters/PathDdocName'
+      tags:
+        - diag
+      responses:
+          200:
+            description: Success
+
+  /{bucket_name}/_design/{ddoc_name}/_set_partition_states:
+    post:
+      summary: Test
+      description: Test
+      parameters:
+        - $ref: '#/parameters/PathBucketName'
+        - $ref: '#/parameters/PathDdocName'
+      tags:
+        - diag
+      responses:
+          200:
+            description: Success
+
+  /{bucket_name}/_design/{ddoc_name}/_add_replica_partitions:
+    post:
+      summary: Test
+      description: Test
+      parameters:
+        - $ref: '#/parameters/PathBucketName'
+        - $ref: '#/parameters/PathDdocName'
+      tags:
+        - diag
+      responses:
+          200:
+            description: Success
+
+  /{bucket_name}/_design/{ddoc_name}/_remove_replica_partitions:
+    post:
+      summary: Test
+      description: Test
+      parameters:
+        - $ref: '#/parameters/PathBucketName'
+        - $ref: '#/parameters/PathDdocName'
+      tags:
+        - diag
+      responses:
+          200:
+            description: Success
+
+parameters:
+  PathBucketName:
+    name: bucket_name
+    in: path
+    type: string
+    required: true
+    description: name of a bucket
+
+  PathDdocName:
+    name: ddoc_name
+    in: path
+    type: string
+    required: true
+    description: name of a design document
