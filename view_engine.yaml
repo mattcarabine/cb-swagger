@@ -32,7 +32,14 @@ paths:
       description: Returns the definition of the design document, including all javascript view definitions, as well as any reductions.
       responses:
         200:
-          description: Success
+          description: success
+          schema:
+            type: object
+            properties:
+              views:
+                type: array
+                items:
+                  - $ref: "#/definitions/ViewDefinition"
 
 definitions:
   Error:
@@ -46,6 +53,19 @@ definitions:
       fields:
         type: string
 
+  ViewDefinition:
+    type: object
+    required: ["map"]
+    properties:
+      map:
+        type: string
+        example: "function (doc, meta) {\n  emit(meta.id, null);\n}"
+        description: The map function associated with this view, written in javascript
+      reduce:
+        type: string
+        example: "_count"
+        description: The reduce function associated with this view, either a built-in function 
+      
 parameters:
   PathBucketName:
     name: bucket_name
