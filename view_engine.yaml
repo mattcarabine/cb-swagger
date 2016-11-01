@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Couchbase Server API
-  description: API for interacting with the Couchbase Server cluster manager
+  description: API for interacting with Couchbase Server
   version: "4.5.1"
 
 host: localhost:1337/192.168.99.100:8092
@@ -17,136 +17,34 @@ consumes:
   - application/json
   - formData
 
+securityDefinitions:
+  basicAuth:
+    type: basic
+    description: HTTP Basic Authentication. Works over `HTTP` and `HTTPS`
+    
 paths:
-  /{bucket_name}/_cleanup:
-    post:
-      summary: Test
-      description: Test
+  /{bucket_name}/_design/{ddoc_name}:
+    get:
+      summary: Gets design document definition.
       parameters:
-        - $ref: '#/parameters/PathBucketName'
-        - $ref: '#/parameters/PathDdocName'
-      tags:
-        - diag
+        - $ref: "#/parameters/PathBucketName"
+        - $ref: "#/parameters/PathDdocName"
+      description: Returns the definition of the design document, including all javascript view definitions, as well as any reductions.
       responses:
-          200:
-            description: Success
-    
-  /{bucket_name}/_design/{ddoc_name}/_reset_utilization_stats:
-    post:
-      summary: Test
-      description: Test
-      parameters:
-        - $ref: '#/parameters/PathBucketName'
-        - $ref: '#/parameters/PathDdocName'
-      tags:
-        - diag
-      responses:
-          200:
-            description: Success
+        200:
+          description: Success
 
-  /{bucket_name}/_design/{ddoc_name}/_reset_utilization_stats:
-    post:
-      summary: Test
-      description: Test
-      parameters:
-        - $ref: '#/parameters/PathBucketName'
-        - $ref: '#/parameters/PathDdocName'
-      tags:
-        - diag
-      responses:
-          200:
-            description: Success
-
-  /{bucket_name}/_design/{ddoc_name}/_view/{view_name}:
-    post:
-      summary: Test
-      description: Test
-      parameters:
-        - $ref: '#/parameters/PathBucketName'
-        - $ref: '#/parameters/PathDdocName'
-      tags:
-        - diag
-      responses:
-          200:
-            description: Success
-
-  /{bucket_name}/_design/{ddoc_name}/_compact:
-    post:
-      summary: Test
-      description: Test
-      parameters:
-        - $ref: '#/parameters/PathBucketName'
-        - $ref: '#/parameters/PathDdocName'
-      tags:
-        - diag
-      responses:
-          200:
-            description: Success
-
-  /{bucket_name}/_design/{ddoc_name}/_compact/main:
-    post:
-      summary: Test
-      description: Test
-      parameters:
-        - $ref: '#/parameters/PathBucketName'
-        - $ref: '#/parameters/PathDdocName'
-      tags:
-        - diag
-      responses:
-          200:
-            description: Success
-    
-  /{bucket_name}/_design/{ddoc_name}/_compact/replica:
-    post:
-      summary: Test
-      description: Test
-      parameters:
-        - $ref: '#/parameters/PathBucketName'
-        - $ref: '#/parameters/PathDdocName'
-      tags:
-        - diag
-      responses:
-          200:
-            description: Success
-
-  /{bucket_name}/_design/{ddoc_name}/_set_partition_states:
-    post:
-      summary: Test
-      description: Test
-      parameters:
-        - $ref: '#/parameters/PathBucketName'
-        - $ref: '#/parameters/PathDdocName'
-      tags:
-        - diag
-      responses:
-          200:
-            description: Success
-
-  /{bucket_name}/_design/{ddoc_name}/_add_replica_partitions:
-    post:
-      summary: Test
-      description: Test
-      parameters:
-        - $ref: '#/parameters/PathBucketName'
-        - $ref: '#/parameters/PathDdocName'
-      tags:
-        - diag
-      responses:
-          200:
-            description: Success
-
-  /{bucket_name}/_design/{ddoc_name}/_remove_replica_partitions:
-    post:
-      summary: Test
-      description: Test
-      parameters:
-        - $ref: '#/parameters/PathBucketName'
-        - $ref: '#/parameters/PathDdocName'
-      tags:
-        - diag
-      responses:
-          200:
-            description: Success
+definitions:
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
 
 parameters:
   PathBucketName:
@@ -155,10 +53,10 @@ parameters:
     type: string
     required: true
     description: name of a bucket
-
+    
   PathDdocName:
     name: ddoc_name
-    in: path
     type: string
+    in: path
     required: true
-    description: name of a design document
+    
