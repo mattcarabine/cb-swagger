@@ -40,7 +40,63 @@ paths:
                 type: array
                 items:
                   - $ref: "#/definitions/ViewDefinition"
-
+  
+  /{bucket_name}/_design/{ddoc_name}/_view/{view_name}:
+    get:
+      summary: Gets the results of a view
+      parameters:
+        - $ref: "#/parameters/PathBucketName"
+        - $ref: "#/parameters/PathDdocName"
+        - $ref: "#/parameters/PathViewName"
+      description: Returns the results of a view
+      responses:
+        200:
+          description: PLACEHOLDER
+          
+  /{bucket_name}/_design/{ddoc_name}/_info:
+    get:
+      summary: Gets internal design document info
+      parameters:
+        - $ref: "#/parameters/PathBucketName"
+        - $ref: "#/parameters/PathDdocName"
+      description: Internal
+      responses:
+        200:
+          description: PLACEHOLDER
+      
+  /{bucket_name}/_design/{ddoc_name}/_btree_stats:
+    get:
+      summary: Gets internal design document info
+      parameters:
+        - $ref: "#/parameters/PathBucketName"
+        - $ref: "#/parameters/PathDdocName"
+      description: Internal
+      responses:
+        200:
+          description: PLACEHOLDER
+  
+  /{bucket_name}/_design/{ddoc_name}/_get_utilization_stats:
+    get:
+      summary: Gets internal design document info
+      parameters:
+        - $ref: "#/parameters/PathBucketName"
+        - $ref: "#/parameters/PathDdocName"
+      description: Internal
+      responses:
+        200:
+          description: PLACEHOLDER
+          
+  /{bucket_name}/_design/{ddoc_name}/_get_query_stats:
+    get:
+      summary: Gets internal design document info
+      parameters:
+        - $ref: "#/parameters/PathBucketName"
+        - $ref: "#/parameters/PathDdocName"
+      description: Internal
+      responses:
+        200:
+          description: PLACEHOLDER
+          
 definitions:
   Error:
     type: object
@@ -80,3 +136,8 @@ parameters:
     in: path
     required: true
     
+  PathViewName:
+    name: view_name
+    type: string
+    in: path
+    required: true
