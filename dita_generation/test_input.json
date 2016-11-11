@@ -1,0 +1,1633 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Couchbase Server API",
+    "description": "API for interacting with the Couchbase Server cluster manager",
+    "version": "4.5.1"
+  },
+  "host": "192.168.99.100:8091",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json",
+    "formData"
+  ],
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic",
+      "description": "HTTP Basic Authentication. Works over `HTTP` and `HTTPS`"
+    }
+  },
+  "paths": {
+    "/pools/default/buckets": {
+      "get": {
+        "summary": "Retrieve information on all buckets",
+        "description": "This rest endpoint returns an array of bucket information, one element for each bucket in the cluster",
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "tags": [
+          "bucket"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The name of this bucket.",
+                      "example": "travel-sample"
+                    },
+                    "bucketType": {
+                      "type": "string",
+                      "description": "The type of this bucket. A `membase` bucket is also known as a `couchbase` bucket.",
+                      "enum": [
+                        "membase",
+                        "memcached"
+                      ],
+                      "example": "membase"
+                    },
+                    "authType": {
+                      "type": "string",
+                      "description": "The authentication method for this bucket.",
+                      "enum": [
+                        "sasl",
+                        "none"
+                      ],
+                      "example": "sasl"
+                    },
+                    "saslPassword": {
+                      "type": "string",
+                      "description": "Password for SASL authentication. This is used if `authType` is `sasl`. An empty string represents having no password",
+                      "example": "password"
+                    },
+                    "proxyPort": {
+                      "type": "integer",
+                      "description": "The port used to proxy requests, this is used if the `authType` is `none`.",
+                      "minimum": 0,
+                      "example": 0
+                    },
+                    "replicaIndex": {
+                      "type": "boolean",
+                      "description": "Boolean indicating whether or not replica view indexes are enabled for this bucket.",
+                      "example": true
+                    },
+                    "uri": {
+                      "type": "string",
+                      "description": "The endpoint to retrieve bucket information for this bucket.",
+                      "example": "/pools/default/buckets/travel-sample?bucket_uuid=bfaccbdeab775313915cd2cee84cc4b0"
+                    },
+                    "streamingUri": {
+                      "type": "string",
+                      "description": "The endpoint to retrieve the streaming version of /pools/default/buckets/{bucket_name}",
+                      "example": "/pools/default/bucketsStreaming/travel-sample?bucket_uuid=bfaccbdeab775313915cd2cee84cc4b0"
+                    },
+                    "localRandomKeyUri": {
+                      "type": "string",
+                      "description": "Endpoint used to select a random key from this bucket.",
+                      "example": "/pools/default/buckets/travel-sample/localRandomKey"
+                    },
+                    "controllers": {
+                      "type": "object",
+                      "properties": {
+                        "compactAll": {
+                          "type": "string",
+                          "description": "Endpoint used to trigger a manual compaction of this bucket.",
+                          "example": "/pools/default/buckets/travel-sample/controller/compactBucket"
+                        },
+                        "purgeDeletes": {
+                          "type": "string",
+                          "description": "Endpoint used to trigger an unsafe purge of tombstones in this bucket.",
+                          "example": "/pools/default/buckets/travel-sample/controller/unsafePurgeBucket"
+                        },
+                        "startRecovery": {
+                          "type": "string",
+                          "description": "Endpoint used to start the recovery of this bucket if it is failed over.",
+                          "example": "/pools/default/buckets/travel-sample/controller/startRecovery"
+                        }
+                      }
+                    },
+                    "nodes": {
+                      "type": "array",
+                      "description": "Array of nodes associated with this bucket.",
+                      "items": [
+                        {
+                          "type": "object",
+                          "description": "An object containing information about a bucket on a particular node.",
+                          "properties": {
+                            "couchApiBaseHTTPS": {
+                              "type": "string",
+                              "example": "https://192.0.2.0:18092/travel-sample%2Bbfaccbdeab775313915cd2cee84cc4b0"
+                            },
+                            "couchApiBase": {
+                              "type": "string",
+                              "example": "http://192.0.2.0:8092/travel-sample%2Bbfaccbdeab775313915cd2cee84cc4b0"
+                            },
+                            "systemStats": {
+                              "type": "object",
+                              "description": "System-level statistics.",
+                              "properties": {
+                                "cpu_utilization_rate": {
+                                  "type": "number",
+                                  "description": "The total CPU utilization of the system, measured as a percentage of total CPU capacity.",
+                                  "format": "float",
+                                  "example": 3.191489361702128
+                                },
+                                "swap_total": {
+                                  "type": "integer",
+                                  "description": "The amount of swap space available on the system, measured in bytes.",
+                                  "example": 1214005248
+                                },
+                                "swap_used": {
+                                  "type": "integer",
+                                  "description": "The amount of swap space currently being used, measured in bytes.",
+                                  "example": 0
+                                },
+                                "mem_total": {
+                                  "type": "integer",
+                                  "description": "The total amount of memory on the system, measured in bytes.",
+                                  "example": 1044230144
+                                },
+                                "mem_free": {
+                                  "type": "integer",
+                                  "description": "The memory free on the system, measured in bytes.",
+                                  "example": 284753920
+                                }
+                              }
+                            },
+                            "interestingStats": {
+                              "type": "object",
+                              "properties": {
+                                "cmd_get": {
+                                  "type": "number",
+                                  "description": "The number of `gets` per second.",
+                                  "format": "float",
+                                  "example": 108.9808274470232
+                                },
+                                "couch_docs_actual_disk_size": {
+                                  "type": "integer",
+                                  "description": "The total size on disk of useful data in data files for this bucket, measured in bytes.",
+                                  "example": 101979001
+                                },
+                                "couch_docs_disk_size": {
+                                  "type": "integer",
+                                  "description": "The total size on disk of data files for this bucket, measured in bytes.",
+                                  "example": 92036096
+                                },
+                                "couch_spatial_data_size": {
+                                  "type": "integer",
+                                  "description": "The total size on disk of useful data in spatial view files, measured in bytes.",
+                                  "example": 21442736
+                                },
+                                "couch_spatial_disk_size": {
+                                  "type": "integer",
+                                  "description": "The total size on disk of spatial view files, measured in bytes.",
+                                  "example": 21478927
+                                },
+                                "couch_views_actual_disk_size": {
+                                  "type": "integer",
+                                  "description": "The total size on disk of map-reduce view files, measured in bytes.",
+                                  "example": 21478927
+                                },
+                                "couch_views_data_size": {
+                                  "type": "integer",
+                                  "description": "The total size on disk of useful data in map-reduce views, measured in bytes.",
+                                  "example": 0
+                                },
+                                "curr_items": {
+                                  "type": "integer",
+                                  "description": "The number of active documents.",
+                                  "example": 31592
+                                },
+                                "curr_items_tot": {
+                                  "type": "integer",
+                                  "description": "The total number of documents (both active and replica).",
+                                  "example": 31592
+                                },
+                                "ep_bg_fetched": {
+                                  "type": "integer",
+                                  "description": "The number of documents fetched from disk per second.",
+                                  "example": 0
+                                },
+                                "get_hits": {
+                                  "type": "number",
+                                  "description": "The number of get requests for which the document requested exists, measured in documents per second.",
+                                  "format": "float",
+                                  "example": 108.9808274470232
+                                },
+                                "mem_used": {
+                                  "type": "integer",
+                                  "description": "The amount of memory currently in use, measured in bytes.",
+                                  "example": 71766320
+                                },
+                                "ops": {
+                                  "type": "number",
+                                  "description": "Number of operations per second.",
+                                  "format": "float",
+                                  "example": 108.9808274470232
+                                },
+                                "vb_replica_curr_items": {
+                                  "type": "integer",
+                                  "description": "Total number of replica items.",
+                                  "example": 0
+                                }
+                              }
+                            },
+                            "uptime": {
+                              "type": "string",
+                              "description": "Number of seconds that Couchbase Server has been running on this node.",
+                              "example": "88214"
+                            },
+                            "memoryTotal": {
+                              "type": "integer",
+                              "description": "Total amount of memory available on this node.",
+                              "example": 1044230144
+                            },
+                            "memoryFree": {
+                              "type": "integer",
+                              "description": "Unused memory on this node, measured in bytes.",
+                              "example": 303661056
+                            },
+                            "mcdMemoryReserved": {
+                              "type": "integer",
+                              "description": "Amount of memory reserved for memcached on this node, measured in MB.",
+                              "example": 796
+                            },
+                            "mcdMemoryAllocated": {
+                              "type": "integer",
+                              "description": "Amount of memory allocated to memcached on this node, measured in MB.",
+                              "example": 796
+                            },
+                            "replication": {
+                              "type": "integer",
+                              "description": "Number of other nodes that this node is replicating to.",
+                              "example": 0
+                            },
+                            "clusterMembership": {
+                              "type": "string",
+                              "description": "The current status of this node's cluster membership",
+                              "enum": [
+                                "active",
+                                "inactiveFailed",
+                                "inactiveAdded"
+                              ],
+                              "example": "active"
+                            },
+                            "recoveryType": {
+                              "type": "string",
+                              "description": "Internal only.",
+                              "example": "none"
+                            },
+                            "status": {
+                              "type": "string",
+                              "description": "The current status of the node, i.e whether or not it is healthy.",
+                              "enum": [
+                                "healthy"
+                              ],
+                              "example": "healthy"
+                            },
+                            "otpNode": {
+                              "type": "string",
+                              "description": "The name of this node in the cluster config.",
+                              "example": "ns_1@127.0.0.1"
+                            },
+                            "thisNode": {
+                              "type": "boolean",
+                              "description": "Whether or not this is the node the request was routed to.",
+                              "example": true
+                            },
+                            "hostname": {
+                              "type": "string",
+                              "description": "The hostname of this node.",
+                              "example": "192.0.2.0:8091"
+                            },
+                            "clusterCompatibility": {
+                              "type": "integer",
+                              "description": "Internal only.",
+                              "example": 262149
+                            },
+                            "version": {
+                              "type": "string",
+                              "description": "The version string of Couchbase Server running on this node.",
+                              "example": "4.5.1-2844-enterprise"
+                            },
+                            "os": {
+                              "type": "string",
+                              "description": "The operating system being used on this node.",
+                              "example": "x86_64-unknown-linux-gnu"
+                            },
+                            "ports": {
+                              "type": "object",
+                              "properties": {
+                                "sslProxy": {
+                                  "type": "integer",
+                                  "description": "The port used to proxy incoming ssl requests.",
+                                  "example": 11214
+                                },
+                                "httpsMgmt": {
+                                  "type": "integer",
+                                  "description": "The https port for management and administration requests.",
+                                  "example": 18091
+                                },
+                                "httpsCAPI": {
+                                  "type": "integer",
+                                  "description": "The https port for CAPI requests.",
+                                  "example": 18092
+                                },
+                                "proxy": {
+                                  "type": "integer",
+                                  "description": "The port used for data access via a proxy.",
+                                  "example": 11211
+                                },
+                                "direct": {
+                                  "type": "integer",
+                                  "description": "The port used for direct data access.",
+                                  "example": 11210
+                                }
+                              }
+                            },
+                            "services": {
+                              "type": "array",
+                              "description": "The services running on this node.",
+                              "items": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "fts",
+                                    "index",
+                                    "kv",
+                                    "n1ql"
+                                  ],
+                                  "example": "kv"
+                                }
+                              ],
+                              "uniqueItems": true
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "stats": {
+                      "type": "object",
+                      "description": "The URIs for various bucket statistics.",
+                      "properties": {
+                        "uri": {
+                          "type": "string",
+                          "description": "The URI to access the statistics associated with this bucket.",
+                          "example": "/pools/default/buckets/travel-sample/stats"
+                        },
+                        "directoryURI": {
+                          "type": "string",
+                          "description": "The URI to access the stats directory for this bucket.",
+                          "example": "/pools/default/buckets/travel-sample/statsDirectory"
+                        },
+                        "nodeStatsListURI": {
+                          "type": "string",
+                          "description": "The URI to access the per-node stats for this bucket.",
+                          "example": "/pools/default/buckets/travel-sample/nodes"
+                        }
+                      }
+                    },
+                    "ddocs": {
+                      "type": "object",
+                      "properties": {
+                        "uri": {
+                          "type": "string",
+                          "description": "The URI to access the design documents for this bucket.",
+                          "example": "/pools/default/buckets/travel-sample/ddocs"
+                        }
+                      }
+                    },
+                    "nodeLocator": {
+                      "type": "string",
+                      "example": "vbucket"
+                    },
+                    "autoCompactionSettings": {
+                      "description": "The autocompaction settings for this bucket if the cluster-wide setting has been overridden. This is an object containing the overriding settings if they are used, otherwise this is the boolean `false`.",
+                      "example": false
+                    },
+                    "uuid": {
+                      "type": "string",
+                      "description": "The uuid associated with this particular bucket.",
+                      "example": "bfaccbdeab775313915cd2cee84cc4b0"
+                    },
+                    "replicaNumber": {
+                      "type": "integer",
+                      "description": "The number of replicas for this bucket.",
+                      "minimum": 0,
+                      "maximum": 3,
+                      "example": 1
+                    },
+                    "threadsNumber": {
+                      "type": "integer",
+                      "description": "In Couchbase Server versions prior to 3.0, this represented the number of reader and writer threads dedicated to a particular bucket. Since then this setting has been superceded bucket IO priority, although the interface is unchanged. A value of 3 represents a `low` bucket priority and a value of 8 represents a `high` bucket priority.",
+                      "minimum": 2,
+                      "maximum": 8,
+                      "example": 3
+                    },
+                    "quota": {
+                      "type": "object",
+                      "description": "The various memory quotas for this bucket.",
+                      "properties": {
+                        "ram": {
+                          "type": "integer",
+                          "description": "The RAM allocated to the bucket on each individual node, measured in bytes.",
+                          "example": 104857600
+                        },
+                        "rawRAM": {
+                          "type": "integer",
+                          "description": "The RAM allocated accross to the bucket accross all nodes in the cluster, measured in bytes.",
+                          "example": 104857600
+                        }
+                      }
+                    },
+                    "basicStats": {
+                      "type": "object",
+                      "description": "A collection of basic statistics for this bucket.",
+                      "properties": {
+                        "quotaPercentUsed": {
+                          "type": "number",
+                          "description": "The percentage (%) of the bucket quota currently being used averaged across all nodes.",
+                          "format": "float",
+                          "example": 68.44169616699219
+                        },
+                        "opsPerSec": {
+                          "type": "integer",
+                          "description": "The average number of operations per second in the past 60 seconds.",
+                          "example": 108.9808274470232
+                        },
+                        "diskFetches": {
+                          "type": "integer",
+                          "description": "The number of disk fetches.",
+                          "example": 0
+                        },
+                        "itemCount": {
+                          "type": "integer",
+                          "description": "The total number of active items in this bucket.",
+                          "example": 31592
+                        },
+                        "diskUsed": {
+                          "type": "integer",
+                          "description": "The total amount of disk space used by this bucket across all nodes.",
+                          "example": 144936855
+                        },
+                        "dataUsed": {
+                          "type": "integer",
+                          "description": "The total amount of disk space used by useful data in this bucket across all nodes.",
+                          "example": 113478832
+                        },
+                        "memUsed": {
+                          "type": "integer",
+                          "description": "The total amount of memory used by this bucket across all nodes.",
+                          "example": 71766320
+                        }
+                      }
+                    },
+                    "evictionPolicy": {
+                      "type": "string",
+                      "description": "The ejection policy used by this bucket.",
+                      "enum": [
+                        "valueOnly",
+                        "fullEviction"
+                      ],
+                      "example": "valueOnly"
+                    },
+                    "timeSynchronization": {
+                      "type": "string",
+                      "description": "Whether this bucket has been appropriately set up for time synchronization (used for LWW).",
+                      "example": "disabled"
+                    },
+                    "bucketCapabilitiesVer": {
+                      "type": "string",
+                      "example": ""
+                    }
+                  }
+                }
+              ],
+              "minItems": 0,
+              "uniqueItems": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new bucket",
+        "description": "This rest endpoint accepts a POST request to create a new bucket.",
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "tags": [
+          "bucket"
+        ],
+        "parameters": [
+          {
+            "name": "authType",
+            "description": "Type of authentication to be used by a bucket.",
+            "in": "formData",
+            "type": "string",
+            "enum": [
+              "sasl",
+              "none"
+            ],
+            "required": true
+          },
+          {
+            "name": "bucketType",
+            "description": "Type of bucket to create",
+            "in": "formData",
+            "type": "string",
+            "enum": [
+              "memcached",
+              "couchbase"
+            ],
+            "required": true
+          },
+          {
+            "name": "evictionPolicy",
+            "description": "Eviction policy to be used by a bucket",
+            "in": "formData",
+            "type": "string",
+            "enum": [
+              "valueOnly",
+              "fullEviction"
+            ],
+            "default": "valueOnly"
+          },
+          {
+            "name": "flushEnabled",
+            "description": "Whether or not the 'flush' operation is enabled on this bucket",
+            "in": "formData",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "name",
+            "description": "Name of the bucket",
+            "in": "formData",
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "required": true
+          },
+          {
+            "name": "parallelDBAndViewCompaction",
+            "description": "Indicates whether database and view files on disk can be compacted simultaneously.",
+            "in": "formData",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "proxyPort",
+            "description": "Proxy port on which the bucket communicates. Must be a valid network port which is not already in use. You must provide a valid port number if the authorization type is not SASL.",
+            "in": "formData",
+            "type": "integer"
+          },
+          {
+            "name": "ramQuotaMB",
+            "description": "RAM Quota for new bucket in MB. The maximum can only be as great as the memory quota established for the node. If other buckets are associated with a node, RAM Quota can only be as large as the amount memory remaining for the node, accounting for the other bucket memory quota.",
+            "in": "formData",
+            "type": "integer",
+            "minimum": 100,
+            "required": true
+          },
+          {
+            "name": "replicaIndex",
+            "description": "Whether replica view indexing is enabled for this bucket.",
+            "in": "formData",
+            "type": "boolean",
+            "default": true
+          },
+          {
+            "name": "replicaNumber",
+            "description": "Number of replicas for the bucket.",
+            "in": "formData",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3,
+            "default": 1
+          },
+          {
+            "name": "saslPassword",
+            "description": "Password for SASL authentication. Required if SASL authentication has been enabled. An empty string represents having no password",
+            "in": "formData",
+            "type": "string",
+            "maxLength": 24
+          },
+          {
+            "name": "threadsNumber",
+            "description": "The bucket I/O priority. 3 represents 'low' priority while 8 represents 'high' priority.",
+            "in": "formData",
+            "type": "integer",
+            "enum": [
+              3,
+              8
+            ],
+            "default": 3
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "There was an error with the passed parameters"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "string"
+        }
+      }
+    },
+    "Bucket": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of this bucket.",
+          "example": "travel-sample"
+        },
+        "bucketType": {
+          "type": "string",
+          "description": "The type of this bucket. A `membase` bucket is also known as a `couchbase` bucket.",
+          "enum": [
+            "membase",
+            "memcached"
+          ],
+          "example": "membase"
+        },
+        "authType": {
+          "type": "string",
+          "description": "The authentication method for this bucket.",
+          "enum": [
+            "sasl",
+            "none"
+          ],
+          "example": "sasl"
+        },
+        "saslPassword": {
+          "type": "string",
+          "description": "Password for SASL authentication. This is used if `authType` is `sasl`. An empty string represents having no password",
+          "example": "password"
+        },
+        "proxyPort": {
+          "type": "integer",
+          "description": "The port used to proxy requests, this is used if the `authType` is `none`.",
+          "minimum": 0,
+          "example": 0
+        },
+        "replicaIndex": {
+          "type": "boolean",
+          "description": "Boolean indicating whether or not replica view indexes are enabled for this bucket.",
+          "example": true
+        },
+        "uri": {
+          "type": "string",
+          "description": "The endpoint to retrieve bucket information for this bucket.",
+          "example": "/pools/default/buckets/travel-sample?bucket_uuid=bfaccbdeab775313915cd2cee84cc4b0"
+        },
+        "streamingUri": {
+          "type": "string",
+          "description": "The endpoint to retrieve the streaming version of /pools/default/buckets/{bucket_name}",
+          "example": "/pools/default/bucketsStreaming/travel-sample?bucket_uuid=bfaccbdeab775313915cd2cee84cc4b0"
+        },
+        "localRandomKeyUri": {
+          "type": "string",
+          "description": "Endpoint used to select a random key from this bucket.",
+          "example": "/pools/default/buckets/travel-sample/localRandomKey"
+        },
+        "controllers": {
+          "type": "object",
+          "properties": {
+            "compactAll": {
+              "type": "string",
+              "description": "Endpoint used to trigger a manual compaction of this bucket.",
+              "example": "/pools/default/buckets/travel-sample/controller/compactBucket"
+            },
+            "purgeDeletes": {
+              "type": "string",
+              "description": "Endpoint used to trigger an unsafe purge of tombstones in this bucket.",
+              "example": "/pools/default/buckets/travel-sample/controller/unsafePurgeBucket"
+            },
+            "startRecovery": {
+              "type": "string",
+              "description": "Endpoint used to start the recovery of this bucket if it is failed over.",
+              "example": "/pools/default/buckets/travel-sample/controller/startRecovery"
+            }
+          }
+        },
+        "nodes": {
+          "type": "array",
+          "description": "Array of nodes associated with this bucket.",
+          "items": [
+            {
+              "type": "object",
+              "description": "An object containing information about a bucket on a particular node.",
+              "properties": {
+                "couchApiBaseHTTPS": {
+                  "type": "string",
+                  "example": "https://192.0.2.0:18092/travel-sample%2Bbfaccbdeab775313915cd2cee84cc4b0"
+                },
+                "couchApiBase": {
+                  "type": "string",
+                  "example": "http://192.0.2.0:8092/travel-sample%2Bbfaccbdeab775313915cd2cee84cc4b0"
+                },
+                "systemStats": {
+                  "type": "object",
+                  "description": "System-level statistics.",
+                  "properties": {
+                    "cpu_utilization_rate": {
+                      "type": "number",
+                      "description": "The total CPU utilization of the system, measured as a percentage of total CPU capacity.",
+                      "format": "float",
+                      "example": 3.191489361702128
+                    },
+                    "swap_total": {
+                      "type": "integer",
+                      "description": "The amount of swap space available on the system, measured in bytes.",
+                      "example": 1214005248
+                    },
+                    "swap_used": {
+                      "type": "integer",
+                      "description": "The amount of swap space currently being used, measured in bytes.",
+                      "example": 0
+                    },
+                    "mem_total": {
+                      "type": "integer",
+                      "description": "The total amount of memory on the system, measured in bytes.",
+                      "example": 1044230144
+                    },
+                    "mem_free": {
+                      "type": "integer",
+                      "description": "The memory free on the system, measured in bytes.",
+                      "example": 284753920
+                    }
+                  }
+                },
+                "interestingStats": {
+                  "type": "object",
+                  "properties": {
+                    "cmd_get": {
+                      "type": "number",
+                      "description": "The number of `gets` per second.",
+                      "format": "float",
+                      "example": 108.9808274470232
+                    },
+                    "couch_docs_actual_disk_size": {
+                      "type": "integer",
+                      "description": "The total size on disk of useful data in data files for this bucket, measured in bytes.",
+                      "example": 101979001
+                    },
+                    "couch_docs_disk_size": {
+                      "type": "integer",
+                      "description": "The total size on disk of data files for this bucket, measured in bytes.",
+                      "example": 92036096
+                    },
+                    "couch_spatial_data_size": {
+                      "type": "integer",
+                      "description": "The total size on disk of useful data in spatial view files, measured in bytes.",
+                      "example": 21442736
+                    },
+                    "couch_spatial_disk_size": {
+                      "type": "integer",
+                      "description": "The total size on disk of spatial view files, measured in bytes.",
+                      "example": 21478927
+                    },
+                    "couch_views_actual_disk_size": {
+                      "type": "integer",
+                      "description": "The total size on disk of map-reduce view files, measured in bytes.",
+                      "example": 21478927
+                    },
+                    "couch_views_data_size": {
+                      "type": "integer",
+                      "description": "The total size on disk of useful data in map-reduce views, measured in bytes.",
+                      "example": 0
+                    },
+                    "curr_items": {
+                      "type": "integer",
+                      "description": "The number of active documents.",
+                      "example": 31592
+                    },
+                    "curr_items_tot": {
+                      "type": "integer",
+                      "description": "The total number of documents (both active and replica).",
+                      "example": 31592
+                    },
+                    "ep_bg_fetched": {
+                      "type": "integer",
+                      "description": "The number of documents fetched from disk per second.",
+                      "example": 0
+                    },
+                    "get_hits": {
+                      "type": "number",
+                      "description": "The number of get requests for which the document requested exists, measured in documents per second.",
+                      "format": "float",
+                      "example": 108.9808274470232
+                    },
+                    "mem_used": {
+                      "type": "integer",
+                      "description": "The amount of memory currently in use, measured in bytes.",
+                      "example": 71766320
+                    },
+                    "ops": {
+                      "type": "number",
+                      "description": "Number of operations per second.",
+                      "format": "float",
+                      "example": 108.9808274470232
+                    },
+                    "vb_replica_curr_items": {
+                      "type": "integer",
+                      "description": "Total number of replica items.",
+                      "example": 0
+                    }
+                  }
+                },
+                "uptime": {
+                  "type": "string",
+                  "description": "Number of seconds that Couchbase Server has been running on this node.",
+                  "example": "88214"
+                },
+                "memoryTotal": {
+                  "type": "integer",
+                  "description": "Total amount of memory available on this node.",
+                  "example": 1044230144
+                },
+                "memoryFree": {
+                  "type": "integer",
+                  "description": "Unused memory on this node, measured in bytes.",
+                  "example": 303661056
+                },
+                "mcdMemoryReserved": {
+                  "type": "integer",
+                  "description": "Amount of memory reserved for memcached on this node, measured in MB.",
+                  "example": 796
+                },
+                "mcdMemoryAllocated": {
+                  "type": "integer",
+                  "description": "Amount of memory allocated to memcached on this node, measured in MB.",
+                  "example": 796
+                },
+                "replication": {
+                  "type": "integer",
+                  "description": "Number of other nodes that this node is replicating to.",
+                  "example": 0
+                },
+                "clusterMembership": {
+                  "type": "string",
+                  "description": "The current status of this node's cluster membership",
+                  "enum": [
+                    "active",
+                    "inactiveFailed",
+                    "inactiveAdded"
+                  ],
+                  "example": "active"
+                },
+                "recoveryType": {
+                  "type": "string",
+                  "description": "Internal only.",
+                  "example": "none"
+                },
+                "status": {
+                  "type": "string",
+                  "description": "The current status of the node, i.e whether or not it is healthy.",
+                  "enum": [
+                    "healthy"
+                  ],
+                  "example": "healthy"
+                },
+                "otpNode": {
+                  "type": "string",
+                  "description": "The name of this node in the cluster config.",
+                  "example": "ns_1@127.0.0.1"
+                },
+                "thisNode": {
+                  "type": "boolean",
+                  "description": "Whether or not this is the node the request was routed to.",
+                  "example": true
+                },
+                "hostname": {
+                  "type": "string",
+                  "description": "The hostname of this node.",
+                  "example": "192.0.2.0:8091"
+                },
+                "clusterCompatibility": {
+                  "type": "integer",
+                  "description": "Internal only.",
+                  "example": 262149
+                },
+                "version": {
+                  "type": "string",
+                  "description": "The version string of Couchbase Server running on this node.",
+                  "example": "4.5.1-2844-enterprise"
+                },
+                "os": {
+                  "type": "string",
+                  "description": "The operating system being used on this node.",
+                  "example": "x86_64-unknown-linux-gnu"
+                },
+                "ports": {
+                  "type": "object",
+                  "properties": {
+                    "sslProxy": {
+                      "type": "integer",
+                      "description": "The port used to proxy incoming ssl requests.",
+                      "example": 11214
+                    },
+                    "httpsMgmt": {
+                      "type": "integer",
+                      "description": "The https port for management and administration requests.",
+                      "example": 18091
+                    },
+                    "httpsCAPI": {
+                      "type": "integer",
+                      "description": "The https port for CAPI requests.",
+                      "example": 18092
+                    },
+                    "proxy": {
+                      "type": "integer",
+                      "description": "The port used for data access via a proxy.",
+                      "example": 11211
+                    },
+                    "direct": {
+                      "type": "integer",
+                      "description": "The port used for direct data access.",
+                      "example": 11210
+                    }
+                  }
+                },
+                "services": {
+                  "type": "array",
+                  "description": "The services running on this node.",
+                  "items": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "fts",
+                        "index",
+                        "kv",
+                        "n1ql"
+                      ],
+                      "example": "kv"
+                    }
+                  ],
+                  "uniqueItems": true
+                }
+              }
+            }
+          ]
+        },
+        "stats": {
+          "type": "object",
+          "description": "The URIs for various bucket statistics.",
+          "properties": {
+            "uri": {
+              "type": "string",
+              "description": "The URI to access the statistics associated with this bucket.",
+              "example": "/pools/default/buckets/travel-sample/stats"
+            },
+            "directoryURI": {
+              "type": "string",
+              "description": "The URI to access the stats directory for this bucket.",
+              "example": "/pools/default/buckets/travel-sample/statsDirectory"
+            },
+            "nodeStatsListURI": {
+              "type": "string",
+              "description": "The URI to access the per-node stats for this bucket.",
+              "example": "/pools/default/buckets/travel-sample/nodes"
+            }
+          }
+        },
+        "ddocs": {
+          "type": "object",
+          "properties": {
+            "uri": {
+              "type": "string",
+              "description": "The URI to access the design documents for this bucket.",
+              "example": "/pools/default/buckets/travel-sample/ddocs"
+            }
+          }
+        },
+        "nodeLocator": {
+          "type": "string",
+          "example": "vbucket"
+        },
+        "autoCompactionSettings": {
+          "description": "The autocompaction settings for this bucket if the cluster-wide setting has been overridden. This is an object containing the overriding settings if they are used, otherwise this is the boolean `false`.",
+          "example": false
+        },
+        "uuid": {
+          "type": "string",
+          "description": "The uuid associated with this particular bucket.",
+          "example": "bfaccbdeab775313915cd2cee84cc4b0"
+        },
+        "replicaNumber": {
+          "type": "integer",
+          "description": "The number of replicas for this bucket.",
+          "minimum": 0,
+          "maximum": 3,
+          "example": 1
+        },
+        "threadsNumber": {
+          "type": "integer",
+          "description": "In Couchbase Server versions prior to 3.0, this represented the number of reader and writer threads dedicated to a particular bucket. Since then this setting has been superceded bucket IO priority, although the interface is unchanged. A value of 3 represents a `low` bucket priority and a value of 8 represents a `high` bucket priority.",
+          "minimum": 2,
+          "maximum": 8,
+          "example": 3
+        },
+        "quota": {
+          "type": "object",
+          "description": "The various memory quotas for this bucket.",
+          "properties": {
+            "ram": {
+              "type": "integer",
+              "description": "The RAM allocated to the bucket on each individual node, measured in bytes.",
+              "example": 104857600
+            },
+            "rawRAM": {
+              "type": "integer",
+              "description": "The RAM allocated accross to the bucket accross all nodes in the cluster, measured in bytes.",
+              "example": 104857600
+            }
+          }
+        },
+        "basicStats": {
+          "type": "object",
+          "description": "A collection of basic statistics for this bucket.",
+          "properties": {
+            "quotaPercentUsed": {
+              "type": "number",
+              "description": "The percentage (%) of the bucket quota currently being used averaged across all nodes.",
+              "format": "float",
+              "example": 68.44169616699219
+            },
+            "opsPerSec": {
+              "type": "integer",
+              "description": "The average number of operations per second in the past 60 seconds.",
+              "example": 108.9808274470232
+            },
+            "diskFetches": {
+              "type": "integer",
+              "description": "The number of disk fetches.",
+              "example": 0
+            },
+            "itemCount": {
+              "type": "integer",
+              "description": "The total number of active items in this bucket.",
+              "example": 31592
+            },
+            "diskUsed": {
+              "type": "integer",
+              "description": "The total amount of disk space used by this bucket across all nodes.",
+              "example": 144936855
+            },
+            "dataUsed": {
+              "type": "integer",
+              "description": "The total amount of disk space used by useful data in this bucket across all nodes.",
+              "example": 113478832
+            },
+            "memUsed": {
+              "type": "integer",
+              "description": "The total amount of memory used by this bucket across all nodes.",
+              "example": 71766320
+            }
+          }
+        },
+        "evictionPolicy": {
+          "type": "string",
+          "description": "The ejection policy used by this bucket.",
+          "enum": [
+            "valueOnly",
+            "fullEviction"
+          ],
+          "example": "valueOnly"
+        },
+        "timeSynchronization": {
+          "type": "string",
+          "description": "Whether this bucket has been appropriately set up for time synchronization (used for LWW).",
+          "example": "disabled"
+        },
+        "bucketCapabilitiesVer": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "BucketNode": {
+      "type": "object",
+      "description": "An object containing information about a bucket on a particular node.",
+      "properties": {
+        "couchApiBaseHTTPS": {
+          "type": "string",
+          "example": "https://192.0.2.0:18092/travel-sample%2Bbfaccbdeab775313915cd2cee84cc4b0"
+        },
+        "couchApiBase": {
+          "type": "string",
+          "example": "http://192.0.2.0:8092/travel-sample%2Bbfaccbdeab775313915cd2cee84cc4b0"
+        },
+        "systemStats": {
+          "type": "object",
+          "description": "System-level statistics.",
+          "properties": {
+            "cpu_utilization_rate": {
+              "type": "number",
+              "description": "The total CPU utilization of the system, measured as a percentage of total CPU capacity.",
+              "format": "float",
+              "example": 3.191489361702128
+            },
+            "swap_total": {
+              "type": "integer",
+              "description": "The amount of swap space available on the system, measured in bytes.",
+              "example": 1214005248
+            },
+            "swap_used": {
+              "type": "integer",
+              "description": "The amount of swap space currently being used, measured in bytes.",
+              "example": 0
+            },
+            "mem_total": {
+              "type": "integer",
+              "description": "The total amount of memory on the system, measured in bytes.",
+              "example": 1044230144
+            },
+            "mem_free": {
+              "type": "integer",
+              "description": "The memory free on the system, measured in bytes.",
+              "example": 284753920
+            }
+          }
+        },
+        "interestingStats": {
+          "type": "object",
+          "properties": {
+            "cmd_get": {
+              "type": "number",
+              "description": "The number of `gets` per second.",
+              "format": "float",
+              "example": 108.9808274470232
+            },
+            "couch_docs_actual_disk_size": {
+              "type": "integer",
+              "description": "The total size on disk of useful data in data files for this bucket, measured in bytes.",
+              "example": 101979001
+            },
+            "couch_docs_disk_size": {
+              "type": "integer",
+              "description": "The total size on disk of data files for this bucket, measured in bytes.",
+              "example": 92036096
+            },
+            "couch_spatial_data_size": {
+              "type": "integer",
+              "description": "The total size on disk of useful data in spatial view files, measured in bytes.",
+              "example": 21442736
+            },
+            "couch_spatial_disk_size": {
+              "type": "integer",
+              "description": "The total size on disk of spatial view files, measured in bytes.",
+              "example": 21478927
+            },
+            "couch_views_actual_disk_size": {
+              "type": "integer",
+              "description": "The total size on disk of map-reduce view files, measured in bytes.",
+              "example": 21478927
+            },
+            "couch_views_data_size": {
+              "type": "integer",
+              "description": "The total size on disk of useful data in map-reduce views, measured in bytes.",
+              "example": 0
+            },
+            "curr_items": {
+              "type": "integer",
+              "description": "The number of active documents.",
+              "example": 31592
+            },
+            "curr_items_tot": {
+              "type": "integer",
+              "description": "The total number of documents (both active and replica).",
+              "example": 31592
+            },
+            "ep_bg_fetched": {
+              "type": "integer",
+              "description": "The number of documents fetched from disk per second.",
+              "example": 0
+            },
+            "get_hits": {
+              "type": "number",
+              "description": "The number of get requests for which the document requested exists, measured in documents per second.",
+              "format": "float",
+              "example": 108.9808274470232
+            },
+            "mem_used": {
+              "type": "integer",
+              "description": "The amount of memory currently in use, measured in bytes.",
+              "example": 71766320
+            },
+            "ops": {
+              "type": "number",
+              "description": "Number of operations per second.",
+              "format": "float",
+              "example": 108.9808274470232
+            },
+            "vb_replica_curr_items": {
+              "type": "integer",
+              "description": "Total number of replica items.",
+              "example": 0
+            }
+          }
+        },
+        "uptime": {
+          "type": "string",
+          "description": "Number of seconds that Couchbase Server has been running on this node.",
+          "example": "88214"
+        },
+        "memoryTotal": {
+          "type": "integer",
+          "description": "Total amount of memory available on this node.",
+          "example": 1044230144
+        },
+        "memoryFree": {
+          "type": "integer",
+          "description": "Unused memory on this node, measured in bytes.",
+          "example": 303661056
+        },
+        "mcdMemoryReserved": {
+          "type": "integer",
+          "description": "Amount of memory reserved for memcached on this node, measured in MB.",
+          "example": 796
+        },
+        "mcdMemoryAllocated": {
+          "type": "integer",
+          "description": "Amount of memory allocated to memcached on this node, measured in MB.",
+          "example": 796
+        },
+        "replication": {
+          "type": "integer",
+          "description": "Number of other nodes that this node is replicating to.",
+          "example": 0
+        },
+        "clusterMembership": {
+          "type": "string",
+          "description": "The current status of this node's cluster membership",
+          "enum": [
+            "active",
+            "inactiveFailed",
+            "inactiveAdded"
+          ],
+          "example": "active"
+        },
+        "recoveryType": {
+          "type": "string",
+          "description": "Internal only.",
+          "example": "none"
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the node, i.e whether or not it is healthy.",
+          "enum": [
+            "healthy"
+          ],
+          "example": "healthy"
+        },
+        "otpNode": {
+          "type": "string",
+          "description": "The name of this node in the cluster config.",
+          "example": "ns_1@127.0.0.1"
+        },
+        "thisNode": {
+          "type": "boolean",
+          "description": "Whether or not this is the node the request was routed to.",
+          "example": true
+        },
+        "hostname": {
+          "type": "string",
+          "description": "The hostname of this node.",
+          "example": "192.0.2.0:8091"
+        },
+        "clusterCompatibility": {
+          "type": "integer",
+          "description": "Internal only.",
+          "example": 262149
+        },
+        "version": {
+          "type": "string",
+          "description": "The version string of Couchbase Server running on this node.",
+          "example": "4.5.1-2844-enterprise"
+        },
+        "os": {
+          "type": "string",
+          "description": "The operating system being used on this node.",
+          "example": "x86_64-unknown-linux-gnu"
+        },
+        "ports": {
+          "type": "object",
+          "properties": {
+            "sslProxy": {
+              "type": "integer",
+              "description": "The port used to proxy incoming ssl requests.",
+              "example": 11214
+            },
+            "httpsMgmt": {
+              "type": "integer",
+              "description": "The https port for management and administration requests.",
+              "example": 18091
+            },
+            "httpsCAPI": {
+              "type": "integer",
+              "description": "The https port for CAPI requests.",
+              "example": 18092
+            },
+            "proxy": {
+              "type": "integer",
+              "description": "The port used for data access via a proxy.",
+              "example": 11211
+            },
+            "direct": {
+              "type": "integer",
+              "description": "The port used for direct data access.",
+              "example": 11210
+            }
+          }
+        },
+        "services": {
+          "type": "array",
+          "description": "The services running on this node.",
+          "items": [
+            {
+              "type": "string",
+              "enum": [
+                "fts",
+                "index",
+                "kv",
+                "n1ql"
+              ],
+              "example": "kv"
+            }
+          ],
+          "uniqueItems": true
+        }
+      }
+    },
+    "SystemStats": {
+      "type": "object",
+      "description": "System-level statistics.",
+      "properties": {
+        "cpu_utilization_rate": {
+          "type": "number",
+          "description": "The total CPU utilization of the system, measured as a percentage of total CPU capacity.",
+          "format": "float",
+          "example": 3.191489361702128
+        },
+        "swap_total": {
+          "type": "integer",
+          "description": "The amount of swap space available on the system, measured in bytes.",
+          "example": 1214005248
+        },
+        "swap_used": {
+          "type": "integer",
+          "description": "The amount of swap space currently being used, measured in bytes.",
+          "example": 0
+        },
+        "mem_total": {
+          "type": "integer",
+          "description": "The total amount of memory on the system, measured in bytes.",
+          "example": 1044230144
+        },
+        "mem_free": {
+          "type": "integer",
+          "description": "The memory free on the system, measured in bytes.",
+          "example": 284753920
+        }
+      }
+    },
+    "InterestingStats": {
+      "type": "object",
+      "properties": {
+        "cmd_get": {
+          "type": "number",
+          "description": "The number of `gets` per second.",
+          "format": "float",
+          "example": 108.9808274470232
+        },
+        "couch_docs_actual_disk_size": {
+          "type": "integer",
+          "description": "The total size on disk of useful data in data files for this bucket, measured in bytes.",
+          "example": 101979001
+        },
+        "couch_docs_disk_size": {
+          "type": "integer",
+          "description": "The total size on disk of data files for this bucket, measured in bytes.",
+          "example": 92036096
+        },
+        "couch_spatial_data_size": {
+          "type": "integer",
+          "description": "The total size on disk of useful data in spatial view files, measured in bytes.",
+          "example": 21442736
+        },
+        "couch_spatial_disk_size": {
+          "type": "integer",
+          "description": "The total size on disk of spatial view files, measured in bytes.",
+          "example": 21478927
+        },
+        "couch_views_actual_disk_size": {
+          "type": "integer",
+          "description": "The total size on disk of map-reduce view files, measured in bytes.",
+          "example": 21478927
+        },
+        "couch_views_data_size": {
+          "type": "integer",
+          "description": "The total size on disk of useful data in map-reduce views, measured in bytes.",
+          "example": 0
+        },
+        "curr_items": {
+          "type": "integer",
+          "description": "The number of active documents.",
+          "example": 31592
+        },
+        "curr_items_tot": {
+          "type": "integer",
+          "description": "The total number of documents (both active and replica).",
+          "example": 31592
+        },
+        "ep_bg_fetched": {
+          "type": "integer",
+          "description": "The number of documents fetched from disk per second.",
+          "example": 0
+        },
+        "get_hits": {
+          "type": "number",
+          "description": "The number of get requests for which the document requested exists, measured in documents per second.",
+          "format": "float",
+          "example": 108.9808274470232
+        },
+        "mem_used": {
+          "type": "integer",
+          "description": "The amount of memory currently in use, measured in bytes.",
+          "example": 71766320
+        },
+        "ops": {
+          "type": "number",
+          "description": "Number of operations per second.",
+          "format": "float",
+          "example": 108.9808274470232
+        },
+        "vb_replica_curr_items": {
+          "type": "integer",
+          "description": "Total number of replica items.",
+          "example": 0
+        }
+      }
+    }
+  },
+  "parameters": {
+    "PathBucketName": {
+      "name": "bucket_name",
+      "in": "path",
+      "type": "string",
+      "required": true,
+      "description": "name of a bucket"
+    },
+    "NodeID": {
+      "name": "node_id",
+      "type": "string",
+      "in": "path",
+      "required": true,
+      "description": "id of a node"
+    },
+    "AuthType": {
+      "name": "authType",
+      "description": "Type of authentication to be used by a bucket.",
+      "in": "formData",
+      "type": "string",
+      "enum": [
+        "sasl",
+        "none"
+      ],
+      "required": true
+    },
+    "BucketType": {
+      "name": "bucketType",
+      "description": "Type of bucket to create",
+      "in": "formData",
+      "type": "string",
+      "enum": [
+        "memcached",
+        "couchbase"
+      ],
+      "required": true
+    },
+    "EvictionPolicy": {
+      "name": "evictionPolicy",
+      "description": "Eviction policy to be used by a bucket",
+      "in": "formData",
+      "type": "string",
+      "enum": [
+        "valueOnly",
+        "fullEviction"
+      ],
+      "default": "valueOnly"
+    },
+    "FlushEnabled": {
+      "name": "flushEnabled",
+      "description": "Whether or not the 'flush' operation is enabled on this bucket",
+      "in": "formData",
+      "type": "boolean",
+      "default": false
+    },
+    "FormBucketName": {
+      "name": "name",
+      "description": "Name of the bucket",
+      "in": "formData",
+      "type": "string",
+      "maxLength": 100,
+      "minLength": 1,
+      "required": true
+    },
+    "ParallelDBAndViewCompaction": {
+      "name": "parallelDBAndViewCompaction",
+      "description": "Indicates whether database and view files on disk can be compacted simultaneously.",
+      "in": "formData",
+      "type": "boolean",
+      "default": false
+    },
+    "ProxyPort": {
+      "name": "proxyPort",
+      "description": "Proxy port on which the bucket communicates. Must be a valid network port which is not already in use. You must provide a valid port number if the authorization type is not SASL.",
+      "in": "formData",
+      "type": "integer"
+    },
+    "RamQuotaMB": {
+      "name": "ramQuotaMB",
+      "description": "RAM Quota for new bucket in MB. The maximum can only be as great as the memory quota established for the node. If other buckets are associated with a node, RAM Quota can only be as large as the amount memory remaining for the node, accounting for the other bucket memory quota.",
+      "in": "formData",
+      "type": "integer",
+      "minimum": 100,
+      "required": true
+    },
+    "ReplicaIndex": {
+      "name": "replicaIndex",
+      "description": "Whether replica view indexing is enabled for this bucket.",
+      "in": "formData",
+      "type": "boolean",
+      "default": true
+    },
+    "ReplicaNumber": {
+      "name": "replicaNumber",
+      "description": "Number of replicas for the bucket.",
+      "in": "formData",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3,
+      "default": 1
+    },
+    "SaslPassword": {
+      "name": "saslPassword",
+      "description": "Password for SASL authentication. Required if SASL authentication has been enabled. An empty string represents having no password",
+      "in": "formData",
+      "type": "string",
+      "maxLength": 24
+    },
+    "ThreadsNumber": {
+      "name": "threadsNumber",
+      "description": "The bucket I/O priority. 3 represents 'low' priority while 8 represents 'high' priority.",
+      "in": "formData",
+      "type": "integer",
+      "enum": [
+        3,
+        8
+      ],
+      "default": 3
+    }
+  }
+}
