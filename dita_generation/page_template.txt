@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "reference.dtd">
+<reference xml:lang="en-us" id="{{topic_id}}">
+    <title>{{definition.summary}}</title>
+    <shortdesc>To {{definition.summary.lower()}} use <codeph>{{method.upper()}}
+        {{path}}</codeph>.</shortdesc>
+    <refbody>
+        <section>
+            <title>Description</title>
+            <p>{{definition.description}}</p>
+        </section>
+        <section>
+            <title>HTTP method and URI</title>
+            <codeblock>{{method.upper()}} {{path}}</codeblock>
+        </section>
+        {% if definition.parameters %}
+        <section><title>Parameters</title>
+            <table>
+                <tgroup cols="5">
+                    <colspec colname="col1" colwidth="1*"/>
+                    <colspec colname="col2" colwidth="2.37*"/>
+                    <colspec colname="newCol4" colwidth="1*"/>
+                    <colspec colname="newCol5" colwidth="1*"/>
+                    <colspec colname="newCol6" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry>Name</entry>
+                            <entry>Description</entry>
+                            <entry>Location</entry>
+                            <entry>Type</entry>
+                            <entry>Example</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                    {% for parameter in definition.parameters %}
+                        <row>
+                            <entry><codeph>{{ parameter.name }}</codeph></entry>
+                            <entry><p>{% if parameter.required %}<b>Required.</b>{% else %}<b>Optional</b>{% endif %}</p>
+                            <p>{{ parameter.description }}</p>
+                            {% if parameter.enum %}
+                            <p>Possible values are: <codeph>{{ parameter.enum|join('</codeph>, <codeph>') }} </codeph>.</p>
+                            {% endif %}
+                            {% if parameter.minimum is defined and parameter.maximum is defined %}
+                            <p>Must be between {{ parameter.minimum }} and {{ parameter.maximum }}.</p>
+                            {% endif %}
+                            </entry>
+                            <entry>{{ parameter.in }}</entry>
+                            <entry>{{ parameter.type }}</entry>
+                            <entry> e </entry>
+                        </row>
+                    {% endfor %}
+                    </tbody>
+                </tgroup>
+            </table></section>
+            {% endif %}
+            <section><title>Response</title>
+                <codeblock>{{example | pprint}}</codeblock>
+            </section>
+    </refbody>
+</reference>
