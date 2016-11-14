@@ -169,11 +169,18 @@ paths:
               
   /pools:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve cluster information
+      description: A pool represents computing resources (machines, memory, CPU, disks) that are used to host Couchbase buckets. 
+        Couchbase Server clusters currently support only a single pool named default. This pool represents a high-level overview
+        of the Couchbase Server cluster that the node connected to is a part of. This endpoint is provided for backwards compatibility
+        and redirects to `/pools/default`.
+      tags:
+       - cluster
       responses:
           200:
             description: Success
+            schema:
+              $ref: '#/definitions/ClusterObject'
           default:
             description: Unexpected error
             schema:
@@ -185,6 +192,8 @@ paths:
       description: A pool represents computing resources (machines, memory, CPU, disks) that are used to host Couchbase buckets. 
         Couchbase Server clusters currently support only a single pool named default. This pool represents a high-level overview
         of the Couchbase Server cluster that the node connected to is a part of.
+      tags:
+        - cluster
       responses:
           200:
             description: Success
