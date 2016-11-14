@@ -208,6 +208,8 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - bucket
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
@@ -270,6 +272,8 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - stats
       parameters:
         - name: fts-id
           type: string
@@ -287,6 +291,8 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - stats
       parameters:
         - name: index-id
           type: string
@@ -304,6 +310,8 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - stats
       responses:
           200:
             description: Success
@@ -316,6 +324,8 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - stats
       parameters:
         - name: xdcr-id
           type: string
@@ -333,6 +343,8 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - bucket
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
@@ -347,6 +359,8 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - bucket
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
@@ -361,6 +375,8 @@ paths:
     get:
       summary: Test
       description: Test
+      tags: 
+        - bucket
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
@@ -375,6 +391,9 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - bucket
+        - node
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
@@ -389,6 +408,9 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - bucket
+        - node
       parameters:
         - $ref: '#/parameters/PathBucketName'
         - $ref: '#/parameters/NodeID'
@@ -404,6 +426,10 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - bucket
+        - node
+        - stats
       parameters:
         - $ref: '#/parameters/PathBucketName'
         - $ref: '#/parameters/NodeID'
@@ -419,6 +445,9 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - bucket
+        - stats
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
@@ -433,6 +462,9 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - bucket
+        - stats
       parameters:
         - $ref: '#/parameters/PathBucketName'
         - name: stat_name
@@ -451,6 +483,8 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - bucket
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
@@ -477,6 +511,8 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - node
       parameters:
         - $ref: '#/parameters/NodeID'
       responses:
@@ -491,6 +527,8 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - stats
       responses:
           200:
             description: Success
@@ -527,6 +565,8 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - bucket
       responses:
           200:
             description: Success
@@ -539,6 +579,8 @@ paths:
     get:
       summary: Test
       description: Test
+      tags:
+        - cluster
       responses:
           200:
             description: Success
