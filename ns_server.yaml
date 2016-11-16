@@ -144,10 +144,8 @@ paths:
                   otpNode: ns_1@127.0.0.1
                   dataless: false
                   replication: 0
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+          401:
+            description: Unauthorized         
               
   /nodes/{node_id}:
     get:
