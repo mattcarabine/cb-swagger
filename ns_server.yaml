@@ -209,8 +209,8 @@ paths:
               
   /pools/default/bucket/{bucket_name}/recoveryStatus:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve recovery status of a bucket
+      description: TBD.
       tags:
         - bucket
       parameters:
@@ -242,6 +242,11 @@ paths:
         - basicAuth: []
       tags:
         - bucket
+      parameters:
+        - $ref: "#/parameters/ETag"
+        - $ref: "#/parameters/WaitChange"
+        - $ref: "#/parameters/SkipMap"
+        - $ref: "#/parameters/BasicStats"
       responses:
           200:
             description: Success
@@ -1497,3 +1502,17 @@ parameters:
     description: UUID assigned to a particular vbucket recovery method.
     in: query
     type: string
+
+  SkipMap:
+    name: skipMap
+    description: Whether or not the vbucket map should be included in the return value. 
+      A value of `True` will cause the vbucket map to not be included.
+    type: boolean
+    in: query
+
+  BasicStats:
+    name: basic_stats
+    description: Primarily for internal use. Whether to display extended basic statistics or not. If `true`
+      then extended statistics are displayed.
+    type: boolean
+    in: query
