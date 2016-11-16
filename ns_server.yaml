@@ -149,13 +149,15 @@ paths:
               
   /nodes/{node_id}:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve information about a given node
+      description: Retrieve information about a given node.
       parameters:
         - $ref: '#/parameters/NodeID'
       responses:
           200:
             description: Success
+          400:
+            description: Bad request. Occurs due to the node not being recognised by the cluster.
           default:
             description: Unexpected error
             schema:
@@ -182,6 +184,7 @@ paths:
         and redirects to `/pools/default`.
       tags:
        - cluster
+      x-dita-path: get-pools
       responses:
           200:
             description: Success
@@ -200,6 +203,7 @@ paths:
         of the Couchbase Server cluster that the node connected to is a part of.
       tags:
         - cluster
+      x-dita-path: get-pools-default
       parameters:
         - $ref: "#/parameters/ETag"
         - $ref: "#/parameters/WaitChange"
@@ -219,6 +223,7 @@ paths:
       description: TBD.
       tags:
         - bucket
+      x-dita-path: get-pools-default-bucket-bucketname-recoveryStatus
       parameters:
         - $ref: '#/parameters/PathBucketName'
         - $ref: '#/parameters/RecoveryUuid'
@@ -248,6 +253,7 @@ paths:
         - basicAuth: []
       tags:
         - bucket
+      x-dita-path: get-pools-default-buckets
       parameters:
         - $ref: "#/parameters/ETag"
         - $ref: "#/parameters/WaitChange"
@@ -272,6 +278,7 @@ paths:
         - basicAuth: []
       tags:
         - bucket
+      x-dita-path: post-pools-default-buckets
       parameters:
         - $ref: "#/parameters/AuthType"
         - $ref: "#/parameters/BucketType"
@@ -292,12 +299,14 @@ paths:
           description: There was an error with the passed parameters
         401:
           description: Unauthorized
+
   /pools/default/buckets/@fts-{fts-id}/stats:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve stats for a given FTS index
+      description: Retrieve stats for a given FTS index.
       tags:
         - stats
+      x-dita-path: get-pools-default-buckets-fts-stats
       parameters:
         - name: fts-id
           type: string
@@ -313,10 +322,11 @@ paths:
               
   /pools/default/buckets/@index-{index-id}/stats:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve stats for a given global secondary index
+      description: Retrieve stats for a given global secondary index.
       tags:
         - stats
+      x-dita-path: get-pools-default-buckets-index-stats
       parameters:
         - name: index-id
           type: string
@@ -332,10 +342,11 @@ paths:
               
   /pools/default/buckets/@query/stats:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve query stats
+      description: Retrieve query stats.
       tags:
         - stats
+      x-dita-path: get-pools-default-buckets-query-stats
       responses:
           200:
             description: Success
@@ -346,10 +357,11 @@ paths:
               
   /pools/default/buckets/@xdcr-{xdcr-id}/stats:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve stats for a given XDCR replication
+      description: Retrieve stats for a given XDCR replication.
       tags:
         - stats
+      x-dita-path: get-pools-default-buckets-xdcr-stats
       parameters:
         - name: xdcr-id
           type: string
@@ -365,10 +377,11 @@ paths:
               
   /pools/default/buckets/{bucket_name}:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve bucket information for a specific bucket
+      description: Retrieve bucket information for a specific bucket.
       tags:
         - bucket
+      x-dita-path: get-pools-default-buckets-bucketname
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
@@ -381,10 +394,11 @@ paths:
               
   /pools/default/buckets/{bucket_name}/ddocs:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve design documents for a specific bucket
+      description: Retrieve design documents for a specific bucket.
       tags:
         - bucket
+      x-dita-path: get-pools-default-buckets-bucketname-ddocs
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
@@ -397,10 +411,11 @@ paths:
               
   /pools/default/buckets/{bucket_name}/docs:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve documents from a bucket
+      description: Internal. Retrieve documents from a bucket.
       tags: 
         - bucket
+      x-dita-path: get-pools-default-buckets-bucketname-docs
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
@@ -413,11 +428,12 @@ paths:
               
   /pools/default/buckets/{bucket_name}/nodes:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve per-node information for a given bucket
+      description: Retrieve per-node information for a given bucket.
       tags:
         - bucket
         - node
+      x-dita-path: get-pools-default-buckets-bucketname-nodes
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
@@ -430,11 +446,12 @@ paths:
               
   /pools/default/buckets/{bucket_name}/nodes/{node_id}:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve information for a given bucket on a given node
+      description: Retrieves information for a given bucket on a given node.
       tags:
         - bucket
         - node
+      x-dita-path: get-pools-default-buckets-bucketname-nodes-nodeid
       parameters:
         - $ref: '#/parameters/PathBucketName'
         - $ref: '#/parameters/NodeID'
@@ -454,6 +471,7 @@ paths:
         - bucket
         - node
         - stats
+      x-dita-path: get-pools-default-buckets-bucketname-nodes-nodeid-stats
       parameters:
         - $ref: '#/parameters/PathBucketName'
         - $ref: '#/parameters/NodeID'
@@ -472,6 +490,7 @@ paths:
       tags:
         - bucket
         - stats
+      x-dita-path: get-pools-default-buckets-bucketname-stats
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
@@ -601,8 +620,8 @@ paths:
               
   /pools/default/serverGroups:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve information on server groups
+      description: Retrieves information on server groups.
       tags:
         - cluster
       responses:
@@ -615,8 +634,8 @@ paths:
               
   /pools/default/settings/memcached/effective/{node_id}:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve running memcached settings on a given node
+      description: Retrieve running memcached settings on a given node.
       parameters:
         - $ref: '#/parameters/NodeID'
       responses:
@@ -629,8 +648,8 @@ paths:
               
   /pools/default/settings/memcached/global:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve global memcached settings
+      description: Retrieve global memcached settings.
       responses:
           200:
             description: Success
@@ -641,8 +660,8 @@ paths:
               
   /pools/default/settings/memcached/node/{node_id}:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve memcached settings on a given node
+      description: Retrieve memcached settings on a given node.
       parameters:
         - $ref: '#/parameters/NodeID'
       responses:
