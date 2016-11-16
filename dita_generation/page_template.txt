@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "reference.dtd">
-<reference xml:lang="en-us" id="{{topic_id}}">
+<reference xml:lang="en-us" id="{{definition['x-dita-path']}}">
     <title>{{definition.summary}}</title>
     <shortdesc>To {{definition.summary.lower()}} use <codeph>{{method.upper()}}
         {{path}}</codeph>.</shortdesc>
@@ -19,9 +19,9 @@
                 <tgroup cols="5">
                     <colspec colname="col1" colwidth="1*"/>
                     <colspec colname="col2" colwidth="2.37*"/>
-                    <colspec colname="newCol4" colwidth="1*"/>
-                    <colspec colname="newCol5" colwidth="1*"/>
-                    <colspec colname="newCol6" colwidth="1*"/>
+                    <colspec colname="col3" colwidth="1*"/>
+                    <colspec colname="col4" colwidth="1*"/>
+                    <colspec colname="col5" colwidth="1*"/>
                     <thead>
                         <row>
                             <entry>Name</entry>
@@ -34,19 +34,25 @@
                     <tbody>
                     {% for parameter in definition.parameters %}
                         <row>
-                            <entry><codeph>{{ parameter.name }}</codeph></entry>
+                            <entry><p><codeph>{{ parameter.name }}</codeph></p></entry>
                             <entry><p>{% if parameter.required %}<b>Required.</b>{% else %}<b>Optional</b>{% endif %}</p>
                             <p>{{ parameter.description }}</p>
-                            {% if parameter.enum %}
-                            <p>Possible values are: <codeph>{{ parameter.enum|join('</codeph>, <codeph>') }} </codeph>.</p>
-                            {% endif %}
                             {% if parameter.minimum is defined and parameter.maximum is defined %}
                             <p>Must be between {{ parameter.minimum }} and {{ parameter.maximum }}.</p>
                             {% endif %}
                             </entry>
-                            <entry>{{ parameter.in }}</entry>
-                            <entry>{{ parameter.type }}</entry>
-                            <entry> e </entry>
+                            <entry><p>{{ parameter.in }}</p></entry>
+                            <entry>
+                            {% if parameter.enum %}
+                            <p>Possible values are:<ul>
+                            {% for value in parameter.enum %}
+                            <li><codeph>{{value}}</codeph></li>
+                            {% endfor %}</ul></p>
+                            {% else %}
+                            <p>{{ parameter.type }}</p>
+                            {% endif %}
+                            </entry>
+                            <entry><p>e</p></entry>
                         </row>
                     {% endfor %}
                     </tbody>
@@ -54,7 +60,9 @@
             </table></section>
             {% endif %}
             <section><title>Response</title>
+            <p>
                 <codeblock>{{example | pprint}}</codeblock>
+            </p>
             </section>
     </refbody>
 </reference>

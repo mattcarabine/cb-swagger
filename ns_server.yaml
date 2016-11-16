@@ -1226,7 +1226,32 @@ definitions:
             enum: ["fts", "index", "kv", "n1ql"]
             example: "kv"
         uniqueItems: true
-      
+  
+  Node:
+    type: object
+    description: Overview of a particular node.
+    properties:
+      availableStorage:
+        type: array
+        items:
+          - $ref: "#/definitions/HDDElement"
+
+  HDDElement:
+    type: object
+    properties:
+      path:
+        type: string
+        description: Path of the particular mount point
+        example: /opt/couchbase/var
+      sizeKBytes:
+        type: integer
+        description: Size of the mount point in Kilobytes
+        example: 18745336
+      usagePercent:
+        type: integer
+        description: Percentage (%) of the disk space that has been used
+        example: 8
+
   SystemStats:
     type: object
     description: System-level statistics.

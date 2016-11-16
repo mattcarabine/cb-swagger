@@ -24,6 +24,681 @@
     }
   },
   "paths": {
+    "/diag": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "tags": [
+          "diag"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/diag/ale": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "tags": [
+          "diag"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/diag/masterEvents": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "tags": [
+          "diag"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/diag/password": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "tags": [
+          "diag"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/diag/vbuckets": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "tags": [
+          "diag"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/indexStatus": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internalSettings": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/logs": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nodeStatuses": {
+      "get": {
+        "summary": "Retrieve basic node replication information",
+        "description": "Retrieve basic node replication information.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "examples": {
+              "application/json": {
+                "192.0.2.0:8091": {
+                  "status": "healthy",
+                  "gracefulFailoverPossible": false,
+                  "otpNode": "ns_1@127.0.0.1",
+                  "dataless": false,
+                  "replication": 0
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/nodes/{node_id}": {
+      "get": {
+        "summary": "Retrieve information about a given node",
+        "description": "Retrieve information about a given node.",
+        "parameters": [
+          {
+            "name": "node_id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "id of a node"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request. Occurs due to the node not being recognised by the cluster."
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nodes/self/xdcrSSLPorts": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools": {
+      "get": {
+        "summary": "Retrieve cluster information",
+        "description": "A pool represents computing resources (machines, memory, CPU, disks) that are used to host Couchbase buckets. Couchbase Server clusters currently support only a single pool named default. This pool represents a high-level overview of the Couchbase Server cluster that the node connected to is a part of. This endpoint is provided for backwards compatibility and redirects to `/pools/default`.",
+        "tags": [
+          "cluster"
+        ],
+        "x-dita-path": "get-pools",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "componentsVersion": {
+                  "type": "object",
+                  "properties": {
+                    "ale": {
+                      "type": "string",
+                      "example": "4.5.1-2844-enterprise"
+                    },
+                    "asn1": {
+                      "type": "string",
+                      "example": "2.0.4"
+                    },
+                    "crypto": {
+                      "type": "string",
+                      "example": 3.2
+                    },
+                    "inets": {
+                      "type": "string",
+                      "example": "5.9.8"
+                    },
+                    "kernel": {
+                      "type": "string",
+                      "example": "2.16.4"
+                    },
+                    "lhttpc": {
+                      "type": "string",
+                      "example": "1.3.0"
+                    },
+                    "ns_server": {
+                      "type": "string",
+                      "example": "4.5.1-2844-enterprise"
+                    },
+                    "os_mon": {
+                      "type": "string",
+                      "example": "2.2.14"
+                    },
+                    "public_key": {
+                      "type": "string",
+                      "example": 0.21
+                    },
+                    "sasl": {
+                      "type": "string",
+                      "example": "2.3.4"
+                    },
+                    "ssl": {
+                      "type": "string",
+                      "example": "5.3.3"
+                    },
+                    "stdlib": {
+                      "type": "string",
+                      "example": "1.19.4"
+                    }
+                  }
+                },
+                "implementationVersion": {
+                  "type": "string",
+                  "example": "4.5.1-2844-enterprise"
+                },
+                "isAdminCreds": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "isEnterprise": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "isROAdminCreds": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "pools": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "default"
+                        },
+                        "streamingUri": {
+                          "type": "string",
+                          "example": "/poolsStreaming/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
+                        },
+                        "uri": {
+                          "type": "string",
+                          "example": "/pools/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default": {
+      "get": {
+        "summary": "Retrieve cluster information",
+        "description": "A pool represents computing resources (machines, memory, CPU, disks) that are used to host Couchbase buckets. Couchbase Server clusters currently support only a single pool named default. This pool represents a high-level overview of the Couchbase Server cluster that the node connected to is a part of.",
+        "tags": [
+          "cluster"
+        ],
+        "x-dita-path": "get-pools-default",
+        "parameters": [
+          {
+            "name": "etag",
+            "description": "An opaque identifier for this specific resource.",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "waitChange",
+            "description": "How long the server should wait after receiving the request to return the response.",
+            "in": "query",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "componentsVersion": {
+                  "type": "object",
+                  "properties": {
+                    "ale": {
+                      "type": "string",
+                      "example": "4.5.1-2844-enterprise"
+                    },
+                    "asn1": {
+                      "type": "string",
+                      "example": "2.0.4"
+                    },
+                    "crypto": {
+                      "type": "string",
+                      "example": 3.2
+                    },
+                    "inets": {
+                      "type": "string",
+                      "example": "5.9.8"
+                    },
+                    "kernel": {
+                      "type": "string",
+                      "example": "2.16.4"
+                    },
+                    "lhttpc": {
+                      "type": "string",
+                      "example": "1.3.0"
+                    },
+                    "ns_server": {
+                      "type": "string",
+                      "example": "4.5.1-2844-enterprise"
+                    },
+                    "os_mon": {
+                      "type": "string",
+                      "example": "2.2.14"
+                    },
+                    "public_key": {
+                      "type": "string",
+                      "example": 0.21
+                    },
+                    "sasl": {
+                      "type": "string",
+                      "example": "2.3.4"
+                    },
+                    "ssl": {
+                      "type": "string",
+                      "example": "5.3.3"
+                    },
+                    "stdlib": {
+                      "type": "string",
+                      "example": "1.19.4"
+                    }
+                  }
+                },
+                "implementationVersion": {
+                  "type": "string",
+                  "example": "4.5.1-2844-enterprise"
+                },
+                "isAdminCreds": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "isEnterprise": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "isROAdminCreds": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "pools": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "default"
+                        },
+                        "streamingUri": {
+                          "type": "string",
+                          "example": "/poolsStreaming/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
+                        },
+                        "uri": {
+                          "type": "string",
+                          "example": "/pools/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/bucket/{bucket_name}/recoveryStatus": {
+      "get": {
+        "summary": "Retrieve recovery status of a bucket",
+        "description": "TBD.",
+        "tags": [
+          "bucket"
+        ],
+        "x-dita-path": "get-pools-default-bucket-bucketname-recoveryStatus",
+        "parameters": [
+          {
+            "name": "bucket_name",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "name of a bucket"
+          },
+          {
+            "name": "recovery_uuid",
+            "description": "UUID assigned to a particular vbucket recovery method.",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request. Occurs due to not passing a recovery uuid as part of the query.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "description": "Reason for the bad request",
+                  "type": "string",
+                  "example": "uuid_missing"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/pools/default/buckets": {
       "get": {
         "summary": "Retrieve information on all buckets",
@@ -35,6 +710,33 @@
         ],
         "tags": [
           "bucket"
+        ],
+        "x-dita-path": "get-pools-default-buckets",
+        "parameters": [
+          {
+            "name": "etag",
+            "description": "An opaque identifier for this specific resource.",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "waitChange",
+            "description": "How long the server should wait after receiving the request to return the response.",
+            "in": "query",
+            "type": "integer"
+          },
+          {
+            "name": "skipMap",
+            "description": "Whether or not the vbucket map should be included in the return value. A value of `True` will cause the vbucket map to not be included.",
+            "type": "boolean",
+            "in": "query"
+          },
+          {
+            "name": "basic_stats",
+            "description": "Primarily for internal use. Whether to display extended basic statistics or not. If `true` then extended statistics are displayed.",
+            "type": "boolean",
+            "in": "query"
+          }
         ],
         "responses": {
           "200": {
@@ -507,7 +1209,12 @@
                     "timeSynchronization": {
                       "type": "string",
                       "description": "Whether this bucket has been appropriately set up for time synchronization (used for LWW).",
-                      "example": "disabled"
+                      "example": "disabled",
+                      "enum": [
+                        "disabled",
+                        "enabledWithDrift",
+                        "enabledWithoutDrift"
+                      ]
                     },
                     "bucketCapabilitiesVer": {
                       "type": "string",
@@ -536,6 +1243,7 @@
         "tags": [
           "bucket"
         ],
+        "x-dita-path": "post-pools-default-buckets",
         "parameters": [
           {
             "name": "authType",
@@ -651,6 +1359,1562 @@
           },
           "401": {
             "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/pools/default/buckets/@fts-{fts-id}/stats": {
+      "get": {
+        "summary": "Retrieve stats for a given FTS index",
+        "description": "Retrieve stats for a given FTS index.",
+        "tags": [
+          "stats"
+        ],
+        "x-dita-path": "get-pools-default-buckets-fts-stats",
+        "parameters": [
+          {
+            "name": "fts-id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/buckets/@index-{index-id}/stats": {
+      "get": {
+        "summary": "Retrieve stats for a given global secondary index",
+        "description": "Retrieve stats for a given global secondary index.",
+        "tags": [
+          "stats"
+        ],
+        "x-dita-path": "get-pools-default-buckets-index-stats",
+        "parameters": [
+          {
+            "name": "index-id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/buckets/@query/stats": {
+      "get": {
+        "summary": "Retrieve query stats",
+        "description": "Retrieve query stats.",
+        "tags": [
+          "stats"
+        ],
+        "x-dita-path": "get-pools-default-buckets-query-stats",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/buckets/@xdcr-{xdcr-id}/stats": {
+      "get": {
+        "summary": "Retrieve stats for a given XDCR replication",
+        "description": "Retrieve stats for a given XDCR replication.",
+        "tags": [
+          "stats"
+        ],
+        "x-dita-path": "get-pools-default-buckets-xdcr-stats",
+        "parameters": [
+          {
+            "name": "xdcr-id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/buckets/{bucket_name}": {
+      "get": {
+        "summary": "Retrieve bucket information for a specific bucket",
+        "description": "Retrieve bucket information for a specific bucket.",
+        "tags": [
+          "bucket"
+        ],
+        "x-dita-path": "get-pools-default-buckets-bucketname",
+        "parameters": [
+          {
+            "name": "bucket_name",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "name of a bucket"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/buckets/{bucket_name}/ddocs": {
+      "get": {
+        "summary": "Retrieve design documents for a specific bucket",
+        "description": "Retrieve design documents for a specific bucket.",
+        "tags": [
+          "bucket"
+        ],
+        "x-dita-path": "get-pools-default-buckets-bucketname-ddocs",
+        "parameters": [
+          {
+            "name": "bucket_name",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "name of a bucket"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/buckets/{bucket_name}/docs": {
+      "get": {
+        "summary": "Retrieve documents from a bucket",
+        "description": "Internal. Retrieve documents from a bucket.",
+        "tags": [
+          "bucket"
+        ],
+        "x-dita-path": "get-pools-default-buckets-bucketname-docs",
+        "parameters": [
+          {
+            "name": "bucket_name",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "name of a bucket"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/buckets/{bucket_name}/nodes": {
+      "get": {
+        "summary": "Retrieve per-node information for a given bucket",
+        "description": "Retrieve per-node information for a given bucket.",
+        "tags": [
+          "bucket",
+          "node"
+        ],
+        "x-dita-path": "get-pools-default-buckets-bucketname-nodes",
+        "parameters": [
+          {
+            "name": "bucket_name",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "name of a bucket"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/buckets/{bucket_name}/nodes/{node_id}": {
+      "get": {
+        "summary": "Retrieve information for a given bucket on a given node",
+        "description": "Retrieves information for a given bucket on a given node.",
+        "tags": [
+          "bucket",
+          "node"
+        ],
+        "x-dita-path": "get-pools-default-buckets-bucketname-nodes-nodeid",
+        "parameters": [
+          {
+            "name": "bucket_name",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "name of a bucket"
+          },
+          {
+            "name": "node_id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "id of a node"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/buckets/{bucket_name}/nodes/{node_id}/stats": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "tags": [
+          "bucket",
+          "node",
+          "stats"
+        ],
+        "x-dita-path": "get-pools-default-buckets-bucketname-nodes-nodeid-stats",
+        "parameters": [
+          {
+            "name": "bucket_name",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "name of a bucket"
+          },
+          {
+            "name": "node_id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "id of a node"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/buckets/{bucket_name}/stats": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "tags": [
+          "bucket",
+          "stats"
+        ],
+        "x-dita-path": "get-pools-default-buckets-bucketname-stats",
+        "parameters": [
+          {
+            "name": "bucket_name",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "name of a bucket"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/buckets/{bucket_name}/stats/{stat_name}": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "tags": [
+          "bucket",
+          "stats"
+        ],
+        "parameters": [
+          {
+            "name": "bucket_name",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "name of a bucket"
+          },
+          {
+            "name": "stat_name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/bucketsStreaming/{bucket_name}": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "tags": [
+          "bucket"
+        ],
+        "parameters": [
+          {
+            "name": "bucket_name",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "name of a bucket"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/certificate": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/certificate/node/{node_id}": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "tags": [
+          "node"
+        ],
+        "parameters": [
+          {
+            "name": "node_id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "id of a node"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/overviewStats": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "tags": [
+          "stats"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/rebalanceProgress": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/remoteClusters": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/saslBucketsStreaming": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "tags": [
+          "bucket"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/serverGroups": {
+      "get": {
+        "summary": "Retrieve information on server groups",
+        "description": "Retrieves information on server groups.",
+        "tags": [
+          "cluster"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/settings/memcached/effective/{node_id}": {
+      "get": {
+        "summary": "Retrieve running memcached settings on a given node",
+        "description": "Retrieve running memcached settings on a given node.",
+        "parameters": [
+          {
+            "name": "node_id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "id of a node"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/settings/memcached/global": {
+      "get": {
+        "summary": "Retrieve global memcached settings",
+        "description": "Retrieve global memcached settings.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/settings/memcached/node/{node_id}": {
+      "get": {
+        "summary": "Retrieve memcached settings on a given node",
+        "description": "Retrieve memcached settings on a given node.",
+        "parameters": [
+          {
+            "name": "node_id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "id of a node"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/settings/memcached/node/{node_id}/setting/{setting_name}": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "parameters": [
+          {
+            "name": "node_id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "id of a node"
+          },
+          {
+            "name": "setting_name",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/default/tasks": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pools/nodes": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/poolsStreaming/default": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sampleBuckets": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sasl_logs": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sasl_logs/{log_name}": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "parameters": [
+          {
+            "name": "log_name",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/alerts": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/audit": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/autoCompaction": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/autoFailover": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/indexes": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/maxParallelIndexers": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/rbac/roles": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/rbac/users": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/readOnlyAdminName": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/replications": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/replications/{replication_id}": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "parameters": [
+          {
+            "name": "replication_id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/saslauthdAuth": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/stats": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/viewUpdateDaemon": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/web": {
+      "get": {
+        "summary": "Test",
+        "description": "Test",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -1137,7 +3401,12 @@
         "timeSynchronization": {
           "type": "string",
           "description": "Whether this bucket has been appropriately set up for time synchronization (used for LWW).",
-          "example": "disabled"
+          "example": "disabled",
+          "enum": [
+            "disabled",
+            "enabledWithDrift",
+            "enabledWithoutDrift"
+          ]
         },
         "bucketCapabilitiesVer": {
           "type": "string",
@@ -1399,6 +3668,57 @@
         }
       }
     },
+    "Node": {
+      "type": "object",
+      "description": "Overview of a particular node.",
+      "properties": {
+        "availableStorage": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "description": "Path of the particular mount point",
+                  "example": "/opt/couchbase/var"
+                },
+                "sizeKBytes": {
+                  "type": "integer",
+                  "description": "Size of the mount point in Kilobytes",
+                  "example": 18745336
+                },
+                "usagePercent": {
+                  "type": "integer",
+                  "description": "Percentage (%) of the disk space that has been used",
+                  "example": 8
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "HDDElement": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path of the particular mount point",
+          "example": "/opt/couchbase/var"
+        },
+        "sizeKBytes": {
+          "type": "integer",
+          "description": "Size of the mount point in Kilobytes",
+          "example": 18745336
+        },
+        "usagePercent": {
+          "type": "integer",
+          "description": "Percentage (%) of the disk space that has been used",
+          "example": 8
+        }
+      }
+    },
     "SystemStats": {
       "type": "object",
       "description": "System-level statistics.",
@@ -1506,6 +3826,102 @@
           "type": "integer",
           "description": "Total number of replica items.",
           "example": 0
+        }
+      }
+    },
+    "ClusterObject": {
+      "type": "object",
+      "properties": {
+        "componentsVersion": {
+          "type": "object",
+          "properties": {
+            "ale": {
+              "type": "string",
+              "example": "4.5.1-2844-enterprise"
+            },
+            "asn1": {
+              "type": "string",
+              "example": "2.0.4"
+            },
+            "crypto": {
+              "type": "string",
+              "example": 3.2
+            },
+            "inets": {
+              "type": "string",
+              "example": "5.9.8"
+            },
+            "kernel": {
+              "type": "string",
+              "example": "2.16.4"
+            },
+            "lhttpc": {
+              "type": "string",
+              "example": "1.3.0"
+            },
+            "ns_server": {
+              "type": "string",
+              "example": "4.5.1-2844-enterprise"
+            },
+            "os_mon": {
+              "type": "string",
+              "example": "2.2.14"
+            },
+            "public_key": {
+              "type": "string",
+              "example": 0.21
+            },
+            "sasl": {
+              "type": "string",
+              "example": "2.3.4"
+            },
+            "ssl": {
+              "type": "string",
+              "example": "5.3.3"
+            },
+            "stdlib": {
+              "type": "string",
+              "example": "1.19.4"
+            }
+          }
+        },
+        "implementationVersion": {
+          "type": "string",
+          "example": "4.5.1-2844-enterprise"
+        },
+        "isAdminCreds": {
+          "type": "boolean",
+          "example": true
+        },
+        "isEnterprise": {
+          "type": "boolean",
+          "example": true
+        },
+        "isROAdminCreds": {
+          "type": "boolean",
+          "example": false
+        },
+        "pools": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "default"
+                },
+                "streamingUri": {
+                  "type": "string",
+                  "example": "/poolsStreaming/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
+                },
+                "uri": {
+                  "type": "string",
+                  "example": "/pools/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
+                }
+              }
+            }
+          ]
         }
       }
     }
@@ -1628,6 +4044,36 @@
         8
       ],
       "default": 3
+    },
+    "ETag": {
+      "name": "etag",
+      "description": "An opaque identifier for this specific resource.",
+      "in": "query",
+      "type": "string"
+    },
+    "WaitChange": {
+      "name": "waitChange",
+      "description": "How long the server should wait after receiving the request to return the response.",
+      "in": "query",
+      "type": "integer"
+    },
+    "RecoveryUuid": {
+      "name": "recovery_uuid",
+      "description": "UUID assigned to a particular vbucket recovery method.",
+      "in": "query",
+      "type": "string"
+    },
+    "SkipMap": {
+      "name": "skipMap",
+      "description": "Whether or not the vbucket map should be included in the return value. A value of `True` will cause the vbucket map to not be included.",
+      "type": "boolean",
+      "in": "query"
+    },
+    "BasicStats": {
+      "name": "basic_stats",
+      "description": "Primarily for internal use. Whether to display extended basic statistics or not. If `true` then extended statistics are displayed.",
+      "type": "boolean",
+      "in": "query"
     }
   }
 }
