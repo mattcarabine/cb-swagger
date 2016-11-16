@@ -131,11 +131,19 @@ paths:
               
   /nodeStatuses:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve basic node replication information
+      description: Retrieve basic node replication information.
       responses:
           200:
             description: Success
+            examples:
+              application/json:
+                192.0.2.0:8091:
+                  status: healthy
+                  gracefulFailoverPossible: false
+                  otpNode: ns_1@127.0.0.1
+                  dataless: false
+                  replication: 0
           default:
             description: Unexpected error
             schema:
@@ -1108,6 +1116,7 @@ definitions:
         type: string
         description: Whether this bucket has been appropriately set up for time synchronization (used for LWW).
         example: disabled
+        enum: ["disabled", "enabledWithDrift", "enabledWithoutDrift"]
       bucketCapabilitiesVer:
         type: string
         example: ""
