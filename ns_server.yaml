@@ -194,6 +194,9 @@ paths:
         of the Couchbase Server cluster that the node connected to is a part of.
       tags:
         - cluster
+      parameters:
+        - $ref: "#/parameters/ETag"
+        - $ref: "#/parameters/WaitChange"
       responses:
           200:
             description: Success
@@ -212,9 +215,19 @@ paths:
         - bucket
       parameters:
         - $ref: '#/parameters/PathBucketName'
+        - $ref: '#/parameters/RecoveryUuid'
       responses:
           200:
             description: Success
+          400:
+            description: Bad request. Occurs due to not passing a recovery uuid as part of the query.
+            schema:
+              type: object
+              properties:
+                code:
+                  description: Reason for the bad request
+                  type: string
+                  example: uuid_missing
           default:
             description: Unexpected error
             schema:
@@ -1466,3 +1479,21 @@ parameters:
     type: integer
     enum: [3, 8]
     default: 3
+
+  ETag:
+    name: etag
+    description: An opaque identifier for this specific resource.
+    in: query
+    type: string
+    
+  WaitChange:
+    name: waitChange
+    description: How long the server should wait after receiving the request to return the response.
+    in: query
+    type: integer
+
+  RecoveryUuid:
+    name: recovery_uuid
+    description: UUID assigned to a particular vbucket recovery method.
+    in: query
+    type: string
