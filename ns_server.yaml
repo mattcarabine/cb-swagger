@@ -4,7 +4,7 @@ info:
   description: API for interacting with the Couchbase Server cluster manager
   version: "4.5.1"
 
-host: 192.168.99.100:8091
+host: 192.168.99.100:9000
 
 schemes:
   - https
