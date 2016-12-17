@@ -6,7 +6,7 @@ from jinja2 import Environment, FileSystemLoader
 
 def main():
     parsed_args = parse_arguments(sys.argv[1:])
-    env = Environment(loader=FileSystemLoader('/Users/matt/cb-swagger/dita_generation'), trim_blocks=True, lstrip_blocks=True)
+    env = Environment(loader=FileSystemLoader(os.path.dirname(__file__)), trim_blocks=True, lstrip_blocks=True)
     file_template = env.get_template("page_template.txt")
     ditamap_template = env.get_template("ditamap_template.txt")
     dita_file_list = []
@@ -15,27 +15,42 @@ def main():
 
     for path, definition in swagger.paths.items():
         topic_id = path.replace('/', '-')[1:]
-        
+
         for method in ('get', 'post'):
+
             if method in definition and 'x-dita-path' in definition[method]:
-                try:
-                    example = generate_example(definition[method]['responses']['200']['schema']['items'][0])
-                except Exception as e:
-                    example = e
-                
-                dita_file_name = '{}.dita'.format(definition[method]['x-dita-path'])
-                with open(os.path.join(parsed_args.output_dir, dita_file_name), 'w') as f:
-                    f.write(file_template.render(topic_id=topic_id, definition=definition[method], method=method, path=path, example=example))
-                    dita_file_list.append(dita_file_name)
-   
-    with open(os.path.join(parsed_args.output_dir, "rest-api.ditamap"), 'w') as f:
-        f.write(ditamap_template.render(urls=dita_file_list))
+                if not parsed_args.include_file or definition[method]['x-dita-path'] in parsed_args.include_file:
+                    try:
+                        example = generate_example(definition[method]['responses']['202']['schema']['items'][0])
+                    except Exception as e:
+                        example = e
+
+                    dita_file_name = '{}.dita'.format(definition[method]['x-dita-path'])
+                    full_path = os.path.join(parsed_args.output_dir, dita_file_name)
+
+                    required_parameters = []
+                    optional_parameters = []
+
+                    for parameter in sorted(definition[method]['parameters'], key=lambda x: x['name']):
+
+                        if 'required' in parameter and parameter['required']:
+                            required_parameters.append(parameter)
+                        else:
+                            optional_parameters.append(parameter)
+
+                    with open(full_path, 'w') as f:
+                        f.write(file_template.render(topic_id=topic_id, definition=definition[method], 
+                            required_parameters=required_parameters, optional_parameters=optional_parameters, 
+                            method=method, path=path, example=example))
+                        print('Created {}'.format(os.path.abspath(full_path)))
+                        dita_file_list.append(dita_file_name)
 
 def parse_arguments(cli_args):
     parser = argparse.ArgumentParser(description='OpenApi2Dita - Convert an OpenAPI spec into a set of DITA pages')
     parser.add_argument('spec_file', help='Location of json OpenAPI spec')
     parser.add_argument('output_dir', default='.',
                         help='Output directory for dita files')
+    parser.add_argument('--include-file', help='File to render', nargs='*')
     return parser.parse_args(cli_args)
 
 def generate_example(curr_object):
