@@ -14,8 +14,7 @@ produces:
   - application/json
 
 consumes:
-  - application/json
-  - formData
+  - application/x-www-form-urlencoded
 
 securityDefinitions:
   basicAuth:
@@ -1451,6 +1450,7 @@ parameters:
     type: string
     enum: ["sasl", "none"]
     required: true
+    x-example-1: sasl
     
   BucketType:
     name: bucketType
@@ -1459,7 +1459,8 @@ parameters:
     type: string
     enum: ["memcached", "couchbase"]
     required: true
-  
+    x-example-1: couchbase
+
   EvictionPolicy:
     name: evictionPolicy
     description: Eviction policy to be used by a bucket
@@ -1467,14 +1468,17 @@ parameters:
     type: string
     enum: ["valueOnly", "fullEviction"]
     default: "valueOnly"
-    
+    x-example-1: valueOnly
+  
   FlushEnabled:
     name: flushEnabled
     description: Whether or not the 'flush' operation is enabled on this bucket
     in: formData
-    type: boolean
-    default: false
-    
+    type: integer
+    enum: [0, 1]
+    default: 0
+    x-example-1: 0
+
   FormBucketName:
     name: name
     description: Name of the bucket
@@ -1483,20 +1487,24 @@ parameters:
     maxLength: 100
     minLength: 1
     required: true
+    x-example-1: travel-sample
 
   ParallelDBAndViewCompaction:
     name: parallelDBAndViewCompaction
     description: Indicates whether database and view files on disk can be compacted simultaneously.
     in: formData
-    type: boolean
-    default: false
-    
+    type: integer
+    enum: [0, 1]
+    default: 0
+    x-example-1: 0
+  
   ProxyPort:
     name: proxyPort
     description: Proxy port on which the bucket communicates. Must be a valid network port which is not already in use. You must provide a valid port number if the authorization type is not SASL.
     in: formData
     type: integer
-  
+    default: 0
+
   RamQuotaMB:
     name: ramQuotaMB
     description: RAM Quota for new bucket in MB. The maximum can only be as great as the memory quota established for the node. If other buckets are associated with a node, RAM Quota can only be as large as the amount memory remaining for the node, accounting for the other bucket memory quota.
@@ -1504,13 +1512,16 @@ parameters:
     type: integer
     minimum: 100
     required: true
+    x-example-1: 1000
   
   ReplicaIndex:
     name: replicaIndex
     description: Whether replica view indexing is enabled for this bucket.
     in: formData
-    type: boolean
-    default: true
+    type: integer
+    default: 1
+    enum: [0, 1]
+    x-example-1: 0
     
   ReplicaNumber:
     name: replicaNumber
@@ -1527,6 +1538,7 @@ parameters:
     in: formData
     type: string
     maxLength: 24
+    x-example-1: ''
   
   ThreadsNumber:
     name: threadsNumber
@@ -1535,6 +1547,7 @@ parameters:
     type: integer
     enum: [3, 8]
     default: 3
+    x-example-1: 3
 
   ETag:
     name: etag

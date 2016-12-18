@@ -121,5 +121,15 @@
             </tgroup>
             </table>
             </section>
+            <section>
+            <title>Example curl command</title>
+            <p><codeph>{{example_curl_command}}</codeph></p>
+            </section>
+            {% if example %}
+            <section>
+            <title>Example Response</title>
+            <codeblock>{{example|pprint}}</codeblock>
+            </section>
+            {% endif %}
     </refbody>
 </reference>
