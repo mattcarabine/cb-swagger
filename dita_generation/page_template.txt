@@ -7,38 +7,36 @@
     <refbody>
         <section>
             <title>Description</title>
-            <p>{{definition.description}}</p>
+            {{definition.description}}
         </section>
         <section>
             <title>HTTP method and URI</title>
             <codeblock>{{method.upper()}} {{path}}</codeblock>
         </section>
-        {% if required_parameters %}
-        <section><title>Required Parameters</title>
-            <table>
-                <tgroup cols="4">
+        {% if query_parameters.required or query_parameters.optional %}
+        <section><title>Query Parameters</title>
+            {% if query_parameters.required %}
+            <p><b>Required</b></p><table>
+                <tgroup cols="3">
                     <colspec colname="col1" colwidth="1.5*"/>
                     <colspec colname="col2" colwidth="3.5*"/>
-                    <colspec colname="col3" colwidth="1*"/>
-                    <colspec colname="col4" colwidth="1.5*"/>
+                    <colspec colname="col3" colwidth="1.5*"/>
                     <thead>
                         <row>
                             <entry>Name</entry>
                             <entry>Description</entry>
-                            <entry>Location</entry>
                             <entry>Type</entry>
                         </row>
                     </thead>
                     <tbody>
-                    {% for parameter in required_parameters %}
+                    {% for parameter in query_parameters.required %}
                         <row>
                             <entry><p><codeph>{{ parameter.name }}</codeph></p></entry>
-                            <entry><p>{{ parameter.description }}</p>
+                            <entry>{{ parameter.description }}
                             {% if parameter.minimum is defined and parameter.maximum is defined %}
                             <p>Must be between {{ parameter.minimum }} and {{ parameter.maximum }}.</p>
                             {% endif %}
                             </entry>
-                            <entry><p>{{ parameter.in }}</p></entry>
                             <entry>
                             {% if parameter.enum %}
                             <p>Possible values are:<ul>
@@ -53,35 +51,31 @@
                     {% endfor %}
                     </tbody>
                 </tgroup>
-            </table></section>
+            </table>
             {% endif %}
-            {% if optional_parameters %}
-            <section><title>Optional Parameters</title>
-            <table>
-                <tgroup cols="4">
-                    <colspec colname="col1" colwidth="1.5*"/>
-                    <colspec colname="col2" colwidth="3.5*"/>
+            {% if query_parameters.optional %}
+            <p><b>Optional</b></p><table>
+                <tgroup cols="3">
+                    <colspec colname="col1" colwidth="1*"/>
+                    <colspec colname="col2" colwidth="4*"/>
                     <colspec colname="col3" colwidth="1*"/>
-                    <colspec colname="col4" colwidth="1.5*"/>
                     <thead>
                         <row>
                             <entry>Name</entry>
                             <entry>Description</entry>
-                            <entry>Location</entry>
                             <entry>Type</entry>
                         </row>
                     </thead>
                     <tbody>
                     
-                    {% for parameter in optional_parameters %}
+                    {% for parameter in query_parameters.optional %}
                         <row>
                             <entry><p><codeph>{{ parameter.name }}</codeph></p></entry>
-                            <entry><p>{{ parameter.description }}</p>
+                            <entry>{{ parameter.description }} {% if parameter.default %}<p>Defaults to <codeph>{{parameter.default}}</codeph> if unspecified.</p>{% endif %}
                             {% if parameter.minimum is defined and parameter.maximum is defined %}
                             <p>Must be between {{ parameter.minimum }} and {{ parameter.maximum }}.</p>
                             {% endif %}
                             </entry>
-                            <entry><p>{{ parameter.in }}</p></entry>
                             <entry>
                             {% if parameter.enum %}
                             <p>Possible values are:<ul>
@@ -96,7 +90,91 @@
                     {% endfor %}
                     </tbody>
                 </tgroup>
-            </table></section>
+            </table>
+            {% endif %}
+            </section>
+            {% endif %}
+            {% if body_properties.required or body_properties.optional %}
+            <section><title>Body Parameters</title>
+            <p>All of the following parameters are passed in the body as form data. They are specified as key-value pairs (e.g <codeph>key=value</codeph>).</p>
+            {% if body_properties.required %}
+            <p><b>Required</b></p><table>
+                <tgroup cols="3">
+                    <colspec colname="col1" colwidth="1.5*"/>
+                    <colspec colname="col2" colwidth="3.5*"/>
+                    <colspec colname="col3" colwidth="1.5*"/>
+                    <thead>
+                        <row>
+                            <entry>Name</entry>
+                            <entry>Description</entry>
+                            <entry>Type</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                    {% for parameter in body_properties.required %}
+                        <row>
+                            <entry><p><codeph>{{ parameter.name }}</codeph></p></entry>
+                            <entry>{{ parameter.description }}
+                            {% if parameter.minimum is defined and parameter.maximum is defined %}
+                            <p>Must be between {{ parameter.minimum }} and {{ parameter.maximum }}.</p>
+                            {% endif %}
+                            </entry>
+                            <entry>
+                            {% if parameter.enum %}
+                            <p>Possible values are:<ul>
+                            {% for value in parameter.enum %}
+                            <li><codeph>{{value}}</codeph></li>
+                            {% endfor %}</ul></p>
+                            {% else %}
+                            <p>{{ parameter.type }}</p>
+                            {% endif %}
+                            </entry>
+                        </row>
+                    {% endfor %}
+                    </tbody>
+                </tgroup>
+            </table>
+            {% endif %}
+            {% if body_properties.optional %}
+            <p><b>Optional</b></p><table>
+                <tgroup cols="3">
+                    <colspec colname="col1" colwidth="1*"/>
+                    <colspec colname="col2" colwidth="4*"/>
+                    <colspec colname="col3" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry>Name</entry>
+                            <entry>Description</entry>
+                            <entry>Type</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                    
+                    {% for parameter in body_properties.optional %}
+                        <row>
+                            <entry><p><codeph>{{ parameter.name }}</codeph></p></entry>
+                            <entry>{{ parameter.description }} {% if parameter.default %}<p>Defaults to <codeph>{{parameter.default}}</codeph> if unspecified.</p>{% endif %}
+                            {% if parameter.minimum is defined and parameter.maximum is defined %}
+                            <p>Must be between {{ parameter.minimum }} and {{ parameter.maximum }}.</p>
+                            {% endif %}
+                            </entry>
+                            <entry>
+                            {% if parameter.enum %}
+                            <p>Possible values are:<ul>
+                            {% for value in parameter.enum %}
+                            <li><codeph>{{value}}</codeph></li>
+                            {% endfor %}</ul></p>
+                            {% else %}
+                            <p>{{ parameter.type }}</p>
+                            {% endif %}
+                            </entry>
+                        </row>
+                    {% endfor %}
+                    </tbody>
+                </tgroup>
+            </table>
+            {% endif %}
+            </section>
             {% endif %}
             <section><title>Response Codes</title>
             <table>
@@ -121,15 +199,24 @@
             </tgroup>
             </table>
             </section>
+            {% if example_curl %}
             <section>
             <title>Example curl command</title>
-            <p><codeph>{{example_curl_command}}</codeph></p>
+            {{example_curl.description}}
+            <p><codeph>{{example_curl.command}}</codeph></p>
             </section>
+            {% endif %}
             {% if example %}
             <section>
             <title>Example Response</title>
-            <codeblock>{{example|pprint}}</codeblock>
+            <codeblock outputclass="language-javascript">{{example|pprint}}</codeblock>
             </section>
             {% endif %}
+            {# Uncomment this when we're ready to deploy the API explorer
+            <section>
+            <title>Try it out!</title>
+            <p>Try out this endpoint in the <xref href="{{api_explorer_link}}" scope="external" format="html">API Explorer</xref>.</p>
+            </section> 
+            #}
     </refbody>
 </reference>

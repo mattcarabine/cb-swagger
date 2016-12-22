@@ -5,7 +5,7 @@
     "description": "API for interacting with the Couchbase Server cluster manager",
     "version": "4.5.1"
   },
-  "host": "192.168.99.100:8091",
+  "host": "localhost:8091",
   "schemes": [
     "https",
     "http"
@@ -505,7 +505,7 @@
         "parameters": [
           {
             "name": "etag",
-            "description": "An opaque identifier for this specific resource.",
+            "description": "An opaque identifier for this specific resource used for web cache validation.",
             "in": "query",
             "type": "string"
           },
@@ -701,7 +701,7 @@
     "/pools/default/buckets": {
       "get": {
         "summary": "Retrieve information on all buckets",
-        "description": "This rest endpoint returns an array of bucket information, one element for each bucket in the cluster",
+        "description": "This rest endpoint returns an array of bucket information, one element for each bucket in the cluster.",
         "security": [
           {
             "basicAuth": []
@@ -711,10 +711,11 @@
           "bucket"
         ],
         "x-dita-path": "get-pools-default-buckets",
+        "x-example-1": "The following curl command retrieves the bucket information from the cluster which the node `localhost` is a part of.",
         "parameters": [
           {
             "name": "etag",
-            "description": "An opaque identifier for this specific resource.",
+            "description": "An opaque identifier for this specific resource used for web cache validation.",
             "in": "query",
             "type": "string"
           },
@@ -726,20 +727,22 @@
           },
           {
             "name": "skipMap",
-            "description": "Whether or not the vbucket map should be included in the return value. A value of `True` will cause the vbucket map to not be included.",
+            "description": "Whether or not the vbucket map should be included in the return value. A value of `true` will cause the vbucket map to not be included.",
             "type": "boolean",
-            "in": "query"
+            "in": "query",
+            "default": false
           },
           {
             "name": "basic_stats",
             "description": "Primarily for internal use. Whether to display extended basic statistics or not. If `true` then extended statistics are displayed.",
             "type": "boolean",
-            "in": "query"
+            "in": "query",
+            "default": false
           }
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "Success.",
             "schema": {
               "type": "array",
               "items": [
@@ -1227,7 +1230,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized."
           }
         }
       },
@@ -1243,10 +1246,11 @@
           "bucket"
         ],
         "x-dita-path": "post-pools-default-buckets",
+        "x-example-1": "The following curl command creates a `couchbase` bucket called `travel-sample`, authenticated with a bucket password of `bucket_password`. The bucket is using value eviction with a RAM quota of 1000MB, replica view indexing is disabled.",
         "parameters": [
           {
             "name": "authType",
-            "description": "Type of authentication to be used by a bucket.",
+            "description": "Type of authentication to be used by a bucket. Specifying `sasl` causes the bucket to use SASL mechanisms to provide authenticated access to the bucket. Specifying `none` results in no authentication being applied for the bucket, although an alternative proxy port must be specified to allow access.",
             "in": "formData",
             "type": "string",
             "enum": [
@@ -1258,7 +1262,7 @@
           },
           {
             "name": "bucketType",
-            "description": "Type of bucket to create",
+            "description": "Type of bucket to create.",
             "in": "formData",
             "type": "string",
             "enum": [
@@ -1270,7 +1274,7 @@
           },
           {
             "name": "evictionPolicy",
-            "description": "Eviction policy to be used by a bucket",
+            "description": "Ejection policy to be used by a bucket. `valueOnly` removes data from the cache but keeps all keys and metadata fields for non-resident items. `fullEviction` removes all data including keys, metadata, and key-value pairs from the cache for non-resident items. Full ejection is well suited for cases where the application has cold data that is not accessed frequently or the total data size is too large to fit in memory plus higher latency access to the data is accepted.",
             "in": "formData",
             "type": "string",
             "enum": [
@@ -1282,19 +1286,18 @@
           },
           {
             "name": "flushEnabled",
-            "description": "Whether or not the 'flush' operation is enabled on this bucket",
+            "description": "Whether or not the `flush` operation is enabled on this bucket. A value of `1` enables the ability to trigger the 'flush' operation for the bucket while a value of `0` disables the ability to trigger a `flush`.",
             "in": "formData",
             "type": "integer",
             "enum": [
               0,
               1
             ],
-            "default": 0,
-            "x-example-1": 0
+            "default": 0
           },
           {
             "name": "name",
-            "description": "Name of the bucket",
+            "description": "Name of the bucket to create. The bucket name can only contain characters in range A-Z, a-z, 0-9 as well as underscore, period, dash and percent and can be a maximum of 100 characters in length. The bucket name cannot be changed after bucket creation.",
             "in": "formData",
             "type": "string",
             "maxLength": 100,
@@ -1304,26 +1307,25 @@
           },
           {
             "name": "parallelDBAndViewCompaction",
-            "description": "Indicates whether database and view files on disk can be compacted simultaneously.",
+            "description": "Indicates whether database and view files on disk can be compacted simultaneously. A value of `1` enables parallel compaction while a value of `0` disables parallel compaction.",
             "in": "formData",
             "type": "integer",
             "enum": [
               0,
               1
             ],
-            "default": 0,
-            "x-example-1": 0
+            "default": 0
           },
           {
             "name": "proxyPort",
-            "description": "Proxy port on which the bucket communicates. Must be a valid network port which is not already in use. You must provide a valid port number if the authorization type is not SASL.",
+            "description": "Proxy port on which the bucket communicates and is used to identify the buckets. Must be specified if the bucket is not using `SASL` authentication. You can place non-SASL buckets on any available port except port 11211, which is reserved for the default bucket, you can place only one non-SASL bucket on an individual port. A value of `0` represents not specifying a proxy port.",
             "in": "formData",
             "type": "integer",
             "default": 0
           },
           {
             "name": "ramQuotaMB",
-            "description": "RAM Quota for new bucket in MB. The maximum can only be as great as the memory quota established for the node. If other buckets are associated with a node, RAM Quota can only be as large as the amount memory remaining for the node, accounting for the other bucket memory quota.",
+            "description": "RAM Quota for the bucket in MB. The maximum can only be as great as the memory quota established for the node. If other buckets are associated with a node, RAM Quota can only be as large as the amount memory remaining for the node, accounting for the other bucket memory quota.",
             "in": "formData",
             "type": "integer",
             "minimum": 100,
@@ -1332,7 +1334,7 @@
           },
           {
             "name": "replicaIndex",
-            "description": "Whether replica view indexing is enabled for this bucket.",
+            "description": "Whether replica view indexing is enabled for this bucket. Couchbase server recreates indexes using the replicated data on a node for each defined design document and view. Replica indexes enable you to perform queries even in the event of node failure as the replica index is queried while the active index is being rebuilt. A value of `1` enables replica indexing while a value of `0` disables replica indexing. This setting cannot be changed once the bucket has been created.",
             "in": "formData",
             "type": "integer",
             "default": 1,
@@ -1353,34 +1355,31 @@
           },
           {
             "name": "saslPassword",
-            "description": "Password for SASL authentication. Required if SASL authentication has been enabled. An empty string represents having no password",
+            "description": "Password for bucket access via smart clients. Required if SASL authentication has been enabled. An empty string value means that the bucket has no password set.",
             "in": "formData",
             "type": "string",
             "maxLength": 24,
-            "x-example-1": ""
+            "x-example-1": "bucket_password"
           },
           {
             "name": "threadsNumber",
-            "description": "The bucket I/O priority. 3 represents 'low' priority while 8 represents 'high' priority.",
+            "description": "Previous versions of Couchbase Server, version 3.0 or earlier, required the I/O thread allocation per bucket to be configured manually. Buckets allocated six to eight (6-8) threads are marked high priority in bucket settings. Buckets allocated three to five (3-5) threads are marked low priority in bucket settings.",
             "in": "formData",
             "type": "integer",
-            "enum": [
-              3,
-              8
-            ],
-            "default": 3,
-            "x-example-1": 3
+            "maximum": 8,
+            "minimum": 3,
+            "default": 3
           }
         ],
         "responses": {
           "202": {
-            "description": "Success"
+            "description": "Success."
           },
           "400": {
-            "description": "There was an error with the passed parameters"
+            "description": "There was an error with the passed parameters."
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized."
           }
         }
       }
@@ -3965,7 +3964,7 @@
     },
     "AuthType": {
       "name": "authType",
-      "description": "Type of authentication to be used by a bucket.",
+      "description": "Type of authentication to be used by a bucket. Specifying `sasl` causes the bucket to use SASL mechanisms to provide authenticated access to the bucket. Specifying `none` results in no authentication being applied for the bucket, although an alternative proxy port must be specified to allow access.",
       "in": "formData",
       "type": "string",
       "enum": [
@@ -3977,7 +3976,7 @@
     },
     "BucketType": {
       "name": "bucketType",
-      "description": "Type of bucket to create",
+      "description": "Type of bucket to create.",
       "in": "formData",
       "type": "string",
       "enum": [
@@ -3989,7 +3988,7 @@
     },
     "EvictionPolicy": {
       "name": "evictionPolicy",
-      "description": "Eviction policy to be used by a bucket",
+      "description": "Ejection policy to be used by a bucket. `valueOnly` removes data from the cache but keeps all keys and metadata fields for non-resident items. `fullEviction` removes all data including keys, metadata, and key-value pairs from the cache for non-resident items. Full ejection is well suited for cases where the application has cold data that is not accessed frequently or the total data size is too large to fit in memory plus higher latency access to the data is accepted.",
       "in": "formData",
       "type": "string",
       "enum": [
@@ -4001,19 +4000,18 @@
     },
     "FlushEnabled": {
       "name": "flushEnabled",
-      "description": "Whether or not the 'flush' operation is enabled on this bucket",
+      "description": "Whether or not the `flush` operation is enabled on this bucket. A value of `1` enables the ability to trigger the 'flush' operation for the bucket while a value of `0` disables the ability to trigger a `flush`.",
       "in": "formData",
       "type": "integer",
       "enum": [
         0,
         1
       ],
-      "default": 0,
-      "x-example-1": 0
+      "default": 0
     },
     "FormBucketName": {
       "name": "name",
-      "description": "Name of the bucket",
+      "description": "Name of the bucket to create. The bucket name can only contain characters in range A-Z, a-z, 0-9 as well as underscore, period, dash and percent and can be a maximum of 100 characters in length. The bucket name cannot be changed after bucket creation.",
       "in": "formData",
       "type": "string",
       "maxLength": 100,
@@ -4023,26 +4021,25 @@
     },
     "ParallelDBAndViewCompaction": {
       "name": "parallelDBAndViewCompaction",
-      "description": "Indicates whether database and view files on disk can be compacted simultaneously.",
+      "description": "Indicates whether database and view files on disk can be compacted simultaneously. A value of `1` enables parallel compaction while a value of `0` disables parallel compaction.",
       "in": "formData",
       "type": "integer",
       "enum": [
         0,
         1
       ],
-      "default": 0,
-      "x-example-1": 0
+      "default": 0
     },
     "ProxyPort": {
       "name": "proxyPort",
-      "description": "Proxy port on which the bucket communicates. Must be a valid network port which is not already in use. You must provide a valid port number if the authorization type is not SASL.",
+      "description": "Proxy port on which the bucket communicates and is used to identify the buckets. Must be specified if the bucket is not using `SASL` authentication. You can place non-SASL buckets on any available port except port 11211, which is reserved for the default bucket, you can place only one non-SASL bucket on an individual port. A value of `0` represents not specifying a proxy port.",
       "in": "formData",
       "type": "integer",
       "default": 0
     },
     "RamQuotaMB": {
       "name": "ramQuotaMB",
-      "description": "RAM Quota for new bucket in MB. The maximum can only be as great as the memory quota established for the node. If other buckets are associated with a node, RAM Quota can only be as large as the amount memory remaining for the node, accounting for the other bucket memory quota.",
+      "description": "RAM Quota for the bucket in MB. The maximum can only be as great as the memory quota established for the node. If other buckets are associated with a node, RAM Quota can only be as large as the amount memory remaining for the node, accounting for the other bucket memory quota.",
       "in": "formData",
       "type": "integer",
       "minimum": 100,
@@ -4051,7 +4048,7 @@
     },
     "ReplicaIndex": {
       "name": "replicaIndex",
-      "description": "Whether replica view indexing is enabled for this bucket.",
+      "description": "Whether replica view indexing is enabled for this bucket. Couchbase server recreates indexes using the replicated data on a node for each defined design document and view. Replica indexes enable you to perform queries even in the event of node failure as the replica index is queried while the active index is being rebuilt. A value of `1` enables replica indexing while a value of `0` disables replica indexing. This setting cannot be changed once the bucket has been created.",
       "in": "formData",
       "type": "integer",
       "default": 1,
@@ -4072,27 +4069,24 @@
     },
     "SaslPassword": {
       "name": "saslPassword",
-      "description": "Password for SASL authentication. Required if SASL authentication has been enabled. An empty string represents having no password",
+      "description": "Password for bucket access via smart clients. Required if SASL authentication has been enabled. An empty string value means that the bucket has no password set.",
       "in": "formData",
       "type": "string",
       "maxLength": 24,
-      "x-example-1": ""
+      "x-example-1": "bucket_password"
     },
     "ThreadsNumber": {
       "name": "threadsNumber",
-      "description": "The bucket I/O priority. 3 represents 'low' priority while 8 represents 'high' priority.",
+      "description": "Previous versions of Couchbase Server, version 3.0 or earlier, required the I/O thread allocation per bucket to be configured manually. Buckets allocated six to eight (6-8) threads are marked high priority in bucket settings. Buckets allocated three to five (3-5) threads are marked low priority in bucket settings.",
       "in": "formData",
       "type": "integer",
-      "enum": [
-        3,
-        8
-      ],
-      "default": 3,
-      "x-example-1": 3
+      "maximum": 8,
+      "minimum": 3,
+      "default": 3
     },
     "ETag": {
       "name": "etag",
-      "description": "An opaque identifier for this specific resource.",
+      "description": "An opaque identifier for this specific resource used for web cache validation.",
       "in": "query",
       "type": "string"
     },
@@ -4110,15 +4104,17 @@
     },
     "SkipMap": {
       "name": "skipMap",
-      "description": "Whether or not the vbucket map should be included in the return value. A value of `True` will cause the vbucket map to not be included.",
+      "description": "Whether or not the vbucket map should be included in the return value. A value of `true` will cause the vbucket map to not be included.",
       "type": "boolean",
-      "in": "query"
+      "in": "query",
+      "default": false
     },
     "BasicStats": {
       "name": "basic_stats",
       "description": "Primarily for internal use. Whether to display extended basic statistics or not. If `true` then extended statistics are displayed.",
       "type": "boolean",
-      "in": "query"
+      "in": "query",
+      "default": false
     }
   }
 }
