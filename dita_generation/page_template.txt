@@ -10,7 +10,7 @@
             {{definition.description}}
         </section>
         <section>
-            <title>HTTP method and URI</title>
+            <title>HTTP Method and URI</title>
             <codeblock>{{method.upper()}} {{path}}</codeblock>
         </section>
         {% if query_parameters.required or query_parameters.optional %}
@@ -34,7 +34,7 @@
                             <entry><p><codeph>{{ parameter.name }}</codeph></p></entry>
                             <entry>{{ parameter.description }}
                             {% if parameter.minimum is defined and parameter.maximum is defined %}
-                            <p>Must be between {{ parameter.minimum }} and {{ parameter.maximum }}.</p>
+                            <p>Must be between <codeph>{{ parameter.minimum }}</codeph> and <codeph>{{ parameter.maximum }}</codeph>.</p>
                             {% endif %}
                             </entry>
                             <entry>
@@ -71,10 +71,11 @@
                     {% for parameter in query_parameters.optional %}
                         <row>
                             <entry><p><codeph>{{ parameter.name }}</codeph></p></entry>
-                            <entry>{{ parameter.description }} {% if parameter.default %}<p>Defaults to <codeph>{{parameter.default}}</codeph> if unspecified.</p>{% endif %}
+                            <entry>{{ parameter.description }} 
                             {% if parameter.minimum is defined and parameter.maximum is defined %}
-                            <p>Must be between {{ parameter.minimum }} and {{ parameter.maximum }}.</p>
+                            <p>Must be between <codeph>{{ parameter.minimum }}</codeph> and <codeph>{{ parameter.maximum }}</codeph>.</p>
                             {% endif %}
+                            {% if parameter.default %}<p>Defaults to <codeph>{{parameter.default}}</codeph> if unspecified.</p>{% endif %}
                             </entry>
                             <entry>
                             {% if parameter.enum %}
@@ -96,7 +97,7 @@
             {% endif %}
             {% if body_properties.required or body_properties.optional %}
             <section><title>Body Parameters</title>
-            <p>All of the following parameters are passed in the body as form data. They are specified as key-value pairs (e.g <codeph>key=value</codeph>).</p>
+            <p>All of the following parameters are passed in the request body as <codeph>application/x-www-form-urlencoded</codeph> data. The parameters are specified as key-value pairs (e.g <codeph>key=value</codeph>).</p>
             {% if body_properties.required %}
             <p><b>Required</b></p><table>
                 <tgroup cols="3">
@@ -116,7 +117,7 @@
                             <entry><p><codeph>{{ parameter.name }}</codeph></p></entry>
                             <entry>{{ parameter.description }}
                             {% if parameter.minimum is defined and parameter.maximum is defined %}
-                            <p>Must be between {{ parameter.minimum }} and {{ parameter.maximum }}.</p>
+                            <p>Must be between <codeph>{{ parameter.minimum }}</codeph> and <codeph>{{ parameter.maximum }}</codeph>.</p>
                             {% endif %}
                             </entry>
                             <entry>
@@ -153,10 +154,11 @@
                     {% for parameter in body_properties.optional %}
                         <row>
                             <entry><p><codeph>{{ parameter.name }}</codeph></p></entry>
-                            <entry>{{ parameter.description }} {% if parameter.default %}<p>Defaults to <codeph>{{parameter.default}}</codeph> if unspecified.</p>{% endif %}
+                            <entry>{{ parameter.description }} 
                             {% if parameter.minimum is defined and parameter.maximum is defined %}
-                            <p>Must be between {{ parameter.minimum }} and {{ parameter.maximum }}.</p>
+                            <p>Must be between <codeph>{{ parameter.minimum }}</codeph> and <codeph>{{ parameter.maximum }}</codeph>.</p>
                             {% endif %}
+                            {% if parameter.default %}<p>Defaults to <codeph>{{parameter.default}}</codeph> if unspecified.</p>{% endif %}
                             </entry>
                             <entry>
                             {% if parameter.enum %}
@@ -201,7 +203,7 @@
             </section>
             {% if example_curl %}
             <section>
-            <title>Example curl command</title>
+            <title>Example Curl Command</title>
             {{example_curl.description}}
             <p><codeph>{{example_curl.command}}</codeph></p>
             </section>

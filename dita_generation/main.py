@@ -3,6 +3,7 @@ import logging
 import mistune
 from openapi import load
 import os.path
+import pprint
 import sys
 from jinja2 import Environment, FileSystemLoader
 
@@ -44,7 +45,7 @@ def main():
                         definition[method]['x-dita-path'] in parsed_args.include_file):
                     try:
                         example = generate_example_response(definition[method]['responses']['200']
-                                                            ['schema']['items'][0])
+                                                            ['schema'])
                     except Exception as e:
                         LOGGER.exception('example generation failed')
                         example = None
@@ -109,14 +110,13 @@ def parse_arguments(cli_args):
 
 
 def generate_example_response(curr_object):
+
     if 'type' in curr_object and curr_object['type'] == "object":
         return_obj = {}
         for name, response_property in curr_object['properties'].items():
             return_obj[name] = generate_example_response(response_property)
     elif 'type' in curr_object and curr_object['type'] == "array":
-        return_obj = []
-        for item in curr_object['items']:
-            return_obj.append(generate_example_response(item))
+        return_obj = [generate_example_response(curr_object['items'])]
     else:
         try:
             return_obj = curr_object['example']

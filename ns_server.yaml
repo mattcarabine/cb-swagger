@@ -29,12 +29,12 @@ paths:
       tags:
         - diag
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /diag/ale:
     get:
@@ -43,12 +43,12 @@ paths:
       tags:
         - diag
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /diag/masterEvents:
     get:
@@ -57,12 +57,12 @@ paths:
       tags:
         - diag
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /diag/password:
     get:
@@ -71,12 +71,12 @@ paths:
       tags:
         - diag
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /diag/vbuckets:
     get:
@@ -85,66 +85,66 @@ paths:
       tags:
         - diag
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /indexStatus:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /internalSettings:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /logs:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /nodeStatuses:
     get:
       summary: Retrieve basic node replication information
       description: Retrieve basic node replication information.
       responses:
-          200:
-            description: Success
-            examples:
-              application/json:
-                192.0.2.0:8091:
-                  status: healthy
-                  gracefulFailoverPossible: false
-                  otpNode: ns_1@127.0.0.1
-                  dataless: false
-                  replication: 0
-          401:
-            description: Unauthorized         
+        200:
+          description: Success
+          examples:
+            application/json:
+              192.0.2.0:8091:
+                status: healthy
+                gracefulFailoverPossible: false
+                otpNode: ns_1@127.0.0.1
+                dataless: false
+                replication: 0
+        401:
+          description: Unauthorized         
               
   /nodes/{node_id}:
     get:
@@ -153,26 +153,26 @@ paths:
       parameters:
         - $ref: '#/parameters/NodeID'
       responses:
-          200:
-            description: Success
-          400:
-            description: Bad request. Occurs due to the node not being recognised by the cluster.
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        400:
+          description: Bad request. Occurs due to the node not being recognised by the cluster.
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /nodes/self/xdcrSSLPorts:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools:
     get:
@@ -185,14 +185,14 @@ paths:
        - cluster
       x-dita-path: get-pools
       responses:
-          200:
-            description: Success
-            schema:
-              $ref: '#/definitions/ClusterObject'
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/ClusterObject'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default:
     get:
@@ -207,14 +207,14 @@ paths:
         - $ref: "#/parameters/ETag"
         - $ref: "#/parameters/WaitChange"
       responses:
-          200:
-            description: Success
-            schema:
-              $ref: '#/definitions/ClusterObject'
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/ClusterObject'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/bucket/{bucket_name}/recoveryStatus:
     get:
@@ -227,21 +227,21 @@ paths:
         - $ref: '#/parameters/PathBucketName'
         - $ref: '#/parameters/RecoveryUuid'
       responses:
-          200:
-            description: Success
-          400:
-            description: Bad request. Occurs due to not passing a recovery uuid as part of the query.
-            schema:
-              type: object
-              properties:
-                code:
-                  description: Reason for the bad request
-                  type: string
-                  example: uuid_missing
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        400:
+          description: Bad request. Occurs due to not passing a recovery uuid as part of the query.
+          schema:
+            type: object
+            properties:
+              code:
+                description: Reason for the bad request
+                type: string
+                example: uuid_missing
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/buckets:
     get:
@@ -253,23 +253,24 @@ paths:
       tags:
         - bucket
       x-dita-path: get-pools-default-buckets
-      x-example-1: The following curl command retrieves the bucket information from the cluster which the node `localhost` is a part of.
+      x-example-1: The following curl command retrieves the bucket information from the cluster 
+        which the node `localhost` is a part of.
       parameters:
         - $ref: "#/parameters/ETag"
         - $ref: "#/parameters/WaitChange"
         - $ref: "#/parameters/SkipMap"
         - $ref: "#/parameters/BasicStats"
       responses:
-          200:
-            description: Success.
-            schema:
-              type: array
-              items:
-                - $ref: "#/definitions/Bucket"
-              minItems: 0
-              uniqueItems: true
-          401:
-            description: Unauthorized.
+        200:
+          description: Success.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Bucket"
+            minItems: 0
+            uniqueItems: true
+        401:
+          description: Unauthorized.
               
     post:
       summary: Create a new bucket
@@ -315,12 +316,12 @@ paths:
           in: path
           required: true
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/buckets/@index-{index-id}/stats:
     get:
@@ -335,12 +336,12 @@ paths:
           in: path
           required: true
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/buckets/@query/stats:
     get:
@@ -350,12 +351,12 @@ paths:
         - stats
       x-dita-path: get-pools-default-buckets-query-stats
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/buckets/@xdcr-{xdcr-id}/stats:
     get:
@@ -370,12 +371,12 @@ paths:
           in: path
           required: true
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/buckets/{bucket_name}:
     get:
@@ -387,12 +388,12 @@ paths:
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/buckets/{bucket_name}/ddocs:
     get:
@@ -404,12 +405,12 @@ paths:
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/buckets/{bucket_name}/docs:
     get:
@@ -421,12 +422,12 @@ paths:
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/buckets/{bucket_name}/nodes:
     get:
@@ -439,12 +440,12 @@ paths:
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/buckets/{bucket_name}/nodes/{node_id}:
     get:
@@ -458,12 +459,12 @@ paths:
         - $ref: '#/parameters/PathBucketName'
         - $ref: '#/parameters/NodeID'
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/buckets/{bucket_name}/nodes/{node_id}/stats:
     get:
@@ -478,12 +479,12 @@ paths:
         - $ref: '#/parameters/PathBucketName'
         - $ref: '#/parameters/NodeID'
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/buckets/{bucket_name}/stats:
     get:
@@ -496,12 +497,12 @@ paths:
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/buckets/{bucket_name}/stats/{stat_name}:
     get:
@@ -517,12 +518,12 @@ paths:
           required: true
           type: string
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/bucketsStreaming/{bucket_name}:
     get:
@@ -533,24 +534,24 @@ paths:
       parameters:
         - $ref: '#/parameters/PathBucketName'
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/certificate:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/certificate/node/{node_id}:
     get:
@@ -561,12 +562,12 @@ paths:
       parameters:
         - $ref: '#/parameters/NodeID'
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/overviewStats:
     get:
@@ -575,36 +576,36 @@ paths:
       tags:
         - stats
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/rebalanceProgress:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/remoteClusters:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/saslBucketsStreaming:
     get:
@@ -613,12 +614,12 @@ paths:
       tags:
         - bucket
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/serverGroups:
     get:
@@ -627,12 +628,12 @@ paths:
       tags:
         - cluster
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/settings/memcached/effective/{node_id}:
     get:
@@ -641,24 +642,24 @@ paths:
       parameters:
         - $ref: '#/parameters/NodeID'
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/settings/memcached/global:
     get:
       summary: Retrieve global memcached settings
       description: Retrieve global memcached settings.
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/settings/memcached/node/{node_id}:
     get:
@@ -667,12 +668,12 @@ paths:
       parameters:
         - $ref: '#/parameters/NodeID'
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/settings/memcached/node/{node_id}/setting/{setting_name}:
     get:
@@ -685,72 +686,72 @@ paths:
           type: string
           required: true
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/default/tasks:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /pools/nodes:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /poolsStreaming/default:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /sampleBuckets:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /sasl_logs:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /sasl_logs/{log_name}:
     get:
@@ -762,132 +763,141 @@ paths:
           in: path
           required: true
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /settings/alerts:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /settings/audit:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /settings/autoCompaction:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /settings/autoFailover:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /settings/indexes:
     get:
-      summary: Test
-      description: Test
+      summary: Retrieve the global secondary index settings
+      description: This endpoint returns the current index settings for the cluster.
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Set the global secondary index settings
+      description: This endpoint is used to update the global secondary index settings for the 
+        cluster. The request is handled and validated by the cluster manager and then delegated to
+        all relevant index nodes automatically. This means that all changes to the index settings 
+        via this method apply to all index nodes in the cluster.
+      responses:
+        200:
+          description: Success
               
   /settings/maxParallelIndexers:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /settings/rbac/roles:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /settings/rbac/users:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /settings/readOnlyAdminName:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /settings/replications:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /settings/replications/{replication_id}:
     get:
@@ -899,60 +909,60 @@ paths:
           type: string
           required: true
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /settings/saslauthdAuth:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /settings/stats:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /settings/viewUpdateDaemon:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
   /settings/web:
     get:
       summary: Test
       description: Test
       responses:
-          200:
-            description: Success
-          default:
-            description: Unexpected error
-            schema:
-              $ref: '#/definitions/Error'
+        200:
+          description: Success
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
               
 definitions:
   Error:
@@ -1029,7 +1039,7 @@ definitions:
         type: array
         description: Array of nodes associated with this bucket.
         items:
-          - $ref: "#/definitions/BucketNode"
+          $ref: "#/definitions/BucketNode"
       stats:
         type: object
         description: The URIs for various bucket statistics.
@@ -1243,9 +1253,9 @@ definitions:
         type: array
         description: The services running on this node.
         items:
-          - type: string
-            enum: ["fts", "index", "kv", "n1ql"]
-            example: "kv"
+          type: string
+          enum: ["fts", "index", "kv", "n1ql"]
+          example: "kv"
         uniqueItems: true
   
   Node:
