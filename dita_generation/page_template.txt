@@ -208,10 +208,13 @@
             <p><codeph>{{example_curl.command}}</codeph></p>
             </section>
             {% endif %}
-            {% if example %}
+            {% if example_responses %}
             <section>
             <title>Example Response</title>
-            <codeblock outputclass="language-javascript">{{example|pprint}}</codeblock>
+            {% for example_response in example_responses %}
+            <p><b>{{example_response.code}}</b></p>
+            <codeblock outputclass="language-javascript">{{example_response.example|pprint}}</codeblock>
+            {% endfor %}
             </section>
             {% endif %}
             {# Uncomment this when we're ready to deploy the API explorer

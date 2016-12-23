@@ -43,12 +43,14 @@ def main():
             if method in definition and 'x-dita-path' in definition[method]:
                 if (not parsed_args.include_file or
                         definition[method]['x-dita-path'] in parsed_args.include_file):
-                    try:
-                        example = generate_example_response(definition[method]['responses']['200']
-                                                            ['schema'])
-                    except Exception as e:
-                        LOGGER.exception('example generation failed')
-                        example = None
+
+                    example_responses = []
+                    for response_code, response_object in sorted(
+                            definition[method]['responses'].items()):
+                        if 'schema' in response_object:
+                            example_responses.append(
+                                {'code': response_code,
+                                 'example': generate_example_response(response_object['schema'])})
 
                     dita_file_name = '{}.dita'.format(definition[method]['x-dita-path'])
                     full_path = os.path.join(parsed_args.output_dir, dita_file_name)
@@ -93,8 +95,8 @@ def main():
                         f.write(file_template.render(
                             topic_id=topic_id, definition=definition[method],
                             query_parameters=query_parameters, body_properties=body_properties,
-                            method=method, path=path, example=example, example_curl=example_curl,
-                            api_explorer_link=api_explorer_link))
+                            method=method, path=path, example_responses=example_responses, 
+                            example_curl=example_curl, api_explorer_link=api_explorer_link))
                         LOGGER.info('Created {}'.format(os.path.abspath(full_path)))
                         dita_file_list.append(dita_file_name)
 
