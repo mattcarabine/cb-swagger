@@ -822,9 +822,14 @@ paths:
     get:
       summary: Retrieve the global secondary index settings
       description: This endpoint returns the current index settings for the cluster.
+      tags:
+        - index
+      x-dita-path: get-settings-indexes
       responses:
         200:
           description: Success
+          schema:
+            $ref: '#/definitions/IndexSettings'
         default:
           description: Unexpected error
           schema:
@@ -838,8 +843,7 @@ paths:
       responses:
         200:
           description: Success
-          schema:
-            $ref: '#/definitions/IndexSettings'
+          
               
   /settings/maxParallelIndexers:
     get:

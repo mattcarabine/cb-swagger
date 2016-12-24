@@ -450,25 +450,23 @@
                 },
                 "pools": {
                   "type": "array",
-                  "items": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string",
-                          "example": "default"
-                        },
-                        "streamingUri": {
-                          "type": "string",
-                          "example": "/poolsStreaming/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                        },
-                        "uri": {
-                          "type": "string",
-                          "example": "/pools/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                        }
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "default"
+                      },
+                      "streamingUri": {
+                        "type": "string",
+                        "example": "/poolsStreaming/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
+                      },
+                      "uri": {
+                        "type": "string",
+                        "example": "/pools/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
                       }
                     }
-                  ]
+                  }
                 }
               }
             }
@@ -593,25 +591,23 @@
                 },
                 "pools": {
                   "type": "array",
-                  "items": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string",
-                          "example": "default"
-                        },
-                        "streamingUri": {
-                          "type": "string",
-                          "example": "/poolsStreaming/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                        },
-                        "uri": {
-                          "type": "string",
-                          "example": "/pools/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                        }
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "default"
+                      },
+                      "streamingUri": {
+                        "type": "string",
+                        "example": "/poolsStreaming/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
+                      },
+                      "uri": {
+                        "type": "string",
+                        "example": "/pools/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
                       }
                     }
-                  ]
+                  }
                 }
               }
             }
@@ -2611,9 +2607,57 @@
       "get": {
         "summary": "Retrieve the global secondary index settings",
         "description": "This endpoint returns the current index settings for the cluster.",
+        "tags": [
+          "index"
+        ],
+        "x-dita-path": "get-settings-indexes",
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "storageMode": {
+                  "type": "string",
+                  "example": "forestdb",
+                  "enum": [
+                    "forestdb",
+                    "memory_optimized"
+                  ]
+                },
+                "indexerThreads": {
+                  "type": "integer",
+                  "example": 0
+                },
+                "memorySnapshotInterval": {
+                  "type": "integer",
+                  "example": 200
+                },
+                "stableSnapshotInterval": {
+                  "type": "integer",
+                  "example": 5000
+                },
+                "maxRollbackPoints": {
+                  "type": "integer",
+                  "example": 5
+                },
+                "logLevel": {
+                  "type": "string",
+                  "enum": [
+                    "silent",
+                    "fatal",
+                    "error",
+                    "warn",
+                    "info",
+                    "verbose",
+                    "timing",
+                    "debug",
+                    "trace"
+                  ],
+                  "example": "info"
+                }
+              }
+            }
           },
           "default": {
             "description": "Unexpected error",
@@ -3921,25 +3965,67 @@
         },
         "pools": {
           "type": "array",
-          "items": [
-            {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "default"
-                },
-                "streamingUri": {
-                  "type": "string",
-                  "example": "/poolsStreaming/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                },
-                "uri": {
-                  "type": "string",
-                  "example": "/pools/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
-                }
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "default"
+              },
+              "streamingUri": {
+                "type": "string",
+                "example": "/poolsStreaming/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
+              },
+              "uri": {
+                "type": "string",
+                "example": "/pools/default?uuid=05b96cfd8faa5965e2f0931c93d20cc6"
               }
             }
+          }
+        }
+      }
+    },
+    "IndexSettings": {
+      "type": "object",
+      "properties": {
+        "storageMode": {
+          "type": "string",
+          "example": "forestdb",
+          "enum": [
+            "forestdb",
+            "memory_optimized"
           ]
+        },
+        "indexerThreads": {
+          "type": "integer",
+          "example": 0
+        },
+        "memorySnapshotInterval": {
+          "type": "integer",
+          "example": 200
+        },
+        "stableSnapshotInterval": {
+          "type": "integer",
+          "example": 5000
+        },
+        "maxRollbackPoints": {
+          "type": "integer",
+          "example": 5
+        },
+        "logLevel": {
+          "type": "string",
+          "enum": [
+            "silent",
+            "fatal",
+            "error",
+            "warn",
+            "info",
+            "verbose",
+            "timing",
+            "debug",
+            "trace"
+          ],
+          "example": "info"
         }
       }
     }

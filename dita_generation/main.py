@@ -64,26 +64,27 @@ def main():
                         method.upper(), swagger.host, path)
                     api_explorer_link = 'http://marabine.co.uk/#!/{}/{}{}'.format(
                         definition[method]['tags'][0], method, path.replace('/', '_'))
+                    
+                    if 'parameters' in definition[method]:
+                        for parameter in sorted(definition[method]['parameters'],
+                                                key=lambda x: x['name']):
+                            if parameter['in'] == 'formData':
+                                body_properties['required' if 'required' in parameter and
+                                                parameter['required'] else 'optional'].append(parameter)
+                            elif parameter['in'] == 'query':
+                                query_parameters['required' if 'required' in parameter and
+                                                parameter['required'] else 'optional'].append(
+                                                    parameter)
+                            else:
+                                raise ValueError('Unexpected location for `{}`. Expected "formData" '
+                                                'or "query"'.format(parameter['name']))
 
-                    for parameter in sorted(definition[method]['parameters'],
-                                            key=lambda x: x['name']):
-                        if parameter['in'] == 'formData':
-                            body_properties['required' if 'required' in parameter and
-                                            parameter['required'] else 'optional'].append(parameter)
-                        elif parameter['in'] == 'query':
-                            query_parameters['required' if 'required' in parameter and
-                                             parameter['required'] else 'optional'].append(
-                                                 parameter)
-                        else:
-                            raise ValueError('Unexpected location for `{}`. Expected "formData" '
-                                             'or "query"'.format(parameter['name']))
+                            if 'x-example-1' in parameter:
+                                example_curl += " -d '{}={}'".format(parameter['name'],
+                                                                parameter['x-example-1'])
 
-                        if 'x-example-1' in parameter:
-                            example_curl += " -d '{}={}'".format(parameter['name'],
-                                                               parameter['x-example-1'])
-
-                        if 'description' in parameter:
-                            parameter['description'] = MD_PARSER(parameter['description'])
+                            if 'description' in parameter:
+                                parameter['description'] = MD_PARSER(parameter['description'])
 
                     if 'x-example-1' in definition[method]:
                         example_curl = {'command': example_curl, 'description': MD_PARSER(
