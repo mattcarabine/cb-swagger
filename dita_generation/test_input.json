@@ -2658,24 +2658,6 @@
                 }
               }
             }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "code": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "message": {
-                  "type": "string"
-                },
-                "fields": {
-                  "type": "string"
-                }
-              }
-            }
           }
         }
       },
