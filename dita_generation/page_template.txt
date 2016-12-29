@@ -11,7 +11,7 @@
         </section>
         <section>
             <title>HTTP Method and URI</title>
-            <codeblock>{{method.upper()}} {{path}}</codeblock>
+            <codeblock outputclass="language-http">{{method.upper()}} http://&lt;host&gt;:{{port}}{{path}}</codeblock>
         </section>
         {% if query_parameters.required or query_parameters.optional %}
         <section><title>Query Parameters</title>
@@ -213,7 +213,7 @@
             <title>Example Response</title>
             {% for example_response in example_responses %}
             <p><b>{{example_response.code}}</b></p>
-            <codeblock outputclass="language-javascript">{{example_response.example|pprint}}</codeblock>
+            <codeblock outputclass="language-json">{{example_response.example}}</codeblock>
             {% endfor %}
             </section>
             {% endif %}

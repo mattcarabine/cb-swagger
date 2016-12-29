@@ -1,4 +1,5 @@
 import argparse
+import json
 import logging
 import mistune
 from openapi import load
@@ -11,18 +12,119 @@ from jinja2 import Environment, FileSystemLoader
 logging.basicConfig(level=logging.DEBUG)
 LOGGER = logging.getLogger('OpenAPI2Dita')
 
-
 class DitaRenderer(mistune.Renderer):
+    first_heading = True
+
     def codespan(self, text):
-        return '<codeph>{}</codeph>'.format(text)
+        return '<codeph>{}</codeph>'.format(text.rstrip())
 
     def link(self, link, title, content):
-        return '<xref href="{}">{}</xref>'.format(link, title or content)
+        return '<xref href="{}">{}</xref>'.format(link, content or title)
 
     def block_code(self, code, language=None):
-        return '<codeblock>{}</codeblock>'.format(code)
+        code = code.rstrip('\n')
+        if language:
+            return '<codeblock outputclass="language-{}">{}</codeblock>'.format(language, code)
+        else:
+            return '<codeblock>{}</codeblock>'.format(code)
 
-MD_PARSER = mistune.Markdown(renderer=DitaRenderer())
+    def block_quote(self, text):
+        return '<codeblock>{}</codeblock>'.format(text)
+    
+    def header(self, text, level, raw=None):
+        # Dita only supports one title per section
+        if level < 3:
+            return '</section><section><title>{}</title>'.format(text)
+        else:
+            return '<p><b>{}</b></p>'.format(text)
+
+    def double_emphasis(self, text):
+        return '<b>{}</b>'.format(text)
+    
+    def emphasis(self, text):
+        return '<i>{}</i>'.format(text)
+
+    def hrule(self):
+        # Dita has no horizontal rule
+        return ''
+    
+    def inline_html(self, text):
+        # Dita does not support inline html
+        return ''
+
+    def list_item(self, text):
+        return '<li>{}</li>'.format(text)
+    
+    def list(self, body, ordered=True):
+        if ordered:
+            return '<ol>{}</ol>'.format(body)
+        else:
+            return '<ul>{}</ul>'.format(body)
+    
+    def table(self, header, body, cols):
+        """Rendering table element. Wrap header and body in it.
+        :param header: header part of the table.
+        :param body: body part of the table.
+        """
+        col_string = ['<colspec colname="col{}" colwidth="1*"/>'.format(x+1) for x in range(cols)]
+        output_str = ('<table>\n<tgroup cols="{}">\n{}\n'
+                      '<thead>\n'.format(cols, '\n'.join(col_string)))
+        return output_str + header + '</thead><tbody>{}</tbody>'.format(body) + '</tgroup>\n</table>'
+        
+    def table_row(self, content):
+        """Rendering a table row. Like ``<tr>``.
+        :param content: content of current table row.
+        """
+        return '<row>\n%s</row>\n' % content
+
+    def table_cell(self, content, **flags):
+        """Rendering a table cell. Like ``<th>`` ``<td>``.
+        :param content: content of current table cell.
+        :param header: whether this is header or not.
+        :param align: align of current table cell.
+        """
+        return '<entry>%s</entry>\n' % content
+        if flags['header']:
+            tag = 'th'
+        else:
+            tag = 'td'
+        align = flags['align']
+        if not align:
+            return '<%s>%s</%s>\n' % (tag, content, tag)
+        return '<%s style="text-align:%s">%s</%s>\n' % (
+            tag, align, content, tag
+        )
+
+class CustomMarkdownParser(mistune.Markdown):
+
+    def output_table(self):
+        aligns = self.token['align']
+        aligns_length = len(aligns)
+        cell = self.renderer.placeholder()
+
+        # header part
+        header = self.renderer.placeholder()
+        cols = len(self.token['header'])
+        for i, value in enumerate(self.token['header']):
+            align = aligns[i] if i < aligns_length else None
+            flags = {'header': True, 'align': align}
+            cell += self.renderer.table_cell(self.inline(value), **flags)
+
+        header += self.renderer.table_row(cell)
+
+        # body part
+        body = self.renderer.placeholder()
+        for i, row in enumerate(self.token['cells']):
+            cell = self.renderer.placeholder()
+            for j, value in enumerate(row):
+                align = aligns[j] if j < aligns_length else None
+                flags = {'header': False, 'align': align}
+                cell += self.renderer.table_cell(self.inline(value), **flags)
+            body += self.renderer.table_row(cell)
+
+        return self.renderer.table(header, body, cols)
+
+MD_PARSER = CustomMarkdownParser(renderer=DitaRenderer())
 
 
 def main():
@@ -34,6 +136,8 @@ def main():
     dita_file_list = []
     with open(parsed_args.spec_file, 'r') as f:
         swagger = load(f)
+
+    port = swagger.host.split(':', 1)[1]
 
     for path, definition in swagger.paths.items():
         topic_id = path.replace('/', '-')[1:]
@@ -48,9 +152,12 @@ def main():
                     for response_code, response_object in sorted(
                             definition[method]['responses'].items()):
                         if 'schema' in response_object:
+                            example_response = generate_example_response(response_object['schema'])
+                            example_response = json.dumps(example_response, sort_keys=True, 
+                                                          indent=4)
                             example_responses.append(
                                 {'code': response_code,
-                                 'example': generate_example_response(response_object['schema'])})
+                                 'example': example_response})
 
                     dita_file_name = '{}.dita'.format(definition[method]['x-dita-path'])
                     full_path = os.path.join(parsed_args.output_dir, dita_file_name)
@@ -94,7 +201,7 @@ def main():
 
                     with open(full_path, 'w') as f:
                         f.write(file_template.render(
-                            topic_id=topic_id, definition=definition[method],
+                            topic_id=topic_id, definition=definition[method], port=port,
                             query_parameters=query_parameters, body_properties=body_properties,
                             method=method, path=path, example_responses=example_responses, 
                             example_curl=example_curl, api_explorer_link=api_explorer_link))
