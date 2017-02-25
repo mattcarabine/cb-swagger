@@ -18,9 +18,9 @@
             {% if query_parameters.required %}
             <p><b>Required</b></p><table>
                 <tgroup cols="3">
-                    <colspec colname="col1" colwidth="1.5*"/>
-                    <colspec colname="col2" colwidth="3.5*"/>
-                    <colspec colname="col3" colwidth="1.5*"/>
+                    <colspec colname="col1" colwidth="1*"/>
+                    <colspec colname="col2" colwidth="4*"/>
+                    <colspec colname="col3" colwidth="1*"/>
                     <thead>
                         <row>
                             <entry>Name</entry>
@@ -101,9 +101,9 @@
             {% if body_properties.required %}
             <p><b>Required</b></p><table>
                 <tgroup cols="3">
-                    <colspec colname="col1" colwidth="1.5*"/>
-                    <colspec colname="col2" colwidth="3.5*"/>
-                    <colspec colname="col3" colwidth="1.5*"/>
+                    <colspec colname="col1" colwidth="1*"/>
+                    <colspec colname="col2" colwidth="4*"/>
+                    <colspec colname="col3" colwidth="1*"/>
                     <thead>
                         <row>
                             <entry>Name</entry>
@@ -205,16 +205,26 @@
             <section>
             <title>Example Curl Command</title>
             {{example_curl.description}}
-            <p><codeph>{{example_curl.command}}</codeph></p>
+            <p><codeblock outputclass="language-bash" id="example-curl">{{example_curl.command}}</codeblock></p>
             </section>
             {% endif %}
             {% if example_responses %}
             <section>
             <title>Example Response</title>
+            <dl>
             {% for example_response in example_responses %}
-            <p><b>{{example_response.code}}</b></p>
+            <dlentry>
+            <dt><b>{{example_response.code}}</b></dt>
+            <dd>
+            {% if example_response.example %}
             <codeblock outputclass="language-json">{{example_response.example}}</codeblock>
+            {% else %}
+            This response code returns an empty body.
+            {% endif %}
+            </dd>
+            </dlentry>
             {% endfor %}
+            </dl>
             </section>
             {% endif %}
             {# Uncomment this when we're ready to deploy the API explorer

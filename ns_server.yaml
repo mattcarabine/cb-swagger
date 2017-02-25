@@ -299,7 +299,84 @@ paths:
         202:
           description: Success.
         400:
-          description: There was an error with the passed parameters.
+          description: There were errors with the passed parameters.
+          schema:
+            type: object
+            properties:
+              errors:
+                type: object
+                properties:
+                  ramQuotaMB:
+                    type: string
+                    example: RAM quota specified is too large to be provisioned into this cluster.
+                  name:
+                    type: string
+                    example: Bucket with given name already exists
+                  replicaIndex:
+                    type: string
+                    example: replicaIndex can only be 1 or 0
+                  flushEnable:
+                    type: string
+                    example: flushEnabled can only be 1 or 0
+                  replicaNumber:
+                    type: string
+                    example: Replica number larger than 3 is not supported.
+                  threadsNumber:
+                    type: string
+                    example: The number of threads can't be less than 2
+                  evictionPolicy:
+                    type: string
+                    example: Eviction policy must be either 'valueOnly' or 'fullEviction'
+              summaries:
+                type: object
+                properties:
+                  ramSummaries:
+                    type: object
+                    properties:
+                      ramSummaries:
+                        type: object
+                        properties:
+                          total:
+                            type: integer
+                            example: 268435456
+                          otherBuckets:
+                            type: integer
+                            example: 209715200
+                          nodesCount:
+                            type: integer
+                            example: 1
+                          perNodeMegs:
+                            type: integer
+                            example: 100
+                          thisAlloc:
+                            type: integer
+                            example: 104857600
+                          thisUsed:
+                            type: integer
+                            example: 0
+                          free:
+                            type: integer
+                            example: -46137344
+                      hddSummary:
+                        type: object
+                        properties:
+                          total:
+                            type: integer
+                            exampple: 63381999616
+                          otherData:
+                            type: integer
+                            example: 9326771883
+                          otherBuckets:
+                            type: integer
+                            example: 180528059
+                          thisUsed:
+                            type: integer
+                            example: 0
+                          free:
+                            type: integer
+                            example: 53874699674
+
+
         401:
           description: Unauthorized.
 
@@ -825,21 +902,43 @@ paths:
       tags:
         - index
       x-dita-path: get-settings-indexes
+      x-example-1: The following example retrieves the global secondary index settings of the 
+        cluster that the node `localhost` is a part of.
       responses:
         200:
-          description: Success
+          description: Success.
           schema:
             $ref: '#/definitions/IndexSettings'
-            
+        401:
+          description: Unauthorized.
+
     post:
       summary: Set the global secondary index settings
       description: This endpoint is used to update the global secondary index settings for the 
         cluster. The request is handled and validated by the cluster manager and then delegated to
-        all relevant index nodes automatically. This means that all changes to the index settings 
-        via this method apply to all index nodes in the cluster.
+        all relevant index nodes automatically. All changes to the index settings 
+        via this method apply to all index nodes in the cluster. Parameters which are not specified
+        are left unchanged, it is not necessary to specify all parameters in the body.
+      x-dita-path: post-settings-indexes
+      x-example-1: The following example sets the global secondary index settings.
+      tags:
+        - index
+      parameters:
+        - $ref: "#/parameters/StorageMode"
+        - $ref: "#/parameters/IndexerThreads"
+        - $ref: "#/parameters/MemorySnapshotInterval"
+        - $ref: "#/parameters/StableSnapshotInterval"
+        - $ref: "#/parameters/MaxRollbackPoints"
+        - $ref: "#/parameters/LogLevel"
       responses:
         200:
-          description: Success
+          description: Success. Settings are updated and the new settings are returned in the 
+            response.
+          schema:
+            $ref: '#/definitions/IndexSettings'
+        401:
+          description: Unauthorized.
+
           
               
   /settings/maxParallelIndexers:
@@ -1631,3 +1730,54 @@ parameters:
     type: boolean
     in: query
     default: false
+
+  StorageMode:
+    name: storageMode
+    description: The storage mode to be used for all global secondary indexes in the cluster. A value of
+      `forestdb` sets the cluster-wide index storage mode to use ForestDB which can utilize both 
+      memory and persistent storage for index maintenance and index scans. A value of 
+      `memory_optimized` sets the cluster-wide index storage mode to use memory optimized global 
+      secondary indexes which can perform index maintenance and index scan faster at in-memory speeds.
+      This setting can only be changed while there are no index nodes in the cluster. 
+      To change from standard GSI to memory optimized GSI or vice versa, you need to remove all the index service nodes in the cluster. 
+    type: string
+    in: formData
+    x-example-1: forestdb
+    enum: ['forestdb', 'memory_optimized']
+
+  IndexerThreads:
+    name: indexerThreads
+    description: Number of threads for the `indexer` process to use, this applies equally to all index nodes in the cluster regardless
+      of the number of cores on each node. A value of `0` causes the `indexer` process to use one thread per CPU core on each individual node.
+    type: integer
+    in: formData
+    x-example-1: 0
+
+  MemorySnapshotInterval:
+    name: memorySnapshotInterval
+    description: InMemory snapshotting interval in milliseconds.
+    type: integer
+    in: formData
+    x-example-1: 200
+
+  StableSnapshotInterval:
+    name: stableSnapshotInterval
+    description: Persisted snapshotting interval in milliseconds.
+    type: integer
+    in: formData
+    x-example-1: 5000
+
+  MaxRollbackPoints:
+    name: maxRollbackPoints
+    description: Maximum number of committed rollback points.
+    type: integer
+    in: formData
+    x-example-1: 5
+    
+  LogLevel:
+    name: logLevel
+    description: Indexer logging level.
+    type: string
+    in: formData
+    enum: ["silent", "fatal", "error", "warn", "info", "verbose", "timing", "debug", "trace"]
+    x-example-1: info
