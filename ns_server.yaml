@@ -8,45 +8,57 @@ info:
 paths:
   /indexStatus:
     get:
-      description: Placeholder
+      summary: Retrieve global secondary index status
       responses:
         200:
-          description: Placeholder
+          description: Success
           schema:
             type: object
             properties:
               indexes:
                 type: array
+                description: Array of global secondary indexes
                 items:
                   type: object
+                  description: Object containing details about a global secondary index
                   properties:
                     bucket:
                       type: string
+                      description: The bucket on which the the global secondary index has been created
                       example: travel-sample
                     definition:
                       type: string
+                      description: Definition used to create the global secondary index
                       example: CREATE INDEX `def_airportname` ON `travel-sample`(`airportname`)
                         WITH {  "defer_build"=true }
                     hosts:
                       type: array
+                      description: Array of nodes which the index exists on
                       items:
                         type: string
                         example: 127.0.0.1:8091
                     id:
                       type: integer
+                      description: Unique identifier assigned to the global secondary index
                       example: 10734063766668503992
                     index:
                       type: string
+                      description: Name of the global secondary index
                       example: def_airportname
                     progress:
                       type: integer
+                      description: '% of the index that is successfully built'
                       example: 100
                     status:
                       type: string
+                      description: Status of the index
                       example: Ready
+                      enum: ['Ready', 'Not Available', 'Build', 'Created']
                     storageMode:
                       type: string
+                      description: The storage mode used by this index
                       example: forestdb
+                      enum: ['not_set', 'memory_optimized', 'forestdb', 'invalid']
               version:
                 type: integer
                 example: 130238042
@@ -55,10 +67,8 @@ paths:
                 items:
                   example: ''
                   type: string
-      summary: Placeholder
   /internalSettings:
     get:
-      description: Placeholder
       responses:
         200:
           description: Placeholder
@@ -101,13 +111,12 @@ paths:
               rebalanceMovesPerNode:
                 type: integer
                 example: 1
-      summary: Placeholder
+      summary: Retrieve the internal settings
   /nodes/self/xdcrSSLPorts:
     get:
-      description: Placeholder
       responses:
         200:
-          description: Placeholder
+          description: Success
           schema:
             type: object
             properties:
@@ -120,10 +129,9 @@ paths:
               sslProxy:
                 type: integer
                 example: 11214
-      summary: Placeholder
+      summary: Retrieve the xdcr SSL ports
   /nodes/{node_id}:
     get:
-      description: Placeholder
       parameters:
       - description: Placeholder
         in: path
@@ -131,18 +139,256 @@ paths:
         required: true
         type: string
       responses:
-        404:
+        200:
           description: Placeholder
+          schema:
+            type: object
+            properties:
+              availableStorage:
+                type: object
+                properties:
+                  hdd:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        path:
+                          type: string
+                          example: /
+                        sizeKBytes:
+                          type: integer
+                          example: 61896484
+                        usagePercent:
+                          type: integer
+                          example: 19
+              clusterCompatibility:
+                type: integer
+                example: 262150
+              clusterMembership:
+                type: string
+                example: active
+              couchApiBase:
+                type: string
+                example: http://172.17.0.2:8092/
+              couchApiBaseHTTPS:
+                type: string
+                example: https://172.17.0.2:18092/
+              ftsMemoryQuota:
+                type: integer
+                example: 256
+              hostname:
+                type: string
+                example: 172.17.0.2:8091
+              indexMemoryQuota:
+                type: integer
+                example: 256
+              interestingStats:
+                type: object
+                properties:
+                  cmd_get:
+                    type: integer
+                    example: 0
+                  couch_docs_actual_disk_size:
+                    type: integer
+                    example: 70537307
+                  couch_docs_data_size:
+                    type: integer
+                    example: 63765504
+                  couch_spatial_data_size:
+                    type: integer
+                    example: 21505934
+                  couch_spatial_disk_size:
+                    type: integer
+                    example: 21536249
+                  couch_views_actual_disk_size:
+                    type: integer
+                    example: 21536249
+                  couch_views_data_size:
+                    type: integer
+                    example: 0
+                  curr_items:
+                    type: integer
+                    example: 31591
+                  curr_items_tot:
+                    type: integer
+                    example: 31591
+                  ep_bg_fetched:
+                    type: integer
+                    example: 0
+                  get_hits:
+                    type: integer
+                    example: 0
+                  mem_used:
+                    type: integer
+                    example: 79886384
+                  ops:
+                    type: integer
+                    example: 0
+                  vb_replica_curr_items:
+                    type: integer
+                    example: 0
+              mcdMemoryAllocated:
+                type: integer
+                example: 1599
+              mcdMemoryReserved:
+                type: integer
+                example: 1599
+              memoryFree:
+                type: integer
+                example: 1067446272
+              memoryQuota:
+                type: integer
+                example: 256
+              memoryTotal:
+                type: integer
+                example: 2095898624
+              os:
+                type: string
+                example: x86_64-unknown-linux-gnu
+              otpCookie:
+                type: string
+                example: 9d06c3f714b6efa6a4e1f07b8a125132daecd4c9e38c076df66cb659ac273bec
+              otpNode:
+                type: string
+                example: ns_1@127.0.0.1
+              ports:
+                type: object
+                properties:
+                  direct:
+                    type: integer
+                    example: 11210
+                  httpsCAPI:
+                    type: integer
+                    example: 18092
+                  httpsMgmt:
+                    type: integer
+                    example: 18091
+                  proxy:
+                    type: integer
+                    example: 11211
+                  sslProxy:
+                    type: integer
+                    example: 11214
+              recoveryType:
+                type: string
+                example: none
+              services:
+                type: array
+                items:
+                  type: string
+                  example: fts
+              status:
+                type: string
+                example: healthy
+              storage:
+                type: object
+                properties:
+                  hdd:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index_path:
+                          type: string
+                          example: /opt/couchbase/var/lib/couchbase/data
+                        path:
+                          type: string
+                          example: /opt/couchbase/var/lib/couchbase/data
+                        quotaMb:
+                          type: string
+                          example: none
+                        state:
+                          type: string
+                          example: ok
+                  ssd:
+                    type: array
+                    items:
+                      example: ''
+                      type: string
+              storageTotals:
+                type: object
+                properties:
+                  hdd:
+                    type: object
+                    properties:
+                      free:
+                        type: integer
+                        example: 51339419689
+                      quotaTotal:
+                        type: integer
+                        example: 63381999616
+                      total:
+                        type: integer
+                        example: 63381999616
+                      used:
+                        type: integer
+                        example: 12042579927
+                      usedByData:
+                        type: integer
+                        example: 113609805
+                  ram:
+                    type: object
+                    properties:
+                      quotaTotal:
+                        type: integer
+                        example: 268435456
+                      quotaTotalPerNode:
+                        type: integer
+                        example: 268435456
+                      quotaUsed:
+                        type: integer
+                        example: 104857600
+                      quotaUsedPerNode:
+                        type: integer
+                        example: 104857600
+                      total:
+                        type: integer
+                        example: 2095898624
+                      used:
+                        type: integer
+                        example: 1267785728
+                      usedByData:
+                        type: integer
+                        example: 79886384
+              systemStats:
+                type: object
+                properties:
+                  cpu_utilization_rate:
+                    type: number
+                    format: float
+                    example: 21.68367346938776
+                  mem_free:
+                    type: integer
+                    example: 1067446272
+                  mem_total:
+                    type: integer
+                    example: 2095898624
+                  swap_total:
+                    type: integer
+                    example: 4189057024
+                  swap_used:
+                    type: integer
+                    example: 743559168
+              thisNode:
+                type: boolean
+                example: true
+              uptime:
+                type: string
+                example: '57854'
+              version:
+                type: string
+                example: 4.6.0-3573-enterprise
+        404:
+          description: Node not found in the cluster.
           schema:
             type: string
             example: Node is unknown to this cluster.
-      summary: Placeholder
+      summary: Retrieve information about a node
   /pools:
     get:
-      description: Placeholder
       responses:
         200:
-          description: Placeholder
+          description: Success
           schema:
             type: object
             properties:
@@ -226,7 +472,6 @@ paths:
       summary: Placeholder
   /pools/default:
     get:
-      description: Placeholder
       responses:
         200:
           description: Placeholder
@@ -446,7 +691,7 @@ paths:
                           example: 0
                         couch_docs_actual_disk_size:
                           type: integer
-                          example: 70553685
+                          example: 70553683
                         couch_docs_data_size:
                           type: integer
                           example: 63765504
@@ -491,7 +736,7 @@ paths:
                       example: 1599
                     memoryFree:
                       type: integer
-                      example: 1309810688
+                      example: 1248010240
                     memoryTotal:
                       type: integer
                       example: 2095898624
@@ -539,10 +784,10 @@ paths:
                         cpu_utilization_rate:
                           type: number
                           format: float
-                          example: 2.820512820512821
+                          example: 4.050632911392405
                         mem_free:
                           type: integer
-                          example: 1309810688
+                          example: 1248010240
                         mem_total:
                           type: integer
                           example: 2095898624
@@ -551,13 +796,13 @@ paths:
                           example: 4189057024
                         swap_used:
                           type: integer
-                          example: 772370432
+                          example: 772997120
                     thisNode:
                       type: boolean
                       example: true
                     uptime:
                       type: string
-                      example: '36799'
+                      example: '36004'
                     version:
                       type: string
                       example: 4.6.0-3573-enterprise
@@ -602,7 +847,7 @@ paths:
                         example: 12042579927
                       usedByData:
                         type: integer
-                        example: 113626183
+                        example: 113626181
                   ram:
                     type: object
                     properties:
@@ -623,7 +868,7 @@ paths:
                         example: 2095898624
                       used:
                         type: integer
-                        example: 1181171712
+                        example: 1239326720
                       usedByData:
                         type: integer
                         example: 79886384
@@ -662,7 +907,7 @@ paths:
                       example: 0
                     diskUsed:
                       type: integer
-                      example: 113626183
+                      example: 113626181
                     itemCount:
                       type: integer
                       example: 31591
@@ -751,7 +996,7 @@ paths:
                             example: 0
                           couch_docs_actual_disk_size:
                             type: integer
-                            example: 70553685
+                            example: 70553683
                           couch_docs_data_size:
                             type: integer
                             example: 63765504
@@ -796,7 +1041,7 @@ paths:
                         example: 1599
                       memoryFree:
                         type: integer
-                        example: 1309810688
+                        example: 1248010240
                       memoryTotal:
                         type: integer
                         example: 2095898624
@@ -844,10 +1089,10 @@ paths:
                           cpu_utilization_rate:
                             type: number
                             format: float
-                            example: 2.820512820512821
+                            example: 4.050632911392405
                           mem_free:
                             type: integer
-                            example: 1309810688
+                            example: 1248010240
                           mem_total:
                             type: integer
                             example: 2095898624
@@ -856,13 +1101,13 @@ paths:
                             example: 4189057024
                           swap_used:
                             type: integer
-                            example: 772370432
+                            example: 772997120
                       thisNode:
                         type: boolean
                         example: true
                       uptime:
                         type: string
-                        example: '36799'
+                        example: '36004'
                       version:
                         type: string
                         example: 4.6.0-3573-enterprise
@@ -943,8 +1188,189 @@ paths:
         required: true
         type: string
       responses:
-        default:
+        200:
           description: Placeholder
+          schema:
+            type: object
+            properties:
+              op:
+                type: object
+                properties:
+                  interval:
+                    type: integer
+                    example: 1000
+                  isPersistent:
+                    type: boolean
+                    example: false
+                  lastTStamp:
+                    type: integer
+                    example: 1490897158189
+                  samples:
+                    type: object
+                    properties:
+                      fts/doc_count:
+                        type: array
+                        items:
+                          type: integer
+                          example: 31591
+                      fts/example-fts/avg_queries_latency:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/example-fts/doc_count:
+                        type: array
+                        items:
+                          type: integer
+                          example: 31591
+                      fts/example-fts/num_bytes_used_disk:
+                        type: array
+                        items:
+                          type: integer
+                          example: 752931463
+                      fts/example-fts/num_mutations_to_index:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/example-fts/num_pindexes_actual:
+                        type: array
+                        items:
+                          type: integer
+                          example: 32
+                      fts/example-fts/num_pindexes_target:
+                        type: array
+                        items:
+                          type: integer
+                          example: 32
+                      fts/example-fts/num_recs_to_persist:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/example-fts/total_bytes_indexed:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/example-fts/total_bytes_query_results:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/example-fts/total_compactions:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/example-fts/total_queries:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/example-fts/total_queries_error:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/example-fts/total_queries_slow:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/example-fts/total_queries_timeout:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/example-fts/total_request_time:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/example-fts/total_term_searchers:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/num_bytes_used_disk:
+                        type: array
+                        items:
+                          type: integer
+                          example: 752931463
+                      fts/num_mutations_to_index:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/num_pindexes_actual:
+                        type: array
+                        items:
+                          type: integer
+                          example: 32
+                      fts/num_pindexes_target:
+                        type: array
+                        items:
+                          type: integer
+                          example: 32
+                      fts/num_recs_to_persist:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/total_bytes_indexed:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/total_bytes_query_results:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/total_compactions:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/total_queries:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/total_queries_error:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/total_queries_slow:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/total_queries_timeout:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/total_request_time:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      fts/total_term_searchers:
+                        type: array
+                        items:
+                          type: integer
+                          example: 0
+                      timestamp:
+                        type: array
+                        items:
+                          type: integer
+                          example: 1490897098785
+                  samplesCount:
+                    type: integer
+                    example: 60
       summary: Placeholder
   /pools/default/buckets/@index-{index_id}/stats:
     get:
@@ -979,7 +1405,7 @@ paths:
                     example: false
                   lastTStamp:
                     type: integer
-                    example: 1490830116054
+                    example: 1490829329915
                   samples:
                     type: object
                     properties:
@@ -1082,7 +1508,7 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 1490830056648
+                          example: 1490829270508
                   samplesCount:
                     type: integer
                     example: 60
@@ -1132,7 +1558,7 @@ paths:
                     example: 0
                   diskUsed:
                     type: integer
-                    example: 113626183
+                    example: 113626181
                   itemCount:
                     type: integer
                     example: 31591
@@ -1221,7 +1647,7 @@ paths:
                           example: 0
                         couch_docs_actual_disk_size:
                           type: integer
-                          example: 70553685
+                          example: 70553683
                         couch_docs_data_size:
                           type: integer
                           example: 63765504
@@ -1266,7 +1692,7 @@ paths:
                       example: 1599
                     memoryFree:
                       type: integer
-                      example: 1309810688
+                      example: 1248010240
                     memoryTotal:
                       type: integer
                       example: 2095898624
@@ -1314,10 +1740,10 @@ paths:
                         cpu_utilization_rate:
                           type: number
                           format: float
-                          example: 2.820512820512821
+                          example: 4.050632911392405
                         mem_free:
                           type: integer
-                          example: 1309810688
+                          example: 1248010240
                         mem_total:
                           type: integer
                           example: 2095898624
@@ -1326,13 +1752,13 @@ paths:
                           example: 4189057024
                         swap_used:
                           type: integer
-                          example: 772370432
+                          example: 772997120
                     thisNode:
                       type: boolean
                       example: true
                     uptime:
                       type: string
-                      example: '36799'
+                      example: '36004'
                     version:
                       type: string
                       example: 4.6.0-3573-enterprise
@@ -1596,7 +2022,7 @@ paths:
             properties:
               key:
                 type: string
-                example: route_51914
+                example: route_64654
               ok:
                 type: boolean
                 example: true
@@ -1704,7 +2130,7 @@ paths:
                     ops:
                       type: number
                       format: float
-                      example: 0.006309148264984227
+                      example: 0.0100250626566416
               op:
                 type: object
                 properties:
@@ -1716,7 +2142,7 @@ paths:
                     example: true
                   lastTStamp:
                     type: integer
-                    example: 1490830115066
+                    example: 1490829329915
                   samples:
                     type: object
                     properties:
@@ -1760,13 +2186,13 @@ paths:
                         items:
                           type: number
                           format: float
-                          example: 149.6461071789687
+                          example: 149.4949494949495
                       bytes_written:
                         type: array
                         items:
                           type: number
                           format: float
-                          example: 20089.98988877654
+                          example: 20068.68686868687
                       cas_badval:
                         type: array
                         items:
@@ -1796,7 +2222,7 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 70553685
+                          example: 70553683
                       couch_docs_data_size:
                         type: array
                         items:
@@ -1831,7 +2257,7 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 92089934
+                          example: 92089932
                       couch_views_actual_disk_size:
                         type: array
                         items:
@@ -1861,7 +2287,7 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 3840
+                          example: 3810
                       cpu_local_ms:
                         type: array
                         items:
@@ -1872,7 +2298,7 @@ paths:
                         items:
                           type: number
                           format: float
-                          example: 1.538461538461539
+                          example: 2.307692307692307
                       curr_connections:
                         type: array
                         items:
@@ -2553,17 +2979,17 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 1306308608
+                          example: 1302634496
                       mem_actual_used:
                         type: array
                         items:
                           type: integer
-                          example: 789590016
+                          example: 793264128
                       mem_free:
                         type: array
                         items:
                           type: integer
-                          example: 1306308608
+                          example: 1302634496
                       mem_total:
                         type: array
                         items:
@@ -2578,7 +3004,7 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 1184854016
+                          example: 1183965184
                       misses:
                         type: array
                         items:
@@ -2618,12 +3044,12 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 772399104
+                          example: 773177344
                       timestamp:
                         type: array
                         items:
                           type: integer
-                          example: 1490830056648
+                          example: 1490829271498
                       vb_active_eject:
                         type: array
                         items:
@@ -2909,7 +3335,7 @@ paths:
                     ops:
                       type: number
                       format: float
-                      example: 0.006309148264984227
+                      example: 0.0100250626566416
               op:
                 type: object
                 properties:
@@ -2921,7 +3347,7 @@ paths:
                     example: true
                   lastTStamp:
                     type: integer
-                    example: 1490830115066
+                    example: 1490829329915
                   samples:
                     type: object
                     properties:
@@ -2965,13 +3391,13 @@ paths:
                         items:
                           type: number
                           format: float
-                          example: 149.6461071789687
+                          example: 149.4949494949495
                       bytes_written:
                         type: array
                         items:
                           type: number
                           format: float
-                          example: 20089.98988877654
+                          example: 20068.68686868687
                       cas_badval:
                         type: array
                         items:
@@ -3001,7 +3427,7 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 70553685
+                          example: 70553683
                       couch_docs_data_size:
                         type: array
                         items:
@@ -3036,7 +3462,7 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 92089934
+                          example: 92089932
                       couch_views_actual_disk_size:
                         type: array
                         items:
@@ -3066,7 +3492,7 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 3840
+                          example: 3810
                       cpu_local_ms:
                         type: array
                         items:
@@ -3077,7 +3503,7 @@ paths:
                         items:
                           type: number
                           format: float
-                          example: 1.538461538461539
+                          example: 2.307692307692307
                       curr_connections:
                         type: array
                         items:
@@ -3758,17 +4184,17 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 1306308608
+                          example: 1302634496
                       mem_actual_used:
                         type: array
                         items:
                           type: integer
-                          example: 789590016
+                          example: 793264128
                       mem_free:
                         type: array
                         items:
                           type: integer
-                          example: 1306308608
+                          example: 1302634496
                       mem_total:
                         type: array
                         items:
@@ -3783,7 +4209,7 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 1184854016
+                          example: 1183965184
                       misses:
                         type: array
                         items:
@@ -3823,12 +4249,12 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 772399104
+                          example: 773177344
                       timestamp:
                         type: array
                         items:
                           type: integer
-                          example: 1490830056648
+                          example: 1490829271498
                       vb_active_eject:
                         type: array
                         items:
@@ -4100,7 +4526,7 @@ paths:
                     ops:
                       type: number
                       format: float
-                      example: 0.006309148264984227
+                      example: 0.0100250626566416
               op:
                 type: object
                 properties:
@@ -4112,7 +4538,7 @@ paths:
                     example: true
                   lastTStamp:
                     type: integer
-                    example: 1490830115066
+                    example: 1490829329915
                   samples:
                     type: object
                     properties:
@@ -4156,13 +4582,13 @@ paths:
                         items:
                           type: number
                           format: float
-                          example: 149.6461071789687
+                          example: 149.4949494949495
                       bytes_written:
                         type: array
                         items:
                           type: number
                           format: float
-                          example: 20089.98988877654
+                          example: 20068.68686868687
                       cas_badval:
                         type: array
                         items:
@@ -4192,7 +4618,7 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 70553685
+                          example: 70553683
                       couch_docs_data_size:
                         type: array
                         items:
@@ -4227,7 +4653,7 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 92089934
+                          example: 92089932
                       couch_views_actual_disk_size:
                         type: array
                         items:
@@ -4257,7 +4683,7 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 3840
+                          example: 3810
                       cpu_local_ms:
                         type: array
                         items:
@@ -4268,7 +4694,7 @@ paths:
                         items:
                           type: number
                           format: float
-                          example: 1.538461538461539
+                          example: 2.307692307692307
                       curr_connections:
                         type: array
                         items:
@@ -4949,17 +5375,17 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 1306308608
+                          example: 1302634496
                       mem_actual_used:
                         type: array
                         items:
                           type: integer
-                          example: 789590016
+                          example: 793264128
                       mem_free:
                         type: array
                         items:
                           type: integer
-                          example: 1306308608
+                          example: 1302634496
                       mem_total:
                         type: array
                         items:
@@ -4974,7 +5400,7 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 1184854016
+                          example: 1183965184
                       misses:
                         type: array
                         items:
@@ -5014,12 +5440,12 @@ paths:
                         type: array
                         items:
                           type: integer
-                          example: 772399104
+                          example: 773177344
                       timestamp:
                         type: array
                         items:
                           type: integer
-                          example: 1490830056648
+                          example: 1490829271498
                       vb_active_eject:
                         type: array
                         items:
@@ -5262,14 +5688,39 @@ paths:
       summary: Placeholder
   /pools/default/certificate:
     get:
-      description: Placeholder
+      description: Retrieve the cluster-wide SSL certificate
+      produces:
+        - text/plain
       responses:
-        default:
-          description: Placeholder
+        200:
+          description: Success
+          schema:
+            type: string
+            example: -----BEGIN CERTIFICATE-----
+MIIDAjCCAeqgAwIBAgIIFKOeJbkdfcEwDQYJKoZIhvcNAQELBQAwJDEiMCAGA1UE
+AxMZQ291Y2hiYXNlIFNlcnZlciBjOTc5MjM0ZTAeFw0xMzAxMDEwMDAwMDBaFw00
+OTEyMzEyMzU5NTlaMCQxIjAgBgNVBAMTGUNvdWNoYmFzZSBTZXJ2ZXIgYzk3OTIz
+NGUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDErZg4OcIBxSsuKhKS
+4fbvx6Zs5fPfbQAPBPTry21xDekrl7d06HJdeADNakndgxkfmU9I2F45rZ4vtb4o
+zLx37gWH2h5oRZ9e3hyelgSl4I4XXp1Y+VyXPYLxDoD6PWbipXXsrzWPVdE/P5Ky
+wCsLJQzvxjFXPhoR+Wjy72DwcuwxSvaz2pkVwVVKVG6Mczrq4JmB36q7AkL+8pao
+xCf77upG5Hs11iah/VKEg61UGuIKEQlUSmNpU3bA03/N0VfiU1VjMffcFRUK4Bsk
+Mj4uYLogEptKeh8Tei/LH8WfnTYrFLLAkBGA5aYI4dbbjcFri5WBK8ESQNhCd07F
+rTBzAgMBAAGjODA2MA4GA1UdDwEB/wQEAwICpDATBgNVHSUEDDAKBggrBgEFBQcD
+ATAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQAJ4lCGKW1X6d81
+OQJJ8+h16n77bNW4e6+/R1fUUSlfebuKNMlyY1Wmd2JJDXyqhlef5+ZW2/0RsVWX
+YOppEOWTdO4eQRPPlcVL/NNZmSyXySp9j6pt6x4XWEwIxfoxYf4HA0Y/sKYkUGIh
+7o2d4Ur7z1lrEBvIOxye2OGIC7QbbgcDtuxEG0MqrNdoGqmCgUy8+o7TQWREGMvm
+GSnkifODsfKETk4THeXXEoo/2IEo3TL2xIsE8vTLfcl2XN4Qn+u4o6Sqw5tDE67v
+tSMkiqUoPqKjpj+mAsMGu+Kx/HB+5je2RZKXz2nO9Jq5LE3MMN2cQzKngwElf6Vy
+9OGzBLTQ
+-----END CERTIFICATE-----
       summary: Placeholder
   /pools/default/certificate/node/{node_id}:
     get:
       description: Placeholder
+      produces:
+        - text/plain
       parameters:
       - description: Placeholder
         in: path
@@ -5277,15 +5728,38 @@ paths:
         required: true
         type: string
       responses:
-        default:
-          description: Placeholder
+        200:
+          description: Success
+          schema:
+            type: String
       summary: Placeholder
-  /pools/default/nodeStatuses:
+  /nodeStatuses:
     get:
       description: Placeholder
       responses:
-        default:
+        200:
           description: Placeholder
+          schema:
+            type: object
+            properties:
+              172.17.0.2:8091:
+                type: object
+                properties:
+                  dataless:
+                    type: boolean
+                    example: false
+                  gracefulFailoverPossible:
+                    type: boolean
+                    example: false
+                  otpNode:
+                    type: string
+                    example: ns_1@127.0.0.1
+                  replication:
+                    type: integer
+                    example: 0
+                  status:
+                    type: string
+                    example: healthy
       summary: Placeholder
   /pools/default/overviewStats:
     get:
@@ -5310,7 +5784,7 @@ paths:
                 type: array
                 items:
                   type: integer
-                  example: 1490826516000
+                  example: 1490825732000
       summary: Placeholder
   /pools/default/rebalanceProgress:
     get:
@@ -5385,7 +5859,7 @@ paths:
                                 example: 0
                               couch_docs_actual_disk_size:
                                 type: integer
-                                example: 70553685
+                                example: 70553683
                               couch_docs_data_size:
                                 type: integer
                                 example: 63765504
@@ -5430,7 +5904,7 @@ paths:
                             example: 1599
                           memoryFree:
                             type: integer
-                            example: 1309810688
+                            example: 1248010240
                           memoryTotal:
                             type: integer
                             example: 2095898624
@@ -5478,10 +5952,10 @@ paths:
                               cpu_utilization_rate:
                                 type: number
                                 format: float
-                                example: 2.820512820512821
+                                example: 4.050632911392405
                               mem_free:
                                 type: integer
-                                example: 1309810688
+                                example: 1248010240
                               mem_total:
                                 type: integer
                                 example: 2095898624
@@ -5490,13 +5964,13 @@ paths:
                                 example: 4189057024
                               swap_used:
                                 type: integer
-                                example: 772370432
+                                example: 772997120
                           thisNode:
                             type: boolean
                             example: true
                           uptime:
                             type: string
-                            example: '36799'
+                            example: '36004'
                           version:
                             type: string
                             example: 4.6.0-3573-enterprise
@@ -5517,6 +5991,35 @@ paths:
         required: true
         type: string
       responses:
+        200:
+          description: Placeholder
+          schema:
+            type: object
+            properties:
+              breakpad_enabled:
+                type: boolean
+                example: true
+              breakpad_minidump_dir_path:
+                type: string
+                example: /opt/couchbase/var/lib/couchbase/crash
+              connection_idle_time:
+                type: integer
+                example: 0
+              dedicated_port_maxconn:
+                type: integer
+                example: 5000
+              dedupe_nmvb_maps:
+                type: boolean
+                example: false
+              maxconn:
+                type: integer
+                example: 30000
+              ssl_cipher_list:
+                type: string
+                example: HIGH
+              verbosity:
+                type: integer
+                example: 0
         404:
           description: Placeholder
           schema:
@@ -5545,6 +6048,11 @@ paths:
         required: true
         type: string
       responses:
+        200:
+          description: Placeholder
+          schema:
+            type: object
+            properties: {}
         404:
           description: Placeholder
           schema:
@@ -5817,7 +6325,7 @@ paths:
                           example: 0
                         couch_docs_actual_disk_size:
                           type: integer
-                          example: 70553685
+                          example: 70553683
                         couch_docs_data_size:
                           type: integer
                           example: 63765504
@@ -5862,7 +6370,7 @@ paths:
                       example: 1599
                     memoryFree:
                       type: integer
-                      example: 1309810688
+                      example: 1248010240
                     memoryTotal:
                       type: integer
                       example: 2095898624
@@ -5910,10 +6418,10 @@ paths:
                         cpu_utilization_rate:
                           type: number
                           format: float
-                          example: 2.820512820512821
+                          example: 4.050632911392405
                         mem_free:
                           type: integer
-                          example: 1309810688
+                          example: 1248010240
                         mem_total:
                           type: integer
                           example: 2095898624
@@ -5922,13 +6430,13 @@ paths:
                           example: 4189057024
                         swap_used:
                           type: integer
-                          example: 772370432
+                          example: 772997120
                     thisNode:
                       type: boolean
                       example: true
                     uptime:
                       type: string
-                      example: '36799'
+                      example: '36004'
                     version:
                       type: string
                       example: 4.6.0-3573-enterprise
@@ -5973,7 +6481,7 @@ paths:
                         example: 12042579927
                       usedByData:
                         type: integer
-                        example: 113626183
+                        example: 113626181
                   ram:
                     type: object
                     properties:
@@ -5994,7 +6502,7 @@ paths:
                         example: 2095898624
                       used:
                         type: integer
-                        example: 1181171712
+                        example: 1239326720
                       usedByData:
                         type: integer
                         example: 79886384
@@ -6244,8 +6752,13 @@ paths:
     get:
       description: Placeholder
       responses:
-        default:
+        200:
           description: Placeholder
+          schema:
+            type: string
+            example: ro_admin
+        404:
+          description: Read only admin not set up.
       summary: Placeholder
   /settings/replications:
     get:
@@ -6489,4 +7002,3 @@ schemes:
 - http
 - https
 swagger: '2.0'
-
