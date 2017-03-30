@@ -61,9 +61,11 @@ paths:
                       enum: ['not_set', 'memory_optimized', 'forestdb', 'invalid']
               version:
                 type: integer
+                description: Indexer version
                 example: 130238042
               warnings:
                 type: array
+                description: Warnings about the indexing service
                 items:
                   example: ''
                   type: string
@@ -71,7 +73,7 @@ paths:
     get:
       responses:
         200:
-          description: Placeholder
+          description: Success
           schema:
             type: object
             properties:
@@ -133,14 +135,20 @@ paths:
   /nodes/{node_id}:
     get:
       parameters:
-      - description: Placeholder
+      - description: The name of the node to retrieve information about.
+          This is either in the format of the `otpNode` name (for example 
+          `ns_1@127.0.0.1`) or the hostname of the node along with the 
+          administrator port (e.g `192.0.2.0%3A8091`, the `:` must be 
+          url-encoded). 
         in: path
         name: node_id
         required: true
         type: string
+        x-example:
+          - 172.0.2.0%3A8091
       responses:
         200:
-          description: Placeholder
+          description: Success
           schema:
             type: object
             properties:
@@ -469,7 +477,7 @@ paths:
               uuid:
                 type: string
                 example: 042116394ca2702e958a96e6f3e212b7
-      summary: Placeholder
+      summary: Retrieve brief cluster information
   /pools/default:
     get:
       responses:
@@ -878,10 +886,9 @@ paths:
                   uri:
                     type: string
                     example: /pools/default/tasks?v=26388352
-      summary: Placeholder
+      summary: Retrieve full cluster information
   /pools/default/buckets:
     get:
-      description: Placeholder
       responses:
         200:
           description: Placeholder
@@ -1177,7 +1184,10 @@ paths:
                         items:
                           type: integer
                           example: 0
-      summary: Placeholder
+      summary: Retrieve information for all buckets
+    post:
+      summary: Create a new bucket
+      
   /pools/default/buckets/@fts-{fts_id}/stats:
     get:
       description: Placeholder
@@ -5696,25 +5706,26 @@ paths:
           description: Success
           schema:
             type: string
-            example: -----BEGIN CERTIFICATE-----
-MIIDAjCCAeqgAwIBAgIIFKOeJbkdfcEwDQYJKoZIhvcNAQELBQAwJDEiMCAGA1UE
-AxMZQ291Y2hiYXNlIFNlcnZlciBjOTc5MjM0ZTAeFw0xMzAxMDEwMDAwMDBaFw00
-OTEyMzEyMzU5NTlaMCQxIjAgBgNVBAMTGUNvdWNoYmFzZSBTZXJ2ZXIgYzk3OTIz
-NGUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDErZg4OcIBxSsuKhKS
-4fbvx6Zs5fPfbQAPBPTry21xDekrl7d06HJdeADNakndgxkfmU9I2F45rZ4vtb4o
-zLx37gWH2h5oRZ9e3hyelgSl4I4XXp1Y+VyXPYLxDoD6PWbipXXsrzWPVdE/P5Ky
-wCsLJQzvxjFXPhoR+Wjy72DwcuwxSvaz2pkVwVVKVG6Mczrq4JmB36q7AkL+8pao
-xCf77upG5Hs11iah/VKEg61UGuIKEQlUSmNpU3bA03/N0VfiU1VjMffcFRUK4Bsk
-Mj4uYLogEptKeh8Tei/LH8WfnTYrFLLAkBGA5aYI4dbbjcFri5WBK8ESQNhCd07F
-rTBzAgMBAAGjODA2MA4GA1UdDwEB/wQEAwICpDATBgNVHSUEDDAKBggrBgEFBQcD
-ATAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQAJ4lCGKW1X6d81
-OQJJ8+h16n77bNW4e6+/R1fUUSlfebuKNMlyY1Wmd2JJDXyqhlef5+ZW2/0RsVWX
-YOppEOWTdO4eQRPPlcVL/NNZmSyXySp9j6pt6x4XWEwIxfoxYf4HA0Y/sKYkUGIh
-7o2d4Ur7z1lrEBvIOxye2OGIC7QbbgcDtuxEG0MqrNdoGqmCgUy8+o7TQWREGMvm
-GSnkifODsfKETk4THeXXEoo/2IEo3TL2xIsE8vTLfcl2XN4Qn+u4o6Sqw5tDE67v
-tSMkiqUoPqKjpj+mAsMGu+Kx/HB+5je2RZKXz2nO9Jq5LE3MMN2cQzKngwElf6Vy
-9OGzBLTQ
------END CERTIFICATE-----
+            example: |
+              -----BEGIN CERTIFICATE-----
+              MIIDAjCCAeqgAwIBAgIIFKOeJbkdfcEwDQYJKoZIhvcNAQELBQAwJDEiMCAGA1UE
+              AxMZQ291Y2hiYXNlIFNlcnZlciBjOTc5MjM0ZTAeFw0xMzAxMDEwMDAwMDBaFw00
+              OTEyMzEyMzU5NTlaMCQxIjAgBgNVBAMTGUNvdWNoYmFzZSBTZXJ2ZXIgYzk3OTIz
+              NGUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDErZg4OcIBxSsuKhKS
+              4fbvx6Zs5fPfbQAPBPTry21xDekrl7d06HJdeADNakndgxkfmU9I2F45rZ4vtb4o
+              zLx37gWH2h5oRZ9e3hyelgSl4I4XXp1Y+VyXPYLxDoD6PWbipXXsrzWPVdE/P5Ky
+              wCsLJQzvxjFXPhoR+Wjy72DwcuwxSvaz2pkVwVVKVG6Mczrq4JmB36q7AkL+8pao
+              xCf77upG5Hs11iah/VKEg61UGuIKEQlUSmNpU3bA03/N0VfiU1VjMffcFRUK4Bsk
+              Mj4uYLogEptKeh8Tei/LH8WfnTYrFLLAkBGA5aYI4dbbjcFri5WBK8ESQNhCd07F
+              rTBzAgMBAAGjODA2MA4GA1UdDwEB/wQEAwICpDATBgNVHSUEDDAKBggrBgEFBQcD
+              ATAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQAJ4lCGKW1X6d81
+              OQJJ8+h16n77bNW4e6+/R1fUUSlfebuKNMlyY1Wmd2JJDXyqhlef5+ZW2/0RsVWX
+              YOppEOWTdO4eQRPPlcVL/NNZmSyXySp9j6pt6x4XWEwIxfoxYf4HA0Y/sKYkUGIh
+              7o2d4Ur7z1lrEBvIOxye2OGIC7QbbgcDtuxEG0MqrNdoGqmCgUy8+o7TQWREGMvm
+              GSnkifODsfKETk4THeXXEoo/2IEo3TL2xIsE8vTLfcl2XN4Qn+u4o6Sqw5tDE67v
+              tSMkiqUoPqKjpj+mAsMGu+Kx/HB+5je2RZKXz2nO9Jq5LE3MMN2cQzKngwElf6Vy
+              9OGzBLTQ
+              -----END CERTIFICATE-----
       summary: Placeholder
   /pools/default/certificate/node/{node_id}:
     get:
@@ -5731,7 +5742,7 @@ tSMkiqUoPqKjpj+mAsMGu+Kx/HB+5je2RZKXz2nO9Jq5LE3MMN2cQzKngwElf6Vy
         200:
           description: Success
           schema:
-            type: String
+            type: string
       summary: Placeholder
   /nodeStatuses:
     get:
