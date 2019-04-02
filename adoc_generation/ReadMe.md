@@ -1,6 +1,16 @@
 # Swagger2Markup
 
-To create AsciiDoc documentation from a Swagger 2.0 spec, use the following command:
+## Prerequisites
+
+Get the latest Swagger2Markup CLI jar:
+
+* Releases: https://jcenter.bintray.com/io/github/swagger2markup/swagger2markup-cli/
+
+* Snapshots: https://oss.jfrog.org/artifactory/oss-snapshot-local/io/github/swagger2markup/swagger2markup-cli/
+
+## Usage
+
+To create AsciiDoc documentation from a Swagger 2.0 spec:
 
 ```shell
 $ java -jar ./adoc_generation/swagger2markup-cli-1.3.3.jar convert -f ../docs-server/modules/n1ql/pages/n1ql-rest-api/admin -i admin.yaml -c ./adoc_generation/config.properties
