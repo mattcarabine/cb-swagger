@@ -347,13 +347,16 @@ paths:
 
   /debug/vars:
     get:
+      operationId: get_debug_vars
       description: Currently unused.
-      produces: application/xml
+      security:
+        - None: []
+      produces: text/html
       responses:
         302:
           description: Redirects to the <<_get_stats>> endpoint.
           examples:
-            application/xml: '<a href="/admin/stats">Found</a>'
+            text/html: <a href="/admin/stats">Found</a>
           schema:
             type: text/html
 
