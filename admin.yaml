@@ -23,6 +23,8 @@ paths:
   /admin/clusters:
     get:
       description: Returns information about all clusters.
+      security:
+        - Default: []
       responses:
         200:
           description: An array of objects, each of which gives information about one cluster.
@@ -36,6 +38,8 @@ paths:
       parameters:
         - $ref: "#/parameters/PathCluster"
       description: Returns information about the specified cluster.
+      security:
+        - Default: []
       responses:
         200:
           description: An object giving information about the specified cluster.
@@ -47,6 +51,8 @@ paths:
       parameters:
         - $ref: "#/parameters/PathCluster"
       description: Returns information about all nodes in the specified cluster.
+      security:
+        - Default: []
       responses:
         200:
           description: An array of objects, each of which gives information about one node.
@@ -61,6 +67,8 @@ paths:
         - $ref: "#/parameters/PathCluster"
         - $ref: "#/parameters/PathNode"
       description: Returns information about the specified node in the specified cluster.
+      security:
+        - Default: []
       responses:
         200:
           description: An object giving information about the specified node.
@@ -70,6 +78,8 @@ paths:
   /admin/config:
     get:
       description: Returns the configuration of the query service on the cluster.
+      security:
+        - Default: []
       responses:
         200:
           description: An object giving information about the specified node.
@@ -84,6 +94,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-prepared[Get Prepared Statements] for examples.
         ====
+      security:
+        - Default: []
       responses:
         200:
           description: An array of objects, each of which contains information about one prepared statement.
@@ -103,6 +115,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-prepared[Get Prepared Statements] for examples.
         ====
+      security:
+        - Default: []
       responses:
         200:
           description: An object containing information about the specified prepared statement.
@@ -118,6 +132,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-prepared[Delete Prepared Statement] for examples.
         ====
+      security:
+        - Default: []
       responses:
         200:
           description: True if the prepared statement was successfully deleted.
@@ -136,6 +152,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-active-req[Get Active Requests] for examples.
         ====
+      security:
+        - Default: []
       responses:
         200:
           description: An array of objects, each of which contains information about one active request.
@@ -155,6 +173,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-active-req[Get Active Requests] for examples.
         ====
+      security:
+        - Default: []
       responses:
         200:
           description: An object containing information about the specified active request.
@@ -170,6 +190,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-active-req[Terminate an Active Request] for examples.
         ====
+      security:
+        - Default: []
       responses:
         200:
           description: True if the active request was successfully terminated.
@@ -188,6 +210,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-completed-req[Get Completed Requests] for examples.
         ====
+      security:
+        - Default: []
       responses:
         200:
           description: An array of objects, each of which contains information about one completed request.
@@ -207,6 +231,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-completed-req[Get Completed Requests] for examples.
         ====
+      security:
+        - Default: []
       responses:
         200:
           description: An object containing information about the specified active request.
@@ -222,6 +248,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-completed-req[Purging the Completed Requests] for examples.
         ====
+      security:
+        - Default: []
       responses:
         200:
           description: True if the completed request was successfully purged.
@@ -241,6 +269,8 @@ paths:
         * Use <<_get_prepared>> to get information about a prepared index statement.
         * Use <<_delete_prepared>> to delete a prepared index statement.
         ====
+      security:
+        - Default: []
       responses:
         200:
           description: An array of strings, each of which is the name of a prepared index statement.
@@ -261,6 +291,8 @@ paths:
         * Use <<_get_active_request>> to get information about an active index request.
         * Use <<_delete_active_request>> to terminate an active index request.
         ====
+      security:
+        - Default: []
       responses:
         200:
           description: An array of strings, each of which is the requestID of an active index request.
@@ -280,6 +312,8 @@ paths:
         * Use <<_get_completed_request>> to get information about a completed index request.
         * Use <<_delete_completed_request>> to purge a completed index request.
         ====
+      security:
+        - Default: []
       responses:
         200:
           description: An array of strings, each of which is the requestID of a completed index request.
@@ -292,7 +326,10 @@ paths:
 
   /admin/ping:
     get:
+      operationId: get_ping
       description: Returns a minimal response, indicating that the service is running and reachable.
+      security:
+        - None: []
       responses:
         200:
           description: An empty object.
@@ -314,6 +351,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#vitals[Get System Vitals] for examples.
         ====
+      security:
+        - Default: []
       responses:
         200:
           description: An object containing all vital statistics.
@@ -324,6 +363,8 @@ paths:
     get:
       operationId: get_stats
       description: Returns all statistics.
+      security:
+        - Default: []
       responses:
         200:
           description: |
@@ -338,6 +379,8 @@ paths:
       parameters:
         - $ref: "#/parameters/PathStat"
       description: Returns the specified statistic.
+      security:
+        - Default: []
       responses:
         200:
           description: |
@@ -369,6 +412,8 @@ paths:
         ====
         Refer to xref:settings:query-settings.adoc[Query Settings] for more information and examples.
         ====
+      security:
+        - Default: []
       responses:
         200:
           description: An object giving service-level query settings.
@@ -381,6 +426,8 @@ paths:
         ====
         Refer to xref:settings:query-settings.adoc[Query Settings] for more information and examples.
         ====
+      security:
+        - Default: []
       parameters:
         - in: body
           name: Settings
@@ -1029,3 +1076,14 @@ parameters:
     in: path
     required: true
     description: The name of a node.
+
+securityDefinitions:
+  Default:
+    type: basic
+    description: |
+      The Admin API supports admin credentials.
+      Credentials can be passed via HTTP headers (HTTP basic authentication).
+
+  None:
+    type: basic
+    description: No authentication is required for the <<_get_ping>> or <<_get_debug_vars>> endpoints.
