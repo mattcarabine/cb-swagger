@@ -835,9 +835,6 @@ definitions:
       unbounded.count:
         type: number
         description: Total number of N1QL requests with `not_bounded` index consistency.
-      unknown.count:
-        type: number
-        description: Total number of unknown operations.
       updates.count:
         type: number
         description: Total number of UPDATE requests.
@@ -1025,7 +1022,6 @@ parameters:
       - selects
       - service_time
       - unbounded
-      - unknown
       - updates
       - warnings
     description: |
