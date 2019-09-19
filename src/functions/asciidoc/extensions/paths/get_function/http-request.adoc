@@ -1,0 +1,11 @@
+====
+The example below gets the function `f2c` from the library `science`.
+
+.Curl request
+[source,shell]
+----
+$ curl -X GET \
+  http://localhost:8093/functions/v1/libraries/science/functions/f2c \
+  -u Administrator:password
+----
+====

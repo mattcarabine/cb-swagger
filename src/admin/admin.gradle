@@ -1,0 +1,19 @@
+apply plugin: 'io.github.swagger2markup'
+
+convertSwagger2markup {
+    swaggerInput file("swagger/admin.yaml").getAbsolutePath()
+    outputDir file("../../../docs-server/modules/n1ql/partials/n1ql-rest-api/admin")
+    config = ['swagger2markup.markupLanguage' : 'ASCIIDOC',
+              'swagger2markup.generatedExamplesEnabled' : false,
+              'swagger2markup.operationOrderBy' : 'AS_IS',
+              'swagger2markup.definitionOrderBy' : 'AS_IS',
+              'swagger2markup.swaggerMarkupLanguage' : 'ASCIIDOC',
+              'swagger2markup.flatBodyEnabled' : false,
+              'swagger2markup.extensions.springRestDocs.snippetBaseUri' : file('asciidoc/extensions/paths').absolutePath,
+              'swagger2markup.extensions.springRestDocs.markupLanguage' : 'ASCIIDOC',
+              'swagger2markup.extensions.springRestDocs.defaultSnippets' : true,
+              'swagger2markup.extensions.dynamicDefinitions.contentPath' : file('asciidoc/extensions/definitions').absolutePath,
+              'swagger2markup.extensions.dynamicOverview.contentPath' : file('asciidoc/extensions/overview').absolutePath,
+              'swagger2markup.extensions.dynamicPaths.contentPath' : file('asciidoc/extensions/paths').absolutePath,
+              'swagger2markup.extensions.dynamicSecurity.contentPath' : file('asciidoc/extensions/security').absolutePath]
+}

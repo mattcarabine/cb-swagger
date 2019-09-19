@@ -1,0 +1,12 @@
+====
+
+.Response 200
+[source,json]
+----
+{
+  "name" : "f2c",
+  "id" : "8c:7a:a3:f2:6c:4b:f8:ea",
+  "code" : "function f2c(f) { return (5/9)*(f-32); }"
+}
+----
+====

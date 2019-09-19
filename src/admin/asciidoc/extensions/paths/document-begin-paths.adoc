@@ -1,0 +1,7 @@
+// Dummy attributes for path parameters
+
+:name: \{name}
+:cluster: \{cluster}
+:node: \{node}
+:request: \{request}
+:stat: \{stat}

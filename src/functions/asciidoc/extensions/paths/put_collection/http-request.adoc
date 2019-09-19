@@ -1,0 +1,28 @@
+====
+The example below removes all libraries in the system and creates two libraries, `math` and `science`.
+
+.Curl request
+[source,shell]
+----
+$ curl -X PUT \
+  http://localhost:8093/functions/v1/libraries \
+  -u Administrator:password \
+  -H 'content-type: application/json' \
+  -d '[ {
+  "name" : "math",
+  "functions" : [ {
+    "name" : "adder",
+    "code" : "function adder(a, b) { return a + b; }"
+  }, {
+    "name" : "multiplier",
+    "code" : "function multiplier(a, b) { return a * b; }"
+  } ]
+}, {
+  "name" : "science",
+  "functions" : [ {
+    "name" : "f2c",
+    "code" : "function f2c(f) { return (5/9)*(f-32); }"
+  } ]
+} ]'
+----
+====

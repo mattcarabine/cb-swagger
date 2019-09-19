@@ -1,0 +1,25 @@
+====
+The example below replaces the `math` library with a new copy, dropping any old `math` library.
+
+.Curl request
+[source,shell]
+----
+$ curl -X PUT \
+  http://localhost:8093/functions/v1/libraries/math \
+  -u Administrator:password \
+  -H 'content-type: application/json' \
+  -d '{
+  "name" : "math",
+  "functions" : [ {
+    "name" : "add",
+    "code" : "function add(a, b) { let data = a + b; return data; }"
+  }, {
+    "name" : "sub",
+    "code" : "function sub(a, b) { let data = a - b; return data; }"
+  }, {
+    "name" : "mul",
+    "code" : "function mul(a, b) { let data = a * b; return data; }"
+  } ]
+}'
+----
+====

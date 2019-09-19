@@ -1,0 +1,17 @@
+====
+The example below creates or replaces a function called `sub` in the library called `math`.
+
+.Curl request
+[source,shell]
+----
+$ curl -X PUT \
+  http://localhost:8093/functions/v1/libraries/math/functions/sub \
+  -u Administrator:password \
+  -H 'content-type: application/json' \
+  -d '{
+  "name" : "sub",
+  "code" : "function sub(a,b) { return helper(a,b); }
+            function helper(a,b) { return a - b; }"
+}'
+----
+====

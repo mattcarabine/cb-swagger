@@ -1,0 +1,6 @@
+rootProject.name = 'swagger2markup-gradle-project-template'
+include 'admin', 'functions'
+project(':admin').projectDir = new File (settingsDir, 'src/admin')
+project(':admin').buildFileName = 'admin.gradle'
+project(':functions').projectDir = new File (settingsDir, 'src/functions')
+project(':functions').buildFileName = 'functions.gradle'

@@ -1,0 +1,19 @@
+====
+
+.Response 200
+[source,json]
+----
+{
+  "name" : "math",
+  "functions" : [ {
+    "name" : "adder",
+    "id" : "d8:91:45:37:79:75:eb:15",
+    "code" : "function adder(a, b) { return a + b; }"
+  }, {
+    "name" : "multiplier",
+    "id" : "8e:ab:89:e6:1e:c2:21:1a",
+    "code" : "function multiplier(a, b) { return a * b; }"
+  } ]
+}
+----
+====

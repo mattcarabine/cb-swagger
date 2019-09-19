@@ -1,0 +1,12 @@
+====
+The example below deletes the function `sub` in the `math` library.
+
+.Curl request
+[source,shell]
+----
+$ curl -X DELETE \
+  http://localhost:8093/functions/v1/libraries/math/functions/sub \
+  -u Administrator:password \
+  -H 'content-type: application/json'
+----
+====

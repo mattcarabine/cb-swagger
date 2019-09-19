@@ -1,0 +1,18 @@
+====
+The example below creates or updates a function called `sub` in the library called `math`.
+The JavaScript function `sub` matches the value of the `name` property.
+
+.Curl request
+[source,shell]
+----
+$ curl -X POST \
+  http://localhost:8093/functions/v1/libraries/math/functions/sub \
+  -u Administrator:password \
+  -H 'content-type: application/json' \
+  -d '{
+  "name" : "sub",
+  "code" : "function sub(a,b) { return helper(a,b); }
+            function helper(a,b) { return a - b; }"
+}'
+----
+====

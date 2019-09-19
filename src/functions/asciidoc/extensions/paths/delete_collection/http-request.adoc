@@ -1,0 +1,12 @@
+
+====
+The example below deletes all libraries defined in the system.
+
+.Curl request
+[source,shell]
+----
+$ curl -X DELETE \
+  http://localhost:8093/functions/v1/libraries \
+  -u Administrator:password
+----
+====

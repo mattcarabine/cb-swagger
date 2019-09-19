@@ -1,0 +1,11 @@
+====
+The example below fetches all defined libraries.
+
+.Curl request
+[source,shell]
+----
+$ curl -X GET \
+  http://localhost:8093/functions/v1/libraries \
+  -u Administrator:password
+----
+====

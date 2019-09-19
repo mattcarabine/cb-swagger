@@ -1,0 +1,8 @@
+====
+
+.Response 302
+[source,html]
+----
+<a href="/admin/stats">Found</a>.
+----
+====

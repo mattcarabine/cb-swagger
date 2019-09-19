@@ -1,0 +1,11 @@
+====
+The example below gets all functions in the library `math`.
+
+.Curl request
+[source,shell]
+----
+$ curl -X GET \
+  http://localhost:8093/functions/v1/libraries/math \
+  -u Administrator:password
+----
+====
