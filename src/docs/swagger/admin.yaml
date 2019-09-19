@@ -1,0 +1,1137 @@
+swagger: '2.0'
+info:
+  title: Admin REST API
+  version: '6.0'
+  description: |
+    The Admin REST API is a secondary API provided by the Query service.
+    This API enables you to retrieve statistics about the clusters and nodes running the Query service; view or specify service-level settings; and view or delete requests.
+
+    The API schemes and host URLs are as follows:{blank}
+
+    * `+http://node:8093/+`
+    * `+https://node:18093/+` (for secure access)
+
+    where [.var]`node` is the host name or IP address of a computer running the N1QL query engine.
+
+produces:
+  - application/json
+
+consumes:
+  - application/x-www-form-urlencoded
+  - application/json
+
+paths:
+  /admin/clusters:
+    get:
+      description: Returns information about all clusters.
+      security:
+        - Default: []
+      responses:
+        200:
+          description: An array of objects, each of which gives information about one cluster.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Clusters"
+
+  /admin/clusters/{cluster}:
+    get:
+      parameters:
+        - $ref: "#/parameters/PathCluster"
+      description: Returns information about the specified cluster.
+      security:
+        - Default: []
+      responses:
+        200:
+          description: An object giving information about the specified cluster.
+          schema:
+            $ref: "#/definitions/Clusters"
+
+  /admin/clusters/{cluster}/nodes:
+    get:
+      parameters:
+        - $ref: "#/parameters/PathCluster"
+      description: Returns information about all nodes in the specified cluster.
+      security:
+        - Default: []
+      responses:
+        200:
+          description: An array of objects, each of which gives information about one node.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Nodes"
+
+  /admin/clusters/{cluster}/nodes/{node}:
+    get:
+      parameters:
+        - $ref: "#/parameters/PathCluster"
+        - $ref: "#/parameters/PathNode"
+      description: Returns information about the specified node in the specified cluster.
+      security:
+        - Default: []
+      responses:
+        200:
+          description: An object giving information about the specified node.
+          schema:
+            $ref: "#/definitions/Nodes"
+
+  /admin/config:
+    get:
+      description: Returns the configuration of the query service on the cluster.
+      security:
+        - Default: []
+      responses:
+        200:
+          description: An object giving information about the specified node.
+          schema:
+            $ref: "#/definitions/Nodes"
+
+  /admin/prepareds:
+    get:
+      description: |
+        Returns all prepared statements.
+        [NOTE]
+        ====
+        Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-prepared-get[Get Prepared Statements] for examples.
+        ====
+      security:
+        - Default: []
+      responses:
+        200:
+          description: An array of objects, each of which contains information about one prepared statement.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Statements"
+
+  /admin/prepareds/{name}:
+    get:
+      operationId: get_prepared
+      parameters:
+        - $ref: "#/parameters/PathName"
+      description: |
+        Returns the specified prepared statement.
+        [NOTE]
+        ====
+        Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-prepared-get[Get Prepared Statements] for examples.
+        ====
+      security:
+        - Default: []
+      responses:
+        200:
+          description: An object containing information about the specified prepared statement.
+          schema:
+            $ref: "#/definitions/Statements"
+    delete:
+      operationId: delete_prepared
+      parameters:
+        - $ref: "#/parameters/PathName"
+      description: |
+        Deletes the specified prepared statement.
+        [NOTE]
+        ====
+        Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-prepared-delete[Delete Prepared Statements] for examples.
+        ====
+      security:
+        - Default: []
+      responses:
+        200:
+          description: True if the prepared statement was successfully deleted.
+          schema:
+            type: boolean
+        500:
+          description: Returns an error message if the prepared statement could not be found.
+          schema:
+            type: object
+
+  /admin/active_requests:
+    get:
+      description: |
+        Returns all active query requests.
+        [NOTE]
+        ====
+        Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-active-get[Get Active Requests] for examples.
+        ====
+      security:
+        - Default: []
+      responses:
+        200:
+          description: An array of objects, each of which contains information about one active request.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Requests"
+
+  /admin/active_requests/{request}:
+    get:
+      operationId: get_active_request
+      parameters:
+        - $ref: "#/parameters/PathRequest"
+      description: |
+        Returns the specified active query request.
+        [NOTE]
+        ====
+        Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-active-get[Get Active Requests] for examples.
+        ====
+      security:
+        - Default: []
+      responses:
+        200:
+          description: An object containing information about the specified active request.
+          schema:
+            $ref: "#/definitions/Requests"
+    delete:
+      operationId: delete_active_request
+      parameters:
+        - $ref: "#/parameters/PathRequest"
+      description: |
+        Terminates the specified active query request.
+        [NOTE]
+        ====
+        Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-active-delete[Terminate an Active Request] for examples.
+        ====
+      security:
+        - Default: []
+      responses:
+        200:
+          description: True if the active request was successfully terminated.
+          schema:
+            type: boolean
+        500:
+          description: Returns an error message if the active request could not be found.
+          schema:
+            type: object
+
+  /admin/completed_requests:
+    get:
+      description: |
+        Returns all completed requests.
+        [NOTE]
+        ====
+        Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-completed-get[Get Completed Requests] for examples.
+        ====
+      security:
+        - Default: []
+      responses:
+        200:
+          description: An array of objects, each of which contains information about one completed request.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Requests"
+
+  /admin/completed_requests/{request}:
+    get:
+      operationId: get_completed_request
+      parameters:
+        - $ref: "#/parameters/PathRequest"
+      description: |
+        Returns the specified completed request.
+        [NOTE]
+        ====
+        Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-completed-get[Get Completed Requests] for examples.
+        ====
+      security:
+        - Default: []
+      responses:
+        200:
+          description: An object containing information about the specified active request.
+          schema:
+            $ref: "#/definitions/Requests"
+    delete:
+      operationId: delete_completed_request
+      parameters:
+        - $ref: "#/parameters/PathRequest"
+      description: |
+        Purges the specified completed request.
+        [NOTE]
+        ====
+        Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-completed-delete[Purge the Completed Requests] for examples.
+        ====
+      security:
+        - Default: []
+      responses:
+        200:
+          description: True if the completed request was successfully purged.
+          schema:
+            type: boolean
+        500:
+          description: Returns an error message if the completed request could not be found.
+          schema:
+            type: object
+
+  /admin/indexes/prepareds:
+    get:
+      description: |
+        Returns all prepared index statements.
+        [TIP]
+        ====
+        * Use <<_get_prepared>> to get information about a prepared index statement.
+        * Use <<_delete_prepared>> to delete a prepared index statement.
+        ====
+      security:
+        - Default: []
+      responses:
+        200:
+          description: An array of strings, each of which is the name of a prepared index statement.
+          schema:
+            type: array
+            items:
+              type: string
+              description: |
+                The name of the prepared statement.
+                This may be a UUID that was assigned automatically, or a name that was user-specified when the statement was created.
+
+  /admin/indexes/active_requests:
+    get:
+      description: |
+        Returns all active index requests.
+        [TIP]
+        ====
+        * Use <<_get_active_request>> to get information about an active index request.
+        * Use <<_delete_active_request>> to terminate an active index request.
+        ====
+      security:
+        - Default: []
+      responses:
+        200:
+          description: An array of strings, each of which is the requestID of an active index request.
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+              description: Unique request ID internally generated for the query.
+
+  /admin/indexes/completed_requests:
+    get:
+      description: |
+        Returns all completed index requests.
+        [TIP]
+        ====
+        * Use <<_get_completed_request>> to get information about a completed index request.
+        * Use <<_delete_completed_request>> to purge a completed index request.
+        ====
+      security:
+        - Default: []
+      responses:
+        200:
+          description: An array of strings, each of which is the requestID of a completed index request.
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+              description: Unique request ID internally generated for the query.
+
+  /admin/ping:
+    get:
+      operationId: get_ping
+      description: Returns a minimal response, indicating that the service is running and reachable.
+      security:
+        - None: []
+      responses:
+        200:
+          description: An empty object.
+          schema:
+            type: object
+
+  # /admin/ssl_cert:
+  #   get:
+  #     deprecated: true
+
+  /admin/vitals:
+    get:
+      description: |
+        Returns data about the running state and health of the query engine.
+        This information can be very useful to assess the current workload and performance characteristics of a query engine, and hence load-balance the requests being sent to various query engines.
+        [NOTE]
+        ====
+        Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#vitals[Get System Vitals] for examples.
+        ====
+      security:
+        - Default: []
+      responses:
+        200:
+          description: An object containing all vital statistics.
+          schema:
+            $ref: "#/definitions/Vitals"
+
+  /admin/stats:
+    get:
+      operationId: get_stats
+      description: Returns all statistics.
+      security:
+        - Default: []
+      responses:
+        200:
+          description: |
+            An object containing all statistics.
+            Each statistic consist of a top-level statistic name and a metric name.
+            Each statistic has a different set of metrics.
+          schema:
+            $ref: "#/definitions/Statistics"
+
+  /admin/stats/{stat}:
+    get:
+      parameters:
+        - $ref: "#/parameters/PathStat"
+      description: Returns the specified statistic.
+      security:
+        - Default: []
+      responses:
+        200:
+          description: |
+            An object containing all metrics for the specified statistic.
+            Each statistic has a different set of metrics.
+          schema:
+            $ref: "#/definitions/Metrics"
+
+  /debug/vars:
+    get:
+      operationId: get_debug_vars
+      description: Currently unused.
+      security:
+        - None: []
+      produces:
+        - text/html
+      responses:
+        302:
+          description: Redirects to the <<_get_stats>> endpoint.
+          schema:
+            type: text/html
+
+  /admin/settings:
+    get:
+      description: |
+        Returns service-level query settings.
+        [NOTE]
+        ====
+        Refer to xref:settings:query-settings.adoc[Query Settings] for more information and examples.
+        ====
+      security:
+        - Default: []
+      responses:
+        200:
+          description: An object giving service-level query settings.
+          schema:
+            $ref: "#/definitions/Settings"
+    post:
+      description: |
+        Updates service-level query settings.
+        [NOTE]
+        ====
+        Refer to xref:settings:query-settings.adoc[Query Settings] for more information and examples.
+        ====
+      security:
+        - Default: []
+      parameters:
+        - in: body
+          name: Settings
+          description: An object specifying service-level query settings.
+          schema:
+            $ref: "#/definitions/Settings"
+      responses:
+        200:
+          description: An object giving service-level query settings, including the latest changes.
+          schema:
+            $ref: "#/definitions/Settings"
+
+definitions:
+  Clusters:
+    type: object
+    title: Cluster Information
+    properties:
+      name:
+        type: string
+        description: The name of the cluster.
+      datastore:
+        type: string
+        description: The URL of the datastore.
+      configstore:
+        type: string
+        description: The URL of the configstore.
+      accountstore:
+        type: string
+        description: The URL of the accountstore.
+      version:
+        type: string
+
+  Nodes:
+    type: object
+    title: Node Information
+    properties:
+      cluster:
+        type: string
+        description: The name of the cluster.
+      name:
+        type: string
+        description: The URL of the node, including port number.
+      queryEndpoint:
+        type: string
+        description: The HTTP URL of the query endpoint.
+      adminEndpoint:
+        type: string
+        description: The HTTP URL of the admin endpoint.
+      querySecure:
+        type: string
+        description: The HTTPS URL of the query endpoint.
+      adminSecure:
+        type: string
+        description: The HTTPS URL of the admin endpoint.
+      options:
+        type: string
+
+  Requests:
+    type: object
+    title: Requests
+    properties:
+      clientContextID:
+        type: string
+        format: uuid
+        description: The opaque ID or context provided by the client.
+      elapsedTime:
+        type: string
+        format: duration
+        description: |
+          The time taken from when the request was acknowledged by the service to when the request was completed.
+          It includes the time taken by the service to schedule the request.
+      errorCount:
+        type: integer
+        description: Total number of errors encountered while executing the query.
+      phaseCounts:
+        type: object
+        description: |
+          Count of documents processed at selective phases involved in the query execution.
+          Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#profile[Attribute Profile in Query Response] for more details and examples.
+      phaseOperators:
+        type: object
+        description: |
+          Indicates the number of each kind of query operators involved in different phases of the query processing.
+          Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#profile[Attribute Profile in Query Response] for more details and examples.
+      remoteAddr:
+        type: string
+        description: IP address and port number of the client application, from where the query is received.
+      requestId:
+        type: string
+        format: uuid
+        description: Unique request ID internally generated for the query.
+      requestTime:
+        type: string
+        format: date-time
+        description: Timestamp when the query is received.
+      resultCount:
+        type: integer
+        description: Total number of documents returned in the query result.
+      resultSize:
+        type: integer
+        description: Total number of bytes returned in the query result.
+      scanConsistency:
+        type: string
+        description: The value of the query setting Scan Consistency used for the query.
+      serviceTime:
+        type: string
+        format: duration
+        description: Total amount of calendar time taken to complete the query.
+      state:
+        type: string
+        description: The state of the query execution, such as completed, running, cancelled.
+      statement:
+        type: string
+        description: The N1QL query statement being executed.
+      userAgent:
+        type: string
+        description: Name of the client application or program that issued the query.
+      users:
+        type: string
+        description: Username with whose privileges the query is run.
+
+  Statements:
+    type: object
+    title: Prepared Statements
+    properties:
+      encoded_plan:
+        type: string
+        description: The full prepared statement in encoded format.
+      featureControls:
+        type: integer
+      indexApiVersion:
+        type: integer
+      name:
+        type: string
+        description: |
+          The name of the prepared statement.
+          This may be a UUID that was assigned automatically, or a name that was user-specified when the statement was created.
+      statement:
+        type: string
+        description: The text of the N1QL query.
+      uses:
+        type: integer
+        description: The count of times the prepared statement has been executed.
+
+  Vitals:
+    type: object
+    title: Vital Statistics
+    properties:
+      uptime:
+        type: string
+        format: duration
+        description: The uptime of the query engine.
+      local.time:
+        type: string
+        format: date-time
+        description: The local time of the query engine.
+      version:
+        type: string
+        description: The version of the query engine.
+      total.threads:
+        type: integer
+        description: The number of active threads used by the query engine.
+      cores:
+        type: integer
+        description: The maximum number of logical cores available to the query engine.
+      gc.num:
+        type: integer
+        format: int64
+        description: The target heap size of the next garbage collection cycle.
+      gc.pause.time:
+        type: string
+        format: duration
+        description: The total time spent pausing for garbage collection since the query engine started (ns).
+      gc.pause.percent:
+        type: integer
+        format: int64
+        description: The percentage of time spent pausing for garbage collection since the last time the statistics were checked.
+      memory.usage:
+        type: integer
+        format: int64
+        description: |
+          The amount of memory allocated for heap objects (bytes).
+          This increases as heap objects are allocated, and decreases as objects are freed.
+      memory.total:
+        type: integer
+        format: int64
+        description: |
+          The cumulative amount of memory allocated for heap objects (bytes).
+          This increases as heap objects are allocated, but does not decrease when objects are freed.
+      memory.system:
+        type: integer
+        format: int64
+        description: |
+          The total amount of memory obtained from the operating system (bytes).
+          This measures the virtual address space reserved by the query engine for heaps, stacks, and other internal data structures.
+      cpu.user.percent:
+        type: integer
+        format: int64
+        description: |
+          CPU usage.
+          The percentage of time spent executing user code since the last time the statistics were checked.
+      cpu.sys.percent:
+        type: integer
+        format: int64
+        description: |
+          CPU usage.
+          The percentage of time spent executing system code since the last time the statistics were checked.
+      request.completed.count:
+        type: integer
+        description: Total number of completed requests.
+      request.active.count:
+        type: integer
+        description: Total number of active requests.
+      request.per.sec.1min:
+        type: number
+        description: |
+          Number of N1QL requests processed per second.
+          1-minute exponentially weighted moving average.
+      request.per.sec.5min:
+        type: number
+        description: |
+          Number of N1QL requests processed per second.
+          5-minute exponentially weighted moving average.
+      request.per.sec.15min:
+        type: number
+        description: |
+          Number of N1QL requests processed per second.
+          15-minute exponentially weighted moving average.
+      request_time.mean:
+        type: string
+        format: duration
+        description: |
+          End-to-end time to process a query.
+          The mean value.
+      request_time.median:
+        type: string
+        format: duration
+        description: |
+          End-to-end time to process a query.
+          The median value.
+      request_time.80percentile:
+        type: string
+        format: duration
+        description: |
+          End-to-end time to process a query.
+          The 80th percentile.
+      request_time.95percentile:
+        type: string
+        format: duration
+        description: |
+          End-to-end time to process a query.
+          The 95th percentile.
+      request_time.99percentile:
+        type: string
+        format: duration
+        description: |
+          End-to-end time to process a query.
+          The 99th percentile.
+      request.prepared.percent:
+        type: integer
+        description: Percentage of requests that are prepared statements.
+
+  Statistics:
+    type: object
+    title: Statistics
+    properties:
+      active_requests.count:
+        type: integer
+        description: Total number of active requests.
+      at_plus.count:
+        type: integer
+        description: Total number of N1QL requests with `at_plus` index consistency.
+      cancelled.count:
+        type: integer
+        description: Total number of cancelled requests.
+      deletes.count:
+        type: integer
+        description: Total number of DELETE operations.
+      errors.count:
+        type: integer
+        description: The total number of N1QL errors returned so far.
+      inserts.count:
+        type: integer
+        description: Total number of INSERT operations.
+      invalid_requests.count:
+        type: integer
+        description: Total number of requests for unsupported endpoints.
+      mutations.count:
+        type: integer
+        description: Total number of document mutations.
+      prepared.15m.rate:
+        type: number
+        description: |
+          Prepared statements executed per second.
+          15-minute exponentially weighted moving average.
+      prepared.1m.rate:
+        type: number
+        description: |
+          Prepared statements executed per second.
+          1-minute exponentially weighted moving average.
+      prepared.5m.rate:
+        type: number
+        description: |
+          Prepared statements executed per second.
+          5-minute exponentially weighted moving average.
+      prepared.count:
+        type: integer
+        description: Total number of prepared statements executed.
+      prepared.mean.rate:
+        type: number
+        description: |
+          Prepared statements executed per second.
+          Mean rate since the query service started.
+      queued_requests.count:
+        type: integer
+        description: Total number of queued requests.
+      request_rate.15m.rate:
+        type: integer
+        description: |
+          Number of N1QL requests processed per second.
+          15-minute exponentially weighted moving average.
+      request_rate.1m.rate:
+        type: integer
+        description: |
+          Number of N1QL requests processed per second.
+          1-minute exponentially weighted moving average.
+      request_rate.5m.rate:
+        type: integer
+        description: |
+          Number of N1QL requests processed per second.
+          5-minute exponentially weighted moving average.
+      request_rate.count:
+        type: integer
+        description: Total number of N1QL requests.
+      request_rate.mean.rate:
+        type: number
+        description: |
+          Number of N1QL requests processed per second.
+          Mean rate since the query service started.
+      request_time.count:
+        type: integer
+        description: Total end-to-end time to process all queries (ns).
+      request_timer.15m.rate:
+        type: number
+        description: |
+          Number of N1QL requests processed per second.
+          15-minute exponentially weighted moving average.
+      request_timer.1m.rate:
+        type: number
+        description: |
+          Number of N1QL requests processed per second.
+          1-minute exponentially weighted moving average.
+      request_timer.5m.rate:
+        type: number
+        description: |
+          Number of N1QL requests processed per second.
+          5-minute exponentially weighted moving average.
+      request_timer.75%:
+        type: number
+        description: |
+          End-to-end time to process a query (ns).
+          The 75th percentile.
+      request_timer.95%:
+        type: number
+        description: |
+          End-to-end time to process a query (ns).
+          The 95th percentile.
+      request_timer.99%:
+        type: number
+        description: |
+          End-to-end time to process a query (ns).
+          The 99th percentile.
+      request_timer.99.9%:
+        type: number
+        description: |
+          End-to-end time to process a query (ns).
+          The 99.9th percentile.
+      request_timer.count:
+        type: integer
+        description: Total number of N1QL requests.
+      request_timer.max:
+        type: integer
+        description: |
+          End-to-end time to process a query (ns).
+          The maximum value.
+      request_timer.mean:
+        type: number
+        description: |
+          End-to-end time to process a query (ns).
+          The mean value.
+      request_timer.mean.rate:
+        type: number
+        description: |
+          Number of N1QL requests processed per second.
+          Mean rate since the query service started.
+      request_timer.median:
+        type: number
+        description: |
+          End-to-end time to process a query (ns).
+          The median value.
+      request_timer.min:
+        type: integer
+        description: |
+          End-to-end time to process a query (ns).
+          The minimum value.
+      request_timer.stddev:
+        type: number
+        description: |
+          End-to-end time to process a query (ns).
+          The standard deviation.
+      requests.count:
+        type: integer
+        description: Total number of N1QL requests.
+      requests_1000ms.count:
+        type: integer
+        description: Number of queries that take longer than 1000ms.
+      requests_250ms.count:
+        type: integer
+        description: Number of queries that take longer than 250ms.
+      requests_5000ms.count:
+        type: integer
+        description: Number of queries that take longer than 5000ms.
+      requests_500ms.count:
+        type: integer
+        description: Number of queries that take longer than 500ms.
+      result_count.count:
+        type: integer
+        description: Total number of results (documents) returned by the query engine.
+      result_size.count:
+        type: integer
+        description: Total size of data returned by the query engine (bytes).
+      scan_plus.count:
+        type: integer
+        description: Total number of N1QL requests with `request_plus` index consistency.
+      selects.count:
+        type: integer
+        description: Total number of SELECT requests.
+      service_time.count:
+        type: integer
+        description: Time to execute all queries (ns).
+      unbounded.count:
+        type: integer
+        description: Total number of N1QL requests with `not_bounded` index consistency.
+      updates.count:
+        type: integer
+        description: Total number of UPDATE requests.
+      warnings.count:
+        type: integer
+        description: The total number of N1QL warnings returned so far.
+
+  Metrics:
+    type: object
+    title: Metrics
+    properties:
+      count:
+        type: integer
+        description: A single value that represents the current state.
+      15m.rate:
+        type: number
+        description: 15-minute exponentially weighted moving average.
+      1m.rate:
+        type: number
+        description: 1-minute exponentially weighted moving average.
+      5m.rate:
+        type: number
+        description: 5-minute exponentially weighted moving average.
+      mean.rate:
+        type: number
+        description: Mean rate since the query service started.
+      max:
+        type: integer
+        description: The maximum value.
+      mean:
+        type: number
+        description: The mean value.
+      median:
+        type: number
+        description: The median value.
+      min:
+        type: integer
+        description: The minimum value.
+      stddev:
+        type: number
+        description: The standard deviation.
+      75%:
+        type: number
+        description: The 75th percentile.
+      95%:
+        type: number
+        description: The 95th percentile.
+      99%:
+        type: number
+        description: The 99th percentile.
+      99.9%:
+        type: number
+        description: The 99.9th percentile.
+
+  Settings:
+    type: object
+    title: Settings
+    properties:
+      completed-limit:
+        type: integer
+        format: int32
+        default: 4000
+        example: 7000
+        description: |
+          Maximum number of completed requests.
+          As new completed requests are added, old ones are removed.
+          Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-completed-config[Configure the Completed Requests] for more information and examples.
+      completed-threshold:
+        type: integer
+        format: int32
+        default: 1000
+        example: 7000
+        description: |
+          A duration in milliseconds.
+          All completed queries lasting longer than this threshold are logged in the completed requests catalog.
+          Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-completed-config[Configure the Completed Requests] for more information and examples.
+      controls:
+        type: boolean
+        default: false
+        example: true
+        description: Specifies if there should be a controls section returned with the request results.
+      cpuprofile:
+        type: string
+        default: ""
+        example: "/tmp/info.txt"
+        description: The absolute path and filename to write the CPU profile to a local file.
+      debug:
+        type: boolean
+        default: false
+        example: true
+        description: Use debug mode.
+      keep-alive-length:
+        type: integer
+        format: int32
+        default: 16384
+        example: 7000
+        description: Maximum size of buffered result.
+      loglevel:
+        type: string
+        default: INFO
+        example: DEBUG
+        enum: ["DEBUG","TRACE","INFO","WARN","ERROR","SEVERE","NONE"]
+        description: Log level used in the logger.
+      max-index-api:
+        type: integer
+        format: int32
+        description: |
+          Max index API.
+          This setting is provided for technical support only.
+      max-parallelism:
+        type: integer
+        format: int32
+        default: 1
+        example: 0
+        description: |
+          Maximum number of index partitions, for computing aggregation in parallel.
+          Refer to xref:n1ql-language-reference/index-partitioning.adoc#max_parallelism[Max Parallelism] for more information.
+      memprofile:
+        type: string
+        default: ""
+        example: "/tmp/memory-usage.log"
+        description: Filename to write the diagnostic memory usage log.
+      n1ql-feat-ctrl:
+        type: integer
+        format: int32
+        description: |
+          N1QL feature control.
+          This setting is provided for technical support only.
+      pipeline-batch:
+        type: integer
+        format: int32
+        default: 16
+        example: 64
+        description: Controls the number of items execution operators can batch for Fetch from the KV.
+      pipeline-cap:
+        type: integer
+        format: int32
+        default: 512
+        example: 1024
+        description: Maximum number of items each execution operator can buffer between various operators.
+      prepared-limit:
+        type: integer
+        format: int32
+        default: 16384
+        example: 65536
+        description: Maximum number of prepared statements in the cache.
+      pretty:
+        type: boolean
+        default: false
+        example: true
+        description: Specifies whether query results are returned in pretty format.
+      profile:
+        type: string
+        default: "off"
+        example: "phases"
+        enum: ["off","phases","timings"]
+        description: |
+          Specifies if there should be a profile section returned with the request results.
+          Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#monitor-profile-details[Monitoring and Profiling Details] for more information and examples.
+      request-size-cap:
+        type: integer
+        format: int32
+        default: 67108864
+        example: 70000
+        description: Maximum size of a request.
+      scan-cap:
+        type: integer
+        format: int32
+        default: 512
+        example: 1024
+        description: |
+          Maximum buffered channel size between the indexer client and the query service for index scans.
+          This parameter controls when to use scan backfill.
+      servicers:
+        type: integer
+        format: int32
+        default: 32
+        example: 8
+        description: The number of service threads for the query.
+      timeout:
+        type: string
+        format: duration
+        default: 0s
+        example: 30m
+        description: Maximum time to spend on the request before timing out.
+
+parameters:
+  PathStat:
+    name: stat
+    in: path
+    type: string
+    required: true
+    enum:
+      - active_requests
+      - at_plus
+      - cancelled
+      - deletes
+      - errors
+      - inserts
+      - invalid_requests
+      - mutations
+      - prepared
+      - queued_requests
+      - request_rate
+      - request_time
+      - request_timer
+      - requests
+      - requests_1000ms
+      - requests_250ms
+      - requests_5000ms
+      - requests_500ms
+      - result_count
+      - result_size
+      - scan_plus
+      - selects
+      - service_time
+      - unbounded
+      - updates
+      - warnings
+    description: |
+      The name of a statistic.
+      Only top-level statistic names can be used.
+      You cannot specify a metric.
+
+  PathName:
+    name: name
+    type: string
+    in: path
+    required: true
+    description: |
+      The name of a prepared statement.
+      This may be a UUID that was assigned automatically, or a name that was user-specified when the statement was created.
+
+  PathRequest:
+    name: request
+    type: string
+    in: path
+    required: true
+    description: |
+      The name of a request.
+      This is the `requestID` that was assigned automatically when the statement was created.
+
+  PathCluster:
+    name: cluster
+    type: string
+    in: path
+    required: true
+    description: The name of a cluster.
+
+  PathNode:
+    name: node
+    type: string
+    in: path
+    required: true
+    description: The name of a node.
+
+securityDefinitions:
+  Default:
+    type: basic
+    description: |
+      The Admin API supports admin credentials.
+      Credentials can be passed via HTTP headers (HTTP basic authentication).
+
+  None:
+    type: basic
+    description: No authentication is required for the <<_get_ping>> or <<_get_debug_vars>> endpoints.
