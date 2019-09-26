@@ -12,6 +12,9 @@ Each subproject is stored in its own subfolder within the `src` folder.
 Within each subproject there is a gradle build script with a `.gradle` extension.
 The gradle build script specifies the locations of the Swagger source file, any additional AsciiDoc content, and the output AsciiDoc files.
 
+Some subprojects are not currently designed to be built.
+These do not have a gradle build script.
+
 === Swagger Specification
 
 Within each subproject, the Swagger Specification (JSON or YAML) is stored in a folder called `swagger`.
@@ -19,7 +22,7 @@ Within each subproject, the Swagger Specification (JSON or YAML) is stored in a 
 
 === AsciiDoc Content
 
-For each subproject,additional AsciiDoc content is stored in the folder `asciidoc/extensions` and its subfolders.
+For each subproject, additional AsciiDoc content may be stored in the folder `asciidoc/extensions` and its subfolders.
 
 === Convert a single subproject
 
