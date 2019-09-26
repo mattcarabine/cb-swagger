@@ -1,46 +1,42 @@
-= Swagger2Markup Gradle template project
+= Couchbase Swagger Project
 
-This is a Swagger2Markup Gradle template project which uses the swagger2markup-gradle-plugin to convert a contract-first Swagger specification into an AsciiDoctor-based HTML documentation.
+This project uses the https://github.com/Swagger2Markup/swagger2markup-gradle-plugin[swagger2markup-gradle-plugin] to convert the Swagger specifications for Couchbase REST APIs into AsciiDoctor documentation.
 
 == Usage guide
 
+This repository handles several Swagger subprojects.
+Each subproject is stored in its own subfolder within the `src` folder.
+
+=== Build Script
+
+Within each subproject there is a gradle build script with a `.gradle` extension.
+The gradle build script specifies the locations of the Swagger source file, any additional AsciiDoc content, and the output AsciiDoc files.
+
 === Swagger Specification
 
-Copy your Swagger Specification (JSON or YAML) file into the folder `src/docs/swagger`.
+Within each subproject, the Swagger Specification (JSON or YAML) is stored in a folder called `swagger`.
+(For some subprojects, the Swagger specification file may be stored remotely, i.e. alongside the development source files.)
 
-=== Add hand-written content
+=== AsciiDoc Content
 
-Add hand-written AsciiDoc content into the folder `src/docs/asciidoc` and include the files in `src/docs/asciidoc/index.adoc`.
+For each subproject,additional AsciiDoc content is stored in the folder `asciidoc/extensions` and its subfolders.
 
-```
-\include::{generated}/overview.adoc[]
-\include::manual_content1.adoc[]
-\include::manual_content2.adoc[]
-\include::{generated}/paths.adoc[]
-\include::{generated}/definitions.adoc[]
-```
+=== Convert a single subproject
 
-The Asciidoctor attribute `{generated}` is set by the Gradle script to `build/asciidoc`. By default the Swagger2Markup Gradle plugin creates the the generated AsciiDoc files into the `build/asciidoc` folder.
-
-
-=== Convert AsciiDoc to HTML
-
-[source]
+[subs="normal"]
 ----
-gradlew asciidoctor
+./gradlew _project_:convertSwagger2markup
 ----
 
-Check `build/asciidoc/html5/index.html` to see the generated HTML report.
+Where `_project_` is the subproject that you want to convert, for example, `admin`.
 
-=== Watch AsciiDoc files
+=== Convert all projects
 
-[source]
+[subs="normal"]
 ----
-gradlew watch
+./gradlew
 ----
 
-=== Start LiveReload
-[source]
-----
-gradlew liveReload
-----
+== Acknowledgements
+
+This project is based on the https://github.com/Swagger2Markup/swagger2markup-gradle-project-template[Swagger2Markup Gradle template project].
