@@ -44,3 +44,5 @@ convertSwagger2markup {
 task wrapper(type: Wrapper) {
     gradleVersion = '4.9'
 }
+
+defaultTasks 'convertSwagger2markup'
