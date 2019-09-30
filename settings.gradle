@@ -1,4 +1,4 @@
-rootProject.name = 'swagger2markup-gradle-project-template'
+rootProject.name = 'cb-swagger'
 include 'admin', 'functions'
 project(':admin').projectDir = new File (settingsDir, 'src/admin')
 project(':admin').buildFileName = 'admin.gradle'
