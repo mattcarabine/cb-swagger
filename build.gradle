@@ -26,3 +26,5 @@ repositories {
 task wrapper(type: Wrapper) {
     gradleVersion = '4.9'
 }
+
+defaultTasks 'admin:convertSwagger2markup', 'functions:convertSwagger2markup'
