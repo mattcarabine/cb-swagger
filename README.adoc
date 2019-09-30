@@ -25,7 +25,7 @@ For each subproject,additional AsciiDoc content is stored in the folder `asciido
 
 [subs="normal"]
 ----
-./gradlew _project_:convertSwagger2markup
+./gradlew _project_:convertSwagger2markup --rerun-tasks
 ----
 
 Where `_project_` is the subproject that you want to convert, for example, `admin`.
@@ -34,7 +34,7 @@ Where `_project_` is the subproject that you want to convert, for example, `admi
 
 [subs="normal"]
 ----
-./gradlew
+./gradlew --rerun-tasks
 ----
 
 == Acknowledgements
