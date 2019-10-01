@@ -1,0 +1,3 @@
+= ns_server
+
+This spec does not yet have a swagger2markup gradle build script.
