@@ -12,7 +12,7 @@ Each subproject is stored in its own subfolder within the `src` folder.
 Within each subproject there is a gradle build script with a `.gradle` extension.
 The gradle build script specifies the locations of the Swagger source file, any additional AsciiDoc content, and the output AsciiDoc files.
 
-Some subprojects are not currently designed to be built.
+Some subprojects are not currently ready to be built.
 These do not have a gradle build script.
 
 === Swagger Specification
