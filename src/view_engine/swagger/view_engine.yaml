@@ -1,0 +1,237 @@
+swagger: '2.0'
+info:
+  title: Couchbase Server API
+  description: API for interacting with Couchbase Server
+  version: "4.5.1"
+
+host: localhost:1337/192.168.99.100:8092
+
+schemes:
+  - https
+  - http
+
+produces:
+  - application/json
+
+consumes:
+  - application/json
+  - formData
+
+securityDefinitions:
+  basicAuth:
+    type: basic
+    description: HTTP Basic Authentication. Works over `HTTP` and `HTTPS`
+    
+paths:
+  /{bucket_name}/_design/{ddoc_name}:
+    get:
+      summary: Gets design document definition.
+      parameters:
+        - $ref: "#/parameters/PathBucketName"
+        - $ref: "#/parameters/PathDdocName"
+      description: Returns the definition of the design document, including all javascript view definitions, as well as any reductions.
+      responses:
+        200:
+          description: success
+          schema:
+            type: object
+            properties:
+              views:
+                type: array
+                items:
+                  - $ref: "#/definitions/ViewDefinition"
+  
+  /{bucket_name}/_design/{ddoc_name}/_view/{view_name}:
+    get:
+      summary: Gets the results of a view
+      parameters:
+        - $ref: "#/parameters/PathBucketName"
+        - $ref: "#/parameters/PathDdocName"
+        - $ref: "#/parameters/PathViewName"
+        - $ref: "#/parameters/Debug"
+        - $ref: "#/parameters/Stale"
+        - $ref: "#/parameters/Reduce"
+        - $ref: "#/parameters/Descending"
+        - $ref: "#/parameters/StartKey"
+        - $ref: "#/parameters/EndKey"
+        - $ref: "#/parameters/StartKeyDocId"
+        - $ref: "#/parameters/EndKeyDocId"
+        - $ref: "#/parameters/Group"
+        - $ref: "#/parameters/GroupLevel"
+        - $ref: "#/parameters/InclusiveEnd"
+        - $ref: "#/parameters/Key"
+        - $ref: "#/parameters/Keys"
+        - $ref: "#/parameters/ConnectionTimeout"
+      description: Returns the results of a view
+      responses:
+        200:
+          description: PLACEHOLDER
+          
+  /{bucket_name}/_design/{ddoc_name}/_info:
+    get:
+      summary: Gets internal design document info
+      parameters:
+        - $ref: "#/parameters/PathBucketName"
+        - $ref: "#/parameters/PathDdocName"
+      description: Internal
+      responses:
+        200:
+          description: PLACEHOLDER
+      
+  /{bucket_name}/_design/{ddoc_name}/_btree_stats:
+    get:
+      summary: Gets internal design document info
+      parameters:
+        - $ref: "#/parameters/PathBucketName"
+        - $ref: "#/parameters/PathDdocName"
+      description: Internal
+      responses:
+        200:
+          description: PLACEHOLDER
+  
+  /{bucket_name}/_design/{ddoc_name}/_get_utilization_stats:
+    get:
+      summary: Gets internal design document info
+      parameters:
+        - $ref: "#/parameters/PathBucketName"
+        - $ref: "#/parameters/PathDdocName"
+      description: Internal
+      responses:
+        200:
+          description: PLACEHOLDER
+          
+  /{bucket_name}/_design/{ddoc_name}/_get_query_stats:
+    get:
+      summary: Gets internal design document info
+      parameters:
+        - $ref: "#/parameters/PathBucketName"
+        - $ref: "#/parameters/PathDdocName"
+      description: Internal
+      responses:
+        200:
+          description: PLACEHOLDER
+          
+definitions:
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
+
+  ViewDefinition:
+    type: object
+    required: ["map"]
+    properties:
+      map:
+        type: string
+        example: "function (doc, meta) {\n  emit(meta.id, null);\n}"
+        description: The map function associated with this view, written in javascript
+      reduce:
+        type: string
+        example: "_count"
+        description: The reduce function associated with this view, either a built-in function 
+      
+parameters:
+  PathBucketName:
+    name: bucket_name
+    in: path
+    type: string
+    required: true
+    description: name of a bucket
+    
+  PathDdocName:
+    name: ddoc_name
+    type: string
+    in: path
+    required: true
+    
+  PathViewName:
+    name: view_name
+    type: string
+    in: path
+    required: true
+    
+  Debug:
+    name: debug
+    type: boolean
+    in: query
+    default: false
+  
+  Stale:
+    name: stale
+    type: string
+    in: query
+    enum: ["ok", "update_after", "false"]
+    default: update_after
+    
+  Reduce:
+    name: reduce
+    type: string
+    in: query
+    enum: ["true", "false", "ok"]
+    default: "true"
+    
+  Descending:
+    name: descending
+    type: boolean
+    in: query
+    default: true
+  
+  StartKey:
+    name: startkey
+    type: string
+    in: query
+  
+  EndKey:
+    name: endkey
+    type: string
+    in: query
+    
+  StartKeyDocId:
+    name: startkey_docid
+    type: string
+    in: query
+    
+  EndKeyDocId:
+    name: endkey_docid
+    type: string
+    in: query
+    
+  Group:
+    name: group
+    type: boolean
+    in: query
+    default: false
+    
+  GroupLevel:
+    name: group_level
+    type: integer
+    in: query
+  
+  InclusiveEnd:
+    name: inclusive_end
+    type: boolean
+    in: query
+    default: true
+    
+  Key:
+    name: key
+    type: string
+    in: query
+  
+  Keys:
+    name: keys
+    type: string
+    in: query
+    
+  ConnectionTimeout:
+    name: connection_timeout
+    type: integer
+    in: query
+    
+
