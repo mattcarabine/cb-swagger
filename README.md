@@ -1,3 +1,6 @@
+> NOTE: This branch is deprecated.
+> New development is taking place in the `mad-hatter` and `release/6.0` branches.
+
 ## Get Started
 
 Install dependencies.
