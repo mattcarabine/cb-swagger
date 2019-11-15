@@ -1,0 +1,28 @@
+====
+
+.Response 200
+[source,json]
+----
+{
+   "Partition-1": {
+      "data_size": 3204,
+      "disk_size": 647394,
+      "items_count": 62,
+      "recs_on_disk": 62
+   },
+   "Partition-2": {
+      "data_size": 3004,
+      "disk_size": 647394,
+      "items_count": 58,
+      "recs_on_disk": 58
+   },
+   "travel-sample:over1000": {
+      "data_size": 6208,
+      "disk_size": 1294788,
+      "initial_build_progress": 100,
+      "items_count": 120,
+      "recs_on_disk": 120
+   }
+}
+----
+====

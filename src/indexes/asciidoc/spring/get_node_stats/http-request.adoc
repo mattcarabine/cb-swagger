@@ -1,0 +1,9 @@
+====
+Return statistics for an index node, omit empty results, and format the output.
+
+.Curl request
+[source,shell]
+----
+$ curl -X GET -u Administrator:password "http://localhost:9102/api/v1/stats?skipEmpty=true&pretty=true"
+----
+====
