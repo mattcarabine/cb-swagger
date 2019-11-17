@@ -114,7 +114,6 @@ definitions:
 
   Index:
     type: object
-    title: Index Definition
     properties:
       avg_drain_rate:
         type: integer
@@ -249,7 +248,7 @@ responses:
 
   Node:
     description: |
-      Returns an object containing a nested `indexer` object, and possibly one or more nested `__keyspace__:__index__` objects -- one for each index found on the specified node.
+      Returns an object containing a nested `indexer` object, and usually one or more nested `__keyspace__:__index__` objects -- one for each index found on the specified node.
     schema:
       type: object
       title: Node and Indexes
