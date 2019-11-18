@@ -159,7 +159,7 @@ definitions:
         description: |
           Percentage fragmentation of the index.
           
-          [NOTE]
+          [TIP]
           At small index sizes of less than a hundred kB, the static overhead of the index disk file will inflate the index fragmentation percentage.
       initial_build_progress:
         type: integer
