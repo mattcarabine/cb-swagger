@@ -225,7 +225,7 @@ responses:
   Node:
     description: |
       Success.
-      Returns an object containing a nested `indexer` object, and usually one or more nested `__keyspace__:__index__` objects -- one for each index found on the specified node.
+      Returns an object containing a nested `indexer` object, and usually one or more nested `__keyspace:index__` objects -- one for each index found on the specified node.
     schema:
       type: object
       title: Node and Indexes
@@ -235,7 +235,7 @@ responses:
         indexer:
           description: A nested object containing statistics for the current index node.
           $ref: "#/definitions/Node"
-        __keyspace__:__index__:
+        __keyspace:index__:
           description: |
             A nested object containing statistics for an entire index.
             
@@ -246,16 +246,16 @@ responses:
   Index:
     description: |
       Success.
-      Returns an object containing one nested `__keyspace__:__index__` object.
+      Returns an object containing one nested `__keyspace:index__` object.
 
       If the <<_get_index_stats_parameters,partition>> query parameter was set to `true`, the returned object also contains one or more `Partition-__num__` objects -- one for each index partition found on the specified node.
     schema:
       type: object
       title: Index and Partitions
       required:
-        - __keyspace__:__index__
+        - __keyspace:index__
       properties:
-        __keyspace__:__index__:
+        __keyspace:index__:
           description: |
             A nested object containing statistics for an entire index.
             
