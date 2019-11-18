@@ -90,7 +90,6 @@ parameters:
     description: Whether empty, null, or zero statistics should be omitted from the output.
 
 definitions:
-
   Node:
     type: object
     properties:
@@ -118,11 +117,9 @@ definitions:
       avg_drain_rate:
         type: integer
         description: Number of documents indexed by the indexer per second.
-        example: 0
       avg_scan_latency:
         type: integer
         description: Average time to server a scan request, in nanoseconds.
-        example: 0
       cache_hit_percent:
         type: integer
         description: |
@@ -130,9 +127,6 @@ definitions:
 
           [NOTE]
           Not available for ForestDB.
-
-          //
-        example: 0
       cache_hits:
         type: integer
         description: Accesses to this index data from RAM.
@@ -140,7 +134,6 @@ definitions:
       cache_misses:
         type: integer
         description: Accesses to this index data from disk.
-        example: 0
       data_size:
         type: integer
         description: Actual data size consumed by the index or partition.
@@ -156,9 +149,6 @@ definitions:
           
           [NOTE]
           At small index sizes of less than a hundred kB, the static overhead of the index disk file will inflate the index fragmentation percentage.
-
-          //
-        example: 0
       initial_build_progress:
         type: integer
         description: |
@@ -172,43 +162,33 @@ definitions:
       last_known_scan_time:
         type: integer
         description: TODO
-        example: 0
       num_docs_indexed:
         type: integer
         description: Number of documents indexed by the indexer since last startup.
-        example: 0
       num_docs_pending:
         type: integer
         description: Number of documents pending to be indexed.
-        example: 0
       num_docs_queued:
         type: integer
         description: Number of documents queued to be indexed.
-        example: 0
       num_items_flushed:
         type: integer
         description: TODO
-        example: 0
       num_pending_requests:
         type: integer
         description: TODO
-        example: 0
       num_requests:
         type: integer
         description: Number of requests served by the indexer since last startup.
-        example: 0
       num_rows_returned:
         type: integer
         description: Total number of rows returned so far by the indexer.
-        example: 0
       num_scan_errors:
         type: integer
         description: TODO
-        example: 0
       num_scan_timeouts:
         type: integer
         description: TODO
-        example: 0
       recs_in_mem:
         type: integer
         description: TODO
@@ -216,7 +196,6 @@ definitions:
       recs_on_disk:
         type: integer
         description: TODO
-        example: 0
       resident_percent:
         type: integer
         description: |
@@ -230,24 +209,23 @@ definitions:
       scan_bytes_read:
         type: integer
         description: Number of bytes read by a scan since last startup.
-        example: 0
       total_scan_duration:
         type: integer
         description: Total time spent by Indexer in scanning rows since last startup.
-        example: 0
 
 responses:
   IndexNotFound:
     description: |
       Not found.
-      The keyspace name may be incorrect, the index may not be located on the specified node, or the index may be warming up after a restart.
-
       Returns the path with the specified keyspace and index name.
+
+      The keyspace name may be incorrect, the index may not be located on the specified node, or the index may be warming up after a restart.
     schema:
       type: string
 
   Node:
     description: |
+      Success.
       Returns an object containing a nested `indexer` object, and usually one or more nested `__keyspace__:__index__` objects -- one for each index found on the specified node.
     schema:
       type: object
@@ -268,6 +246,7 @@ responses:
 
   Index:
     description: |
+      Success.
       Returns an object containing one nested `__keyspace__:__index__` object.
 
       If the <<_get_index_stats_parameters,partition>> query parameter was set to `true`, the returned object also contains one or more `Partition-__num__` objects -- one for each index partition found on the specified node.
@@ -296,5 +275,8 @@ securityDefinitions:
   Default:
     type: basic
     description: |
-      The Functions API supports admin credentials.
+      The Indexes API supports admin credentials.
       Credentials can be passed via HTTP headers (HTTP basic authentication).
+
+      Users must have Cluster Read and Bucket INDEX List privileges.
+      Refer to xref:learn:security/roles.adoc[Roles] for more details.
