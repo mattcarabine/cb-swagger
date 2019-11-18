@@ -1,9 +1,9 @@
 swagger: '2.0'
 info:
-  title: Indexes REST API
+  title: Index Statistics REST API
   version: '1.0'
   description: |
-    The Indexes REST API is provided by the Index service.
+    The Index Statistics REST API is provided by the Index service.
     This API enables you to get Index service statistics.
 
     The API schemes and host URLs are as follows:{blank}
@@ -130,7 +130,6 @@ definitions:
       cache_hits:
         type: integer
         description: Accesses to this index data from RAM.
-        example: 0
       cache_misses:
         type: integer
         description: Accesses to this index data from disk.
@@ -275,7 +274,7 @@ securityDefinitions:
   Default:
     type: basic
     description: |
-      The Indexes API supports admin credentials.
+      The Index Statistics API supports admin credentials.
       Credentials can be passed via HTTP headers (HTTP basic authentication).
 
       Users must have Cluster Read and Bucket INDEX List privileges.
