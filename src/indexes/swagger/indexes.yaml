@@ -100,15 +100,25 @@ definitions:
         example: Active
       memory_quota:
         type: integer
-        description: Memory quota assigned to the Index service on this node by user configuration.
+        description: Memory quota assigned to the Index service on this node by user configuration (bytes).
         example: 536870912
+        default: 268435456
+        maximum: 1099511992567
       memory_total_storage:
         type: integer
-        description: TODO
+        description: |
+          [NOTE]
+          .https://www.couchbase.com/products/editions[ENTERPRISE EDITION]
+          ====
+          Only available in Couchbase Server Enterprise Edition.
+          ====
+
+          The total size allocated in the indexer across all indexes (bytes).
+          This also accounts for memory fragmentation.
         example: 71794688
       memory_used:
         type: integer
-        description: Amount of memory used by the node.
+        description: Amount of memory used by the node (bytes).
         example: 360192000
 
   Index:
@@ -119,14 +129,17 @@ definitions:
         description: Average number of items flushed from memory to disk storage per second.
       avg_scan_latency:
         type: integer
-        description: Average time to serve a scan request, in nanoseconds.
+        description: Average time to serve a scan request (nanoseconds).
       cache_hit_percent:
         type: integer
         description: |
-          Percentage of memory accesses that were served from the managed cache.
-
           [NOTE]
-          Not available for ForestDB.
+          .https://www.couchbase.com/products/editions[ENTERPRISE EDITION]
+          ====
+          Only available in Couchbase Server Enterprise Edition.
+          ====
+
+          Percentage of memory accesses that were served from the managed cache.
       cache_hits:
         type: integer
         description: Accesses to this index data from RAM.
@@ -154,7 +167,6 @@ definitions:
           Percentage initial build progress for the index.
           When initial build is completed, the value is `100`.
 
-          [NOTE]
           For an index partition, the value is listed as `0`.
         example: 100
       items_count:
@@ -163,7 +175,7 @@ definitions:
         example: 2155
       last_known_scan_time:
         type: integer
-        description: TODO
+        description: Time of the last scan request received for this index.
       num_docs_indexed:
         type: integer
         description: Number of documents indexed by the indexer since last startup.
@@ -193,20 +205,39 @@ definitions:
         description: Number of requests that timed out, either waiting for snapshots or during scan in progress.
       recs_in_mem:
         type: integer
-        description: TODO
+        description: |
+          [NOTE]
+          .https://www.couchbase.com/products/editions[ENTERPRISE EDITION]
+          ====
+          Only available in Couchbase Server Enterprise Edition.
+          ====
+
+          For standard index storage, this is the number of records in this index that are stored in memory.
+
+          For memory-optimized index storage, this is the same as `items_count`.
         example: 2155
       recs_on_disk:
         type: integer
-        description: TODO
+        description: |
+          [NOTE]
+          .https://www.couchbase.com/products/editions[ENTERPRISE EDITION]
+          ====
+          Only available in Couchbase Server Enterprise Edition.
+          ====
+
+          For standard index storage, this is the number of records in this index that are stored on disk.
+
+          For memory-optimized index storage, this is `0`.
       resident_percent:
         type: integer
         description: |
-          Percentage of the data held in memory.
-
           [NOTE]
-          Not available for ForestDB.
-          
-          //
+          .https://www.couchbase.com/products/editions[ENTERPRISE EDITION]
+          ====
+          Only available in Couchbase Server Enterprise Edition.
+          ====
+
+          Percentage of the data held in memory.
         example: 100
       scan_bytes_read:
         type: integer
