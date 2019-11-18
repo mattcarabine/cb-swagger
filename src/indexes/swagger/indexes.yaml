@@ -116,10 +116,10 @@ definitions:
     properties:
       avg_drain_rate:
         type: integer
-        description: Number of documents indexed by the indexer per second.
+        description: Average number of items flushed from memory to disk storage per second.
       avg_scan_latency:
         type: integer
-        description: Average time to server a scan request, in nanoseconds.
+        description: Average time to serve a scan request, in nanoseconds.
       cache_hit_percent:
         type: integer
         description: |
@@ -151,8 +151,11 @@ definitions:
       initial_build_progress:
         type: integer
         description: |
-          Initial build progress for the index.
-          When index has completed initial build, the value is `100`.
+          Percentage initial build progress for the index.
+          When initial build is completed, the value is `100`.
+
+          [NOTE]
+          For an index partition, the value is listed as `0`.
         example: 100
       items_count:
         type: integer
@@ -172,10 +175,10 @@ definitions:
         description: Number of documents queued to be indexed.
       num_items_flushed:
         type: integer
-        description: TODO
+        description: Number of items flushed from memory to disk storage.
       num_pending_requests:
         type: integer
-        description: TODO
+        description: Number of requests received but not yet served by the indexer.
       num_requests:
         type: integer
         description: Number of requests served by the indexer since last startup.
@@ -184,10 +187,10 @@ definitions:
         description: Total number of rows returned so far by the indexer.
       num_scan_errors:
         type: integer
-        description: TODO
+        description: Number of requests that failed due to errors other than timeout.
       num_scan_timeouts:
         type: integer
-        description: TODO
+        description: Number of requests that timed out, either waiting for snapshots or during scan in progress.
       recs_in_mem:
         type: integer
         description: TODO
@@ -210,7 +213,7 @@ definitions:
         description: Number of bytes read by a scan since last startup.
       total_scan_duration:
         type: integer
-        description: Total time spent by Indexer in scanning rows since last startup.
+        description: Total time spent by the indexer in scanning rows since last startup.
 
 responses:
   IndexNotFound:
