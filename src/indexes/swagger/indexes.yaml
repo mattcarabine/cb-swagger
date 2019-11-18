@@ -175,7 +175,7 @@ definitions:
         example: 2155
       last_known_scan_time:
         type: integer
-        description: Time of the last scan request received for this index.
+        description: Time of the last scan request received for this index (Unix timestamp in nanoseconds).
       num_docs_indexed:
         type: integer
         description: Number of documents indexed by the indexer since last startup.
