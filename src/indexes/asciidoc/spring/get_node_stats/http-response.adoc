@@ -1,0 +1,27 @@
+====
+
+.Response 200
+[source,json]
+----
+{
+   "indexer": {
+      "indexer_state": "Active",
+      "memory_quota": 536870912,
+      "memory_total_storage": 6004736,
+      "memory_used": 193040384
+   },
+   "travel-sample:over1000": {
+      "cache_hit_percent": 100,
+      "cache_hits": 331,
+      "data_size": 17126,
+      "disk_size": 1131828,
+      "initial_build_progress": 100,
+      "items_count": 331,
+      "num_docs_indexed": 331,
+      "num_items_flushed": 331,
+      "recs_in_mem": 331,
+      "resident_percent": 100
+   }
+}
+----
+====

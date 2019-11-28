@@ -1,0 +1,305 @@
+swagger: '2.0'
+info:
+  title: Index Statistics REST API
+  version: '1.0'
+  description: |
+    The Index Statistics REST API is provided by the Index service.
+    This API enables you to get Index service statistics.
+
+    The API schemes and host URLs are as follows:{blank}
+
+    * `+http://node:9102/+`
+    * `+https://node:19102/+` (for secure access)
+
+    where [.var]`node` is the host name or IP address of a computer running the index service.
+
+produces:
+  - application/json
+
+paths:
+  /api/v1/stats:
+    parameters:
+      - $ref: "#/parameters/QueryPretty"
+      - $ref: "#/parameters/QuerySkipEmpty"
+    get:
+      operationId: get_node_stats
+      summary: Get Statistics for an Index Node
+      description: Returns statistics for an index node, and for all indexes on that node.
+      security:
+        - Default: []
+      responses:
+        "200":
+          $ref: '#/responses/Node'
+
+  /api/v1/stats/{keyspace}/{index}:
+    parameters:
+      - $ref: "#/parameters/PathKeyspace"
+      - $ref: "#/parameters/PathIndex"
+      - $ref: "#/parameters/QueryPretty"
+      - $ref: "#/parameters/QueryPartition"
+      - $ref: "#/parameters/QuerySkipEmpty"
+    get:
+      operationId: get_index_stats
+      summary: Get Statistics for an Index
+      description: Returns statistics for an index.
+      security:
+        - Default: []
+      responses:
+        "200":
+          $ref: '#/responses/Index'
+        "404":
+          $ref: '#/responses/IndexNotFound'
+
+parameters:
+  PathKeyspace:
+    name: keyspace
+    type: string
+    in: path
+    required: true
+    description: The name of a keyspace.
+
+  PathIndex:
+    name: index
+    type: string
+    in: path
+    required: true
+    description: The name of an index.
+
+  QueryPretty:
+    name: pretty
+    type: boolean
+    in: query
+    required: false
+    default: false
+    description: Whether the output should be formatted with indentations and newlines.
+    
+  QueryPartition:
+    name: partition
+    type: boolean
+    in: query
+    required: false
+    default: false
+    description: Whether statistics for index partitions should be included.
+
+  QuerySkipEmpty:
+    name: skipEmpty
+    type: boolean
+    in: query
+    required: false
+    default: false
+    description: Whether empty, null, or zero statistics should be omitted from the output.
+
+definitions:
+  Node:
+    type: object
+    properties:
+      indexer_state:
+        type: string
+        description: Current state of the Index service on this node.
+        enum: ["Active","Paused"]
+        example: Active
+      memory_quota:
+        type: integer
+        description: Memory quota assigned to the Index service on this node by user configuration (bytes).
+        example: 536870912
+        default: 268435456
+        maximum: 1099511992567
+      memory_total_storage:
+        type: integer
+        description: |
+          [.edition]#{enterprise}#
+
+          The total size allocated in the indexer across all indexes (bytes).
+          This also accounts for memory fragmentation.
+        example: 71794688
+      memory_used:
+        type: integer
+        description: Amount of memory used by the node (bytes).
+        example: 360192000
+
+  Index:
+    type: object
+    properties:
+      avg_array_length:
+        type: integer
+        description: |
+          (Array indexes only.)
+          The average number of items indexed per document.
+      avg_drain_rate:
+        type: integer
+        description: Average number of items flushed from memory to disk storage per second.
+      avg_scan_latency:
+        type: integer
+        description: Average time to serve a scan request (nanoseconds).
+      cache_hit_percent:
+        type: integer
+        description: |
+          [.edition]#{enterprise}#
+
+          Percentage of memory accesses that were served from the managed cache.
+      cache_hits:
+        type: integer
+        description: Accesses to this index data from RAM.
+      cache_misses:
+        type: integer
+        description: Accesses to this index data from disk.
+      data_size:
+        type: integer
+        description: The size of indexable data that is maintained for the index or partition (bytes).
+        example: 95728
+      docid_count:
+        type: integer
+        description: |
+          (Array indexes only.)
+          The number of documents currently indexed.
+      disk_size:
+        type: integer
+        description: Total disk file size consumed by the index or partition.
+        example: 889054
+      frag_percent:
+        type: integer
+        description: |
+          Percentage fragmentation of the index.
+          
+          [TIP]
+          At small index sizes of less than a hundred kB, the static overhead of the index disk file will inflate the index fragmentation percentage.
+      initial_build_progress:
+        type: integer
+        description: |
+          Percentage initial build progress for the index.
+          When initial build is completed, the value is `100`.
+
+          For an index partition, the value is listed as `0`.
+        example: 100
+      items_count:
+        type: integer
+        description: The number of items currently indexed.
+        example: 2155
+      last_known_scan_time:
+        type: integer
+        description: Time of the last scan request received for this index (Unix timestamp in nanoseconds).
+      num_docs_indexed:
+        type: integer
+        description: Number of documents indexed by the indexer since last startup.
+      num_docs_pending:
+        type: integer
+        description: Number of documents pending to be indexed.
+      num_docs_queued:
+        type: integer
+        description: Number of documents queued to be indexed.
+      num_items_flushed:
+        type: integer
+        description: Number of items flushed from memory to disk storage.
+      num_pending_requests:
+        type: integer
+        description: Number of requests received but not yet served by the indexer.
+      num_requests:
+        type: integer
+        description: Number of requests served by the indexer since last startup.
+      num_rows_returned:
+        type: integer
+        description: Total number of rows returned so far by the indexer.
+      num_scan_errors:
+        type: integer
+        description: Number of requests that failed due to errors other than timeout.
+      num_scan_timeouts:
+        type: integer
+        description: Number of requests that timed out, either waiting for snapshots or during scan in progress.
+      recs_in_mem:
+        type: integer
+        description: |
+          [.edition]#{enterprise}#
+
+          For standard index storage, this is the number of records in this index that are stored in memory.
+
+          For memory-optimized index storage, this is the same as `items_count`.
+        example: 2155
+      recs_on_disk:
+        type: integer
+        description: |
+          [.edition]#{enterprise}#
+
+          For standard index storage, this is the number of records in this index that are stored on disk.
+
+          For memory-optimized index storage, this is `0`.
+      resident_percent:
+        type: integer
+        description: |
+          [.edition]#{enterprise}#
+
+          Percentage of the data held in memory.
+        example: 100
+      scan_bytes_read:
+        type: integer
+        description: Number of bytes read by a scan since last startup.
+      total_scan_duration:
+        type: integer
+        description: Total time spent by the indexer in scanning rows since last startup.
+
+responses:
+  IndexNotFound:
+    description: |
+      Not found.
+      Returns the path with the specified keyspace and index name.
+
+      The keyspace name may be incorrect, the index may not be located on the specified node, or the index may be warming up after a restart.
+    schema:
+      type: string
+
+  Node:
+    description: |
+      Success.
+      Returns an object containing a nested `indexer` object, and usually one or more nested `__keyspace:index__` objects -- one for each index found on the specified node.
+    schema:
+      type: object
+      title: Node and Indexes
+      required:
+        - indexer
+      properties:
+        indexer:
+          description: A nested object containing statistics for the current index node.
+          $ref: "#/definitions/Node"
+        __keyspace:index__:
+          description: |
+            A nested object containing statistics for an entire index.
+            
+            * `__keyspace__` is the name of the keyspace.
+            * `__index__` is the name of the index.
+          $ref: "#/definitions/Index"
+
+  Index:
+    description: |
+      Success.
+      Returns an object containing one nested `__keyspace:index__` object.
+
+      If the <<_get_index_stats_parameters,partition>> query parameter was set to `true`, the returned object also contains one or more `Partition-__num__` objects -- one for each index partition found on the specified node.
+    schema:
+      type: object
+      title: Index and Partitions
+      required:
+        - __keyspace:index__
+      properties:
+        __keyspace:index__:
+          description: |
+            A nested object containing statistics for an entire index.
+            
+            * `__keyspace__` is the name of the keyspace.
+            * `__index__` is the name of the index.
+          $ref: "#/definitions/Index"
+        Partition-__num__:
+          description: |
+            A nested object containing statistics.
+            
+            * If the index is partitioned, this object contains statistics for one index partition, where `__num__` is the partition number.
+            * If the index is not partitioned, this object contains statistics for the entire index, and `__num__` is `0`.
+          $ref: "#/definitions/Index"
+
+securityDefinitions:
+  Default:
+    type: basic
+    description: |
+      The Index Statistics API supports admin credentials.
+      Credentials can be passed via HTTP headers (HTTP basic authentication).
+
+      Users must have Cluster Read and Bucket INDEX List privileges.
+      Refer to xref:learn:security/roles.adoc[Roles] for more details.

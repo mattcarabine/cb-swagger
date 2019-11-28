@@ -1,6 +1,8 @@
 rootProject.name = 'cb-swagger'
-include 'admin', 'functions'
+include 'admin', 'functions', 'indexes'
 project(':admin').projectDir = new File (settingsDir, 'src/admin')
 project(':admin').buildFileName = 'admin.gradle'
 project(':functions').projectDir = new File (settingsDir, 'src/functions')
 project(':functions').buildFileName = 'functions.gradle'
+project(':indexes').projectDir = new File (settingsDir, 'src/indexes')
+project(':indexes').buildFileName = 'indexes.gradle'
