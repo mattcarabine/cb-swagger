@@ -107,11 +107,7 @@ definitions:
       memory_total_storage:
         type: integer
         description: |
-          [NOTE]
-          .https://www.couchbase.com/products/editions[ENTERPRISE EDITION]
-          ====
-          Only available in Couchbase Server Enterprise Edition.
-          ====
+          [.edition]#{enterprise}#
 
           The total size allocated in the indexer across all indexes (bytes).
           This also accounts for memory fragmentation.
@@ -138,11 +134,7 @@ definitions:
       cache_hit_percent:
         type: integer
         description: |
-          [NOTE]
-          .https://www.couchbase.com/products/editions[ENTERPRISE EDITION]
-          ====
-          Only available in Couchbase Server Enterprise Edition.
-          ====
+          [.edition]#{enterprise}#
 
           Percentage of memory accesses that were served from the managed cache.
       cache_hits:
@@ -216,11 +208,7 @@ definitions:
       recs_in_mem:
         type: integer
         description: |
-          [NOTE]
-          .https://www.couchbase.com/products/editions[ENTERPRISE EDITION]
-          ====
-          Only available in Couchbase Server Enterprise Edition.
-          ====
+          [.edition]#{enterprise}#
 
           For standard index storage, this is the number of records in this index that are stored in memory.
 
@@ -229,11 +217,7 @@ definitions:
       recs_on_disk:
         type: integer
         description: |
-          [NOTE]
-          .https://www.couchbase.com/products/editions[ENTERPRISE EDITION]
-          ====
-          Only available in Couchbase Server Enterprise Edition.
-          ====
+          [.edition]#{enterprise}#
 
           For standard index storage, this is the number of records in this index that are stored on disk.
 
@@ -241,11 +225,7 @@ definitions:
       resident_percent:
         type: integer
         description: |
-          [NOTE]
-          .https://www.couchbase.com/products/editions[ENTERPRISE EDITION]
-          ====
-          Only available in Couchbase Server Enterprise Edition.
-          ====
+          [.edition]#{enterprise}#
 
           Percentage of the data held in memory.
         example: 100
