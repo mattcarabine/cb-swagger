@@ -124,6 +124,11 @@ definitions:
   Index:
     type: object
     properties:
+      avg_array_length:
+        type: integer
+        description: |
+          (Array indexes only.)
+          The average number of items indexed per document.
       avg_drain_rate:
         type: integer
         description: Average number of items flushed from memory to disk storage per second.
@@ -148,8 +153,13 @@ definitions:
         description: Accesses to this index data from disk.
       data_size:
         type: integer
-        description: Actual data size consumed by the index or partition.
+        description: The size of indexable data that is maintained for the index or partition (bytes).
         example: 95728
+      docid_count:
+        type: integer
+        description: |
+          (Array indexes only.)
+          The number of documents currently indexed.
       disk_size:
         type: integer
         description: Total disk file size consumed by the index or partition.
@@ -171,7 +181,7 @@ definitions:
         example: 100
       items_count:
         type: integer
-        description: Current total indexed document count, refreshed on restart.
+        description: The number of items currently indexed.
         example: 2155
       last_known_scan_time:
         type: integer
