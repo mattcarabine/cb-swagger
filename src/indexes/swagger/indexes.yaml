@@ -96,7 +96,7 @@ definitions:
       indexer_state:
         type: string
         description: Current state of the Index service on this node.
-        enum: ["Active","Paused"]
+        enum: ["Active","Pause","Warmup"]
         example: Active
       memory_quota:
         type: integer
