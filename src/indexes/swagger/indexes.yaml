@@ -114,7 +114,7 @@ definitions:
         example: 71794688
       memory_used:
         type: integer
-        description: Amount of memory used by the node (bytes).
+        description: Amount of memory used by the Index service on this node (bytes).
         example: 360192000
 
   Index:
