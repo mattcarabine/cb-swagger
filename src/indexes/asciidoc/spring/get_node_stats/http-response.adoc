@@ -1,4 +1,5 @@
 ====
+Result of <<node-example-1>>.
 
 .Response 200
 [source,json]

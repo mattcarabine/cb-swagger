@@ -1,9 +1,21 @@
 ====
-Return statistics for an index, include partitions, omit empty results, and format the output.
+Return statistics for an index and format the output.
 
-.Curl request
+[[index-example-1]]
+.Curl request {counter:seq1}
 [source,shell]
 ----
-$ curl -X GET -u Administrator:password "http://localhost:9102/api/v1/stats/travel-sample/over1000?partition=true&skipEmpty=true&pretty=true"
+$ curl -X GET -u Administrator:password "http://localhost:9102/api/v1/stats/travel-sample/over1000?pretty=true"
+----
+====
+
+====
+Return statistics for an index, include partitions, and format the output.
+
+[[index-example-2]]
+.Curl request {counter:seq1}
+[source,shell]
+----
+$ curl -X GET -u Administrator:password "http://localhost:9102/api/v1/stats/travel-sample/over1000?partition=true&pretty=true"
 ----
 ====

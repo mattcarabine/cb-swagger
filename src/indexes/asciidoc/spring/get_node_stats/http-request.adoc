@@ -1,7 +1,19 @@
 ====
+Return statistics for an index node and format the output.
+
+[[node-example-1]]
+.Curl request {counter:seq1}
+[source,shell]
+----
+$ curl -X GET -u Administrator:password "http://localhost:9102/api/v1/stats?pretty=true"
+----
+====
+
+====
 Return statistics for an index node, omit empty results, and format the output.
 
-.Curl request
+[[node-example-2]]
+.Curl request {counter:seq1}
 [source,shell]
 ----
 $ curl -X GET -u Administrator:password "http://localhost:9102/api/v1/stats?skipEmpty=true&pretty=true"
