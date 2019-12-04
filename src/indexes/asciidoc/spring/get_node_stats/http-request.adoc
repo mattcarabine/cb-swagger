@@ -1,6 +1,6 @@
-[[node-example-1,request {counter:seq1}]]
+[[node-example-1,request {counter:xref}]]
 ====
-Request {counter:seq2}: Return statistics for an index node and format the output.
+Request {counter:example}: Return statistics for an index node and format the output.
 
 .Curl request
 [source,shell]
@@ -9,9 +9,9 @@ $ curl -X GET -u Administrator:password "http://localhost:9102/api/v1/stats?pret
 ----
 ====
 
-[[node-example-2,request {counter:seq1}]]
+[[node-example-2,request {counter:xref}]]
 ====
-Request {counter:seq2}: Return statistics for an index node, omit empty results, and format the output.
+Request {counter:example}: Return statistics for an index node, omit empty results, and format the output.
 
 .Curl request
 [source,shell]

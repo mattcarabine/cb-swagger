@@ -1,6 +1,6 @@
-[[index-example-1,request {counter:seq1}]]
+[[index-example-1,request {counter:xref}]]
 ====
-Request {counter:seq2}: Return statistics for an index and format the output.
+Request {counter:example}: Return statistics for an index and format the output.
 
 .Curl request
 [source,shell]
@@ -9,9 +9,9 @@ $ curl -X GET -u Administrator:password "http://localhost:9102/api/v1/stats/trav
 ----
 ====
 
-[[index-example-2,request {counter:seq1}]]
+[[index-example-2,request {counter:xref}]]
 ====
-Request {counter:seq2}: Return statistics for an index, include partitions, and format the output.
+Request {counter:example}: Return statistics for an index, include partitions, and format the output.
 
 .Curl request
 [source,shell]
