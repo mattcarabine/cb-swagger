@@ -1,19 +1,19 @@
+[[index-example-1,request {counter:seq1}]]
 ====
-Return statistics for an index and format the output.
+Request {counter:seq2}: Return statistics for an index and format the output.
 
-[[index-example-1]]
-.Curl request {counter:seq1}
+.Curl request
 [source,shell]
 ----
 $ curl -X GET -u Administrator:password "http://localhost:9102/api/v1/stats/travel-sample/over1000?pretty=true"
 ----
 ====
 
+[[index-example-2,request {counter:seq1}]]
 ====
-Return statistics for an index, include partitions, and format the output.
+Request {counter:seq2}: Return statistics for an index, include partitions, and format the output.
 
-[[index-example-2]]
-.Curl request {counter:seq1}
+.Curl request
 [source,shell]
 ----
 $ curl -X GET -u Administrator:password "http://localhost:9102/api/v1/stats/travel-sample/over1000?partition=true&pretty=true"
