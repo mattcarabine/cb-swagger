@@ -1267,28 +1267,18 @@ definitions:
           [[servicers]]
           The number of service threads for the query.
       timeout:
-        type: string
-        format: duration
-        default: 0s
-        example: 30m
+        type: integer
+        format: int64
+        default: 0
+        example: 500000000
         description: |
           [[timeout-srv]]
-          Maximum time to spend on the request before timing out.
+          Maximum time to spend on the request before timing out (ns).
 
           The default value means no timeout is applied and the request runs for however long it takes.
 
           There is also a xref:settings:query-settings.adoc#timeout_req[request-level] `timeout` parameter.
           The minimum of that and the service-level `timeout` setting is applied.
-
-          Its format includes an amount and a mandatory unit, e.g. `10ms` (10 milliseconds) or `0.5s` (half a second).
-          Valid units are:{blank}
-
-          `ns` (nanoseconds) +
-          `us` (microseconds) +
-          `ms` (milliseconds) +
-          `s` (seconds) +
-          `m` (minutes) +
-          `h` (hours) +
 
           Specify `0` or a negative integer to disable.
 
