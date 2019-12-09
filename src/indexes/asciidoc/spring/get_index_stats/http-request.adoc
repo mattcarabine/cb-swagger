@@ -1,9 +1,21 @@
+[[index-example-1,request {counter:xref}]]
 ====
-Return statistics for an index, include partitions, omit empty results, and format the output.
+Request {counter:example}: Return statistics for an index and format the output.
 
 .Curl request
 [source,shell]
 ----
-$ curl -X GET -u Administrator:password "http://localhost:9102/api/v1/stats/travel-sample/over1000?partition=true&skipEmpty=true&pretty=true"
+$ curl -X GET -u Administrator:password "http://localhost:9102/api/v1/stats/travel-sample/over1000?pretty=true"
+----
+====
+
+[[index-example-2,request {counter:xref}]]
+====
+Request {counter:example}: Return statistics for an index, include partitions, and format the output.
+
+.Curl request
+[source,shell]
+----
+$ curl -X GET -u Administrator:password "http://localhost:9102/api/v1/stats/travel-sample/over1000?partition=true&pretty=true"
 ----
 ====

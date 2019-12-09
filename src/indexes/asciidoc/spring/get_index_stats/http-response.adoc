@@ -1,27 +1,188 @@
 ====
+Result of <<index-example-1>>.
 
 .Response 200
 [source,json]
 ----
 {
-   "Partition-1": {
-      "data_size": 3204,
-      "disk_size": 647394,
-      "items_count": 62,
-      "recs_on_disk": 62
-   },
-   "Partition-2": {
-      "data_size": 3004,
-      "disk_size": 647394,
-      "items_count": 58,
-      "recs_on_disk": 58
-   },
-   "travel-sample:over1000": {
-      "data_size": 6208,
-      "disk_size": 1294788,
+   "travel-sample:def_sourceairport_partn": {
+      "avg_drain_rate": 0,
+      "avg_item_size": 41,
+      "avg_scan_latency": 0,
+      "cache_hit_percent": 100,
+      "cache_hits": 12003,
+      "cache_misses": 0,
+      "data_size": 2495580,
+      "disk_size": 2102624,
+      "frag_percent": 64,
       "initial_build_progress": 100,
-      "items_count": 120,
-      "recs_on_disk": 120
+      "items_count": 12003,
+      "last_known_scan_time": 0,
+      "num_docs_indexed": 15778,
+      "num_docs_pending": 0,
+      "num_docs_queued": 0,
+      "num_items_flushed": 15778,
+      "num_pending_requests": 0,
+      "num_requests": 0,
+      "num_rows_returned": 0,
+      "num_scan_errors": 0,
+      "num_scan_timeouts": 0,
+      "recs_in_mem": 15815,
+      "recs_on_disk": 0,
+      "resident_percent": 100,
+      "scan_bytes_read": 0,
+      "total_scan_duration": 0
+   }
+}
+----
+====
+
+====
+Result of <<index-example-2>>.
+
+.Response 200
+[source,json]
+----
+{
+   "Partition-2": {
+      "avg_drain_rate": 0,
+      "avg_item_size": 41,
+      "avg_scan_latency": 0,
+      "cache_hit_percent": 100,
+      "cache_hits": 3006,
+      "cache_misses": 0,
+      "data_size": 625087,
+      "disk_size": 528728,
+      "frag_percent": 65,
+      "initial_build_progress": 0,
+      "items_count": 3006,
+      "last_known_scan_time": 0,
+      "num_docs_indexed": 3926,
+      "num_docs_pending": 0,
+      "num_docs_queued": 0,
+      "num_items_flushed": 3926,
+      "num_pending_requests": 0,
+      "num_requests": 0,
+      "num_rows_returned": 0,
+      "num_scan_errors": 0,
+      "num_scan_timeouts": 0,
+      "recs_in_mem": 4010,
+      "recs_on_disk": 0,
+      "resident_percent": 100,
+      "scan_bytes_read": 0,
+      "total_scan_duration": 0
+   },
+   "Partition-3": {
+      "avg_drain_rate": 0,
+      "avg_item_size": 41,
+      "avg_scan_latency": 0,
+      "cache_hit_percent": 100,
+      "cache_hits": 2992,
+      "cache_misses": 0,
+      "data_size": 622348,
+      "disk_size": 520536,
+      "frag_percent": 64,
+      "initial_build_progress": 0,
+      "items_count": 2992,
+      "last_known_scan_time": 0,
+      "num_docs_indexed": 3933,
+      "num_docs_pending": 0,
+      "num_docs_queued": 0,
+      "num_items_flushed": 3933,
+      "num_pending_requests": 0,
+      "num_requests": 0,
+      "num_rows_returned": 0,
+      "num_scan_errors": 0,
+      "num_scan_timeouts": 0,
+      "recs_in_mem": 3996,
+      "recs_on_disk": 0,
+      "resident_percent": 100,
+      "scan_bytes_read": 0,
+      "total_scan_duration": 0
+   },
+   "Partition-4": {
+      "avg_drain_rate": 0,
+      "avg_item_size": 41,
+      "avg_scan_latency": 0,
+      "cache_hit_percent": 100,
+      "cache_hits": 3008,
+      "cache_misses": 0,
+      "data_size": 625267,
+      "disk_size": 528728,
+      "frag_percent": 65,
+      "initial_build_progress": 0,
+      "items_count": 3008,
+      "last_known_scan_time": 0,
+      "num_docs_indexed": 3965,
+      "num_docs_pending": 0,
+      "num_docs_queued": 0,
+      "num_items_flushed": 3965,
+      "num_pending_requests": 0,
+      "num_requests": 0,
+      "num_rows_returned": 0,
+      "num_scan_errors": 0,
+      "num_scan_timeouts": 0,
+      "recs_in_mem": 4011,
+      "recs_on_disk": 0,
+      "resident_percent": 100,
+      "scan_bytes_read": 0,
+      "total_scan_duration": 0
+   },
+   "Partition-5": {
+      "avg_drain_rate": 0,
+      "avg_item_size": 41,
+      "avg_scan_latency": 0,
+      "cache_hit_percent": 100,
+      "cache_hits": 2997,
+      "cache_misses": 0,
+      "data_size": 622878,
+      "disk_size": 524632,
+      "frag_percent": 64,
+      "initial_build_progress": 0,
+      "items_count": 2997,
+      "last_known_scan_time": 0,
+      "num_docs_indexed": 3954,
+      "num_docs_pending": 0,
+      "num_docs_queued": 0,
+      "num_items_flushed": 3954,
+      "num_pending_requests": 0,
+      "num_requests": 0,
+      "num_rows_returned": 0,
+      "num_scan_errors": 0,
+      "num_scan_timeouts": 0,
+      "recs_in_mem": 3798,
+      "recs_on_disk": 0,
+      "resident_percent": 100,
+      "scan_bytes_read": 0,
+      "total_scan_duration": 0
+   },
+   "travel-sample:def_sourceairport_partn": {
+      "avg_drain_rate": 0,
+      "avg_item_size": 41,
+      "avg_scan_latency": 0,
+      "cache_hit_percent": 100,
+      "cache_hits": 12003,
+      "cache_misses": 0,
+      "data_size": 2495580,
+      "disk_size": 2102624,
+      "frag_percent": 64,
+      "initial_build_progress": 100,
+      "items_count": 12003,
+      "last_known_scan_time": 0,
+      "num_docs_indexed": 15778,
+      "num_docs_pending": 0,
+      "num_docs_queued": 0,
+      "num_items_flushed": 15778,
+      "num_pending_requests": 0,
+      "num_requests": 0,
+      "num_rows_returned": 0,
+      "num_scan_errors": 0,
+      "num_scan_timeouts": 0,
+      "recs_in_mem": 15815,
+      "recs_on_disk": 0,
+      "resident_percent": 100,
+      "scan_bytes_read": 0,
+      "total_scan_duration": 0
    }
 }
 ----

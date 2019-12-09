@@ -1,0 +1,1 @@
+NOTE: It is not possible to specify an individual index partition in the path.

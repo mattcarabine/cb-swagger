@@ -1,5 +1,17 @@
+[[node-example-1,request {counter:xref}]]
 ====
-Return statistics for an index node, omit empty results, and format the output.
+Request {counter:example}: Return statistics for an index node and format the output.
+
+.Curl request
+[source,shell]
+----
+$ curl -X GET -u Administrator:password "http://localhost:9102/api/v1/stats?pretty=true"
+----
+====
+
+[[node-example-2,request {counter:xref}]]
+====
+Request {counter:example}: Return statistics for an index node, omit empty results, and format the output.
 
 .Curl request
 [source,shell]

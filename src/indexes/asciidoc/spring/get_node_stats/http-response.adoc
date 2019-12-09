@@ -1,4 +1,5 @@
 ====
+Result of <<node-example-1>>.
 
 .Response 200
 [source,json]
@@ -6,20 +7,115 @@
 {
    "indexer": {
       "indexer_state": "Active",
-      "memory_quota": 536870912,
-      "memory_total_storage": 6004736,
-      "memory_used": 193040384
+      "memory_quota": 268435456,
+      "memory_total_storage": 24596480,
+      "memory_used": 167249920
    },
-   "travel-sample:over1000": {
+   "travel-sample:def_city": {
+      "avg_drain_rate": 1,
+      "avg_item_size": 59,
+      "avg_scan_latency": 2581788,
       "cache_hit_percent": 100,
-      "cache_hits": 331,
-      "data_size": 17126,
-      "disk_size": 1131828,
+      "cache_hits": 7403,
+      "cache_misses": 0,
+      "data_size": 358088,
+      "disk_size": 8192,
+      "frag_percent": 0,
       "initial_build_progress": 100,
-      "items_count": 331,
-      "num_docs_indexed": 331,
-      "num_items_flushed": 331,
-      "recs_in_mem": 331,
+      "items_count": 7380,
+      "last_known_scan_time": 1575433725539214238,
+      "num_docs_indexed": 31591,
+      "num_docs_pending": 0,
+      "num_docs_queued": 0,
+      "num_items_flushed": 31591,
+      "num_pending_requests": 0,
+      "num_requests": 1,
+      "num_rows_returned": 7341,
+      "num_scan_errors": 0,
+      "num_scan_timeouts": 0,
+      "recs_in_mem": 9945,
+      "recs_on_disk": 0,
+      "resident_percent": 100,
+      "scan_bytes_read": 202869,
+      "total_scan_duration": 5163576
+   },
+   "travel-sample:def_sourceairport_partn": {
+      "avg_drain_rate": 8,
+      "avg_item_size": 41,
+      "avg_scan_latency": 0,
+      "cache_hit_percent": 100,
+      "cache_hits": 12003,
+      "cache_misses": 0,
+      "data_size": 1720108,
+      "disk_size": 1185120,
+      "frag_percent": 56,
+      "initial_build_progress": 100,
+      "items_count": 12003,
+      "last_known_scan_time": 0,
+      "num_docs_indexed": 15778,
+      "num_docs_pending": 0,
+      "num_docs_queued": 0,
+      "num_items_flushed": 15778,
+      "num_pending_requests": 0,
+      "num_requests": 0,
+      "num_rows_returned": 0,
+      "num_scan_errors": 0,
+      "num_scan_timeouts": 0,
+      "recs_in_mem": 15815,
+      "recs_on_disk": 0,
+      "resident_percent": 100,
+      "scan_bytes_read": 0,
+      "total_scan_duration": 0
+   }
+}
+----
+====
+
+====
+Result of <<node-example-2>>.
+
+.Response 200
+[source,json]
+----
+{
+   "indexer": {
+      "indexer_state": "Active",
+      "memory_quota": 268435456,
+      "memory_total_storage": 24637440,
+      "memory_used": 151635968
+   },
+   "travel-sample:def_city": {
+      "avg_item_size": 59,
+      "avg_scan_latency": 2581788,
+      "cache_hit_percent": 100,
+      "cache_hits": 7403,
+      "data_size": 859390,
+      "disk_size": 618842,
+      "frag_percent": 61,
+      "initial_build_progress": 100,
+      "items_count": 7380,
+      "last_known_scan_time": 1575433725539214238,
+      "num_docs_indexed": 31591,
+      "num_items_flushed": 31591,
+      "num_requests": 1,
+      "num_rows_returned": 7341,
+      "recs_in_mem": 9945,
+      "resident_percent": 100,
+      "scan_bytes_read": 202869,
+      "total_scan_duration": 5163576
+   },
+   "travel-sample:def_sourceairport_partn": {
+      "avg_item_size": 41,
+      "cache_hit_percent": 100,
+      "cache_hits": 12003,
+      "data_size": 2495580,
+      "disk_size": 2102624,
+      "frag_percent": 64,
+      "initial_build_progress": 100,
+      "items_count": 12003,
+      "num_docs_indexed": 15778,
+      "num_items_flushed": 15778,
+      "recs_in_mem": 15815,
       "resident_percent": 100
    }
 }
