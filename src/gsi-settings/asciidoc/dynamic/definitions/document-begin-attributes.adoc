@@ -1,0 +1,5 @@
+// Pass through word break element for HTML output.
+
+ifdef::basebackend-html[]
+:wbr: pass:[<wbr>]
+endif::[]
