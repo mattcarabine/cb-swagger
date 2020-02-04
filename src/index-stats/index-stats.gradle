@@ -1,7 +1,7 @@
 apply plugin: 'io.github.swagger2markup'
 
 convertSwagger2markup {
-    swaggerInput file("swagger/indexes.yaml").getAbsolutePath()
+    swaggerInput file("swagger/index-stats.yaml").getAbsolutePath()
     outputDir file("../../../docs-server/modules/rest-api/partials/index-stats")
     config = ['swagger2markup.markupLanguage' : 'ASCIIDOC',
               'swagger2markup.generatedExamplesEnabled' : false,
