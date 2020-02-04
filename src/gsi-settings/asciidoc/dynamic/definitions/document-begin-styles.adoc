@@ -10,6 +10,22 @@ ifdef::basebackend-html[]
     max-width: none !important;
   }
 
+  /* Ignore fixed column widths */
+  col{
+    width: auto !important;
+  }
+
+  /* Do not hyphenate words in the table */
+  td.tableblock p,
+  p.tableblock{
+    hyphens: manual !important;
+  }
+
+  /* ... except in the first column */
+  td.tableblock:first-of-type p{
+    hyphens: auto !important;
+  }
+
   /* Vertical alignment */
   td.tableblock{
     vertical-align: top !important;
