@@ -1,0 +1,10 @@
+====
+The example below retrieves the current index settings.
+
+.Curl request
+[source,shell]
+----
+$ curl -X GET http://localhost:9102/settings \
+  -u Administrator:password
+----
+====

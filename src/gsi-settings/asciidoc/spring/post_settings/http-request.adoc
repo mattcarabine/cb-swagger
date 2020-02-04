@@ -1,0 +1,12 @@
+====
+The example below sets the current index settings.
+
+.Curl request
+[source,shell]
+----
+$ curl -X POST http://localhost:9102/settings \
+  -u Administrator:password \
+  -H 'content-type: application/json' \
+  -d '{ "indexer.settings.allow_large_keys" : false }'
+----
+====
