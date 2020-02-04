@@ -27,4 +27,4 @@ task wrapper(type: Wrapper) {
     gradleVersion = '4.9'
 }
 
-defaultTasks 'admin:convertSwagger2markup', 'functions:convertSwagger2markup', 'indexes:convertSwagger2markup', 'gsi-settings:convertSwagger2markup'
+defaultTasks 'admin:convertSwagger2markup', 'functions:convertSwagger2markup', 'index-stats:convertSwagger2markup', 'gsi-settings:convertSwagger2markup'
