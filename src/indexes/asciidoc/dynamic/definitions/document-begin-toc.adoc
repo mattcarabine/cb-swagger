@@ -1,2 +1,4 @@
+{toc-title}
+
 * <<_node>>
 * <<_index>>
