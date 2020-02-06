@@ -1,10 +1,10 @@
 rootProject.name = 'cb-swagger'
-include 'admin', 'functions', 'index-stats', 'gsi-settings'
+include 'admin', 'functions', 'index-stats', 'index-settings'
 project(':admin').projectDir = new File (settingsDir, 'src/admin')
 project(':admin').buildFileName = 'admin.gradle'
 project(':functions').projectDir = new File (settingsDir, 'src/functions')
 project(':functions').buildFileName = 'functions.gradle'
 project(':index-stats').projectDir = new File (settingsDir, 'src/index-stats')
 project(':index-stats').buildFileName = 'index-stats.gradle'
-project(':gsi-settings').projectDir = new File (settingsDir, 'src/gsi-settings')
-project(':gsi-settings').buildFileName = 'gsi-settings.gradle'
+project(':index-settings').projectDir = new File (settingsDir, 'src/index-settings')
+project(':index-settings').buildFileName = 'index-settings.gradle'
