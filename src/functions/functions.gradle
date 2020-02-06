@@ -6,6 +6,7 @@ convertSwagger2markup {
     config = ['swagger2markup.markupLanguage' : 'ASCIIDOC',
               'swagger2markup.generatedExamplesEnabled' : false,
               'swagger2markup.pathsGroupedBy' : 'TAGS',
+              'swagger2markup.tagOrderBy' : 'AS_IS',
               'swagger2markup.operationOrderBy' : 'NATURAL',
               'swagger2markup.definitionOrderBy' : 'AS_IS',
               'swagger2markup.parameterOrderBy' : 'AS_IS',
