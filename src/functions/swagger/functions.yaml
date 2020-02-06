@@ -19,12 +19,22 @@ produces:
 consumes:
   - application/json
 
+tags:
+  - name: collection
+    description: Operations for all libraries and functions.
+  - name: libraries
+    description: Operations for individual libraries.
+  - name: functions
+    description: Operations for individual functions.
+
 paths:
   /functions/v1/libraries:
     get:
       operationId: get_collection
       summary: Read All Libraries
       description: Returns all libraries and functions.
+      tags:
+        - collection
       security:
         - Default: []
       responses:
@@ -41,6 +51,8 @@ paths:
         Creates the specified libraries and their associated functions.
         If any specified library exists, the functions specified in the body for that library are appended to the existing library.
         If any specified function exists within an existing library, the existing function is overwritten.
+      tags:
+        - collection
       parameters:
         - $ref: "#/parameters/BodyCollection"
       security:
@@ -54,6 +66,8 @@ paths:
       operationId: delete_collection
       summary: Delete All Libraries
       description: Deletes all libraries entirely.
+      tags:
+        - collection
       security:
         - Default: []
       responses:
@@ -65,6 +79,8 @@ paths:
       description: |
         This has exactly the same effect as <<_delete_collection,deleting all libraries>> followed by <<_post_collection,creating a collection of libraries>>.
         That is, all existing libraries in the system are deleted, and the libraries specified in the body of this call are created, resulting in the system having exclusively the libraries specified by this call.
+      tags:
+        - collection
       parameters:
         - $ref: "#/parameters/BodyCollection"
       security:
@@ -82,6 +98,8 @@ paths:
       operationId: get_library
       summary: Read a Library
       description: Returns a library with all its functions.
+      tags:
+        - libraries
       security:
         - Default: []
       responses:
@@ -98,6 +116,8 @@ paths:
         Creates the specified library and its associated functions.
         If the specified library exists, the functions specified are added to the existing library.
         If a specified function exists within the existing library, the existing function is overwritten.
+      tags:
+        - libraries
       parameters:
         - $ref: "#/parameters/BodyLibrary"
       security:
@@ -113,6 +133,8 @@ paths:
       operationId: delete_library
       summary: Delete a Library
       description: Deletes the specified library entirely.
+      tags:
+        - libraries
       security:
         - Default: []
       responses:
@@ -126,6 +148,8 @@ paths:
       description: |
         This has exactly the same effect as <<_delete_library,deleting a library>> followed by <<_post_library,creating a library>>.
         That is, if the library exists, it is deleted entirely and replaced with the contents of the library specified in the body of this call, resulting in the library having only functions specified by this call exclusively.
+      tags:
+        - libraries
       parameters:
         - $ref: "#/parameters/BodyLibrary"
       security:
@@ -146,6 +170,8 @@ paths:
       operationId: get_function
       summary: Read a Function
       description: Returns the specified function from the specified library.
+      tags:
+        - functions
       security:
         - Default: []
       responses:
@@ -168,6 +194,8 @@ paths:
         Within the function object, the value of the `name` property must match the name of the JavaScript function that returns the result, as specified by the `code` property.
         If they do not match, you may get an evaluation error when you attempt to execute a N1QL user-defined function based on this code.
         ====
+      tags:
+        - functions
       parameters:
         - $ref: "#/parameters/BodyFunction"
       security:
@@ -183,6 +211,8 @@ paths:
       operationId: delete_function
       summary: Delete a Function
       description: Deletes the specified function in the specified library.
+      tags:
+        - functions
       security:
         - Default: []
       responses:
@@ -195,6 +225,8 @@ paths:
       summary: Replace a Function
       description: |
         This has exactly the same effect as <<_post_function,creating or updating a function>>, and is included for completeness.
+      tags:
+        - functions
       parameters:
         - $ref: "#/parameters/BodyFunction"
       security:
