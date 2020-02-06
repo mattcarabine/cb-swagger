@@ -1,2 +1,4 @@
+{toc-title}
+
 * <<_get_settings>>
 * <<_post_settings>>
