@@ -1,0 +1,4 @@
+* <<_post_function>>
+* <<_get_function>>
+* <<_put_function>>
+* <<_delete_function>>
