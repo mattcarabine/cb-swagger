@@ -1,0 +1,4 @@
+* <<_get_completed_requests>>
+* <<_get_completed_request>>
+* <<_delete_completed_request>>
+* <<_get_completed_indexes>>
