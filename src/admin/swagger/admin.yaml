@@ -23,6 +23,8 @@ consumes:
 paths:
   /admin/clusters:
     get:
+      operationId: get_clusters
+      summary: Read All Clusters
       description: Returns information about all clusters.
       security:
         - Default: []
@@ -36,6 +38,8 @@ paths:
 
   /admin/clusters/{cluster}:
     get:
+      operationId: get_cluster
+      summary: Read a Cluster
       parameters:
         - $ref: "#/parameters/PathCluster"
       description: Returns information about the specified cluster.
@@ -49,6 +53,8 @@ paths:
 
   /admin/clusters/{cluster}/nodes:
     get:
+      operationId: get_nodes
+      summary: Read All Nodes
       parameters:
         - $ref: "#/parameters/PathCluster"
       description: Returns information about all nodes in the specified cluster.
@@ -64,6 +70,8 @@ paths:
 
   /admin/clusters/{cluster}/nodes/{node}:
     get:
+      operationId: get_node
+      summary: Read a Node
       parameters:
         - $ref: "#/parameters/PathCluster"
         - $ref: "#/parameters/PathNode"
@@ -78,6 +86,8 @@ paths:
 
   /admin/config:
     get:
+      operationId: get_config
+      summary: Read Configuration
       description: Returns the configuration of the query service on the cluster.
       security:
         - Default: []
@@ -89,6 +99,8 @@ paths:
 
   /admin/prepareds:
     get:
+      operationId: get_prepareds
+      summary: Retrieve All Prepared Statements
       description: |
         Returns all prepared statements.
         [NOTE]
@@ -108,6 +120,7 @@ paths:
   /admin/prepareds/{name}:
     get:
       operationId: get_prepared
+      summary: Retrieve a Prepared Statement
       parameters:
         - $ref: "#/parameters/PathName"
       description: |
@@ -125,6 +138,7 @@ paths:
             $ref: "#/definitions/Statements"
     delete:
       operationId: delete_prepared
+      summary: Delete a Prepared Statement
       parameters:
         - $ref: "#/parameters/PathName"
       description: |
@@ -147,6 +161,8 @@ paths:
 
   /admin/active_requests:
     get:
+      operationId: get_active_requests
+      summary: Retrieve All Active Requests
       description: |
         Returns all active query requests.
         [NOTE]
@@ -166,6 +182,7 @@ paths:
   /admin/active_requests/{request}:
     get:
       operationId: get_active_request
+      summary: Retrieve an Active Request
       parameters:
         - $ref: "#/parameters/PathRequest"
       description: |
@@ -183,6 +200,7 @@ paths:
             $ref: "#/definitions/Requests"
     delete:
       operationId: delete_active_request
+      summary: Delete an Active Request
       parameters:
         - $ref: "#/parameters/PathRequest"
       description: |
@@ -205,6 +223,8 @@ paths:
 
   /admin/completed_requests:
     get:
+      operationId: get_completed_requests
+      summary: Retrieve All Completed Requests
       description: |
         Returns all completed requests.
         [NOTE]
@@ -224,6 +244,7 @@ paths:
   /admin/completed_requests/{request}:
     get:
       operationId: get_completed_request
+      summary: Retrieve a Completed Request
       parameters:
         - $ref: "#/parameters/PathRequest"
       description: |
@@ -241,6 +262,7 @@ paths:
             $ref: "#/definitions/Requests"
     delete:
       operationId: delete_completed_request
+      summary: Delete a Completed Request
       parameters:
         - $ref: "#/parameters/PathRequest"
       description: |
@@ -263,6 +285,8 @@ paths:
 
   /admin/indexes/prepareds:
     get:
+      operationId: get_prepared_indexes
+      summary: Retrieve Prepared Index Statements
       description: |
         Returns all prepared index statements.
         [TIP]
@@ -285,6 +309,8 @@ paths:
 
   /admin/indexes/active_requests:
     get:
+      operationId: get_active_indexes
+      summary: Retrieve Active Index Requests
       description: |
         Returns all active index requests.
         [TIP]
@@ -305,6 +331,8 @@ paths:
 
   /admin/indexes/completed_requests:
     get:
+      operationId: get_completed_indexes
+      summary: Retrieve Completed Index Requests
       description: |
         Returns all completed index requests.
         [TIP]
@@ -326,6 +354,7 @@ paths:
   /admin/ping:
     get:
       operationId: get_ping
+      summary: Ping
       description: Returns a minimal response, indicating that the service is running and reachable.
       security:
         - None: []
@@ -341,6 +370,8 @@ paths:
 
   /admin/vitals:
     get:
+      operationId: get_vitals
+      summary: Retrieve Vitals
       description: |
         Returns data about the running state and health of the query engine.
         This information can be very useful to assess the current workload and performance characteristics of a query engine, and hence load-balance the requests being sent to various query engines.
@@ -359,6 +390,7 @@ paths:
   /admin/stats:
     get:
       operationId: get_stats
+      summary: Retrieve All Statistics
       description: Returns all statistics.
       security:
         - Default: []
@@ -373,6 +405,8 @@ paths:
 
   /admin/stats/{stat}:
     get:
+      operationId: get_stat
+      summary: Retrieve a Statistic
       parameters:
         - $ref: "#/parameters/PathStat"
       description: Returns the specified statistic.
@@ -389,6 +423,7 @@ paths:
   /debug/vars:
     get:
       operationId: get_debug_vars
+      summary: Get Debug Variables
       description: Currently unused.
       security:
         - None: []
@@ -402,6 +437,8 @@ paths:
 
   /admin/settings:
     get:
+      operationId: get_settings
+      summary: Retrieve Service-Level Query Settings
       description: |
         Returns service-level query settings.
         [NOTE]
@@ -416,6 +453,8 @@ paths:
           schema:
             $ref: "#/definitions/Settings"
     post:
+      operationId: post_settings
+      summary: Update Service-Level Query Settings
       description: |
         Updates service-level query settings.
         [NOTE]
