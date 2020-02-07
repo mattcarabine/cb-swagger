@@ -20,12 +20,30 @@ consumes:
   - application/x-www-form-urlencoded
   - application/json
 
+tags:
+  - name: configuration
+    description: Operations for cluster and node configuration.
+  - name: prepared
+    description: Operations for prepared statements.
+  - name: active
+    description: Operations for active statements.
+  - name: completed
+    description: Operations for completed statements.
+  - name: statistics
+    description: Operations for query statistics.
+  - name: settings
+    description: Operations for query settings.
+  - name: default
+    description: Other operations.
+
 paths:
   /admin/clusters:
     get:
       operationId: get_clusters
       summary: Read All Clusters
       description: Returns information about all clusters.
+      tags:
+        - configuration
       security:
         - Default: []
       responses:
@@ -43,6 +61,8 @@ paths:
       parameters:
         - $ref: "#/parameters/PathCluster"
       description: Returns information about the specified cluster.
+      tags:
+        - configuration
       security:
         - Default: []
       responses:
@@ -58,6 +78,8 @@ paths:
       parameters:
         - $ref: "#/parameters/PathCluster"
       description: Returns information about all nodes in the specified cluster.
+      tags:
+        - configuration
       security:
         - Default: []
       responses:
@@ -76,6 +98,8 @@ paths:
         - $ref: "#/parameters/PathCluster"
         - $ref: "#/parameters/PathNode"
       description: Returns information about the specified node in the specified cluster.
+      tags:
+        - configuration
       security:
         - Default: []
       responses:
@@ -89,6 +113,8 @@ paths:
       operationId: get_config
       summary: Read Configuration
       description: Returns the configuration of the query service on the cluster.
+      tags:
+        - configuration
       security:
         - Default: []
       responses:
@@ -107,6 +133,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-prepared-get[Get Prepared Statements] for examples.
         ====
+      tags:
+        - prepared
       security:
         - Default: []
       responses:
@@ -129,6 +157,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-prepared-get[Get Prepared Statements] for examples.
         ====
+      tags:
+        - prepared
       security:
         - Default: []
       responses:
@@ -147,6 +177,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-prepared-delete[Delete Prepared Statements] for examples.
         ====
+      tags:
+        - prepared
       security:
         - Default: []
       responses:
@@ -169,6 +201,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-active-get[Get Active Requests] for examples.
         ====
+      tags:
+        - active
       security:
         - Default: []
       responses:
@@ -191,6 +225,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-active-get[Get Active Requests] for examples.
         ====
+      tags:
+        - active
       security:
         - Default: []
       responses:
@@ -209,6 +245,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-active-delete[Terminate an Active Request] for examples.
         ====
+      tags:
+        - active
       security:
         - Default: []
       responses:
@@ -231,6 +269,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-completed-get[Get Completed Requests] for examples.
         ====
+      tags:
+        - completed
       security:
         - Default: []
       responses:
@@ -253,6 +293,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-completed-get[Get Completed Requests] for examples.
         ====
+      tags:
+        - completed
       security:
         - Default: []
       responses:
@@ -271,6 +313,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-completed-delete[Purge the Completed Requests] for examples.
         ====
+      tags:
+        - completed
       security:
         - Default: []
       responses:
@@ -294,6 +338,8 @@ paths:
         * Use <<_get_prepared>> to get information about a prepared index statement.
         * Use <<_delete_prepared>> to delete a prepared index statement.
         ====
+      tags:
+        - prepared
       security:
         - Default: []
       responses:
@@ -318,6 +364,8 @@ paths:
         * Use <<_get_active_request>> to get information about an active index request.
         * Use <<_delete_active_request>> to terminate an active index request.
         ====
+      tags:
+        - active
       security:
         - Default: []
       responses:
@@ -340,6 +388,8 @@ paths:
         * Use <<_get_completed_request>> to get information about a completed index request.
         * Use <<_delete_completed_request>> to purge a completed index request.
         ====
+      tags:
+        - completed
       security:
         - Default: []
       responses:
@@ -356,6 +406,8 @@ paths:
       operationId: get_ping
       summary: Ping
       description: Returns a minimal response, indicating that the service is running and reachable.
+      tags:
+        - default
       security:
         - None: []
       responses:
@@ -379,6 +431,8 @@ paths:
         ====
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#vitals[Get System Vitals] for examples.
         ====
+      tags:
+        - statistics
       security:
         - Default: []
       responses:
@@ -392,6 +446,8 @@ paths:
       operationId: get_stats
       summary: Retrieve All Statistics
       description: Returns all statistics.
+      tags:
+        - statistics
       security:
         - Default: []
       responses:
@@ -410,6 +466,8 @@ paths:
       parameters:
         - $ref: "#/parameters/PathStat"
       description: Returns the specified statistic.
+      tags:
+        - statistics
       security:
         - Default: []
       responses:
@@ -425,6 +483,8 @@ paths:
       operationId: get_debug_vars
       summary: Get Debug Variables
       description: Currently unused.
+      tags:
+        - statistics
       security:
         - None: []
       produces:
@@ -445,6 +505,8 @@ paths:
         ====
         Refer to xref:settings:query-settings.adoc[Query Settings] for more information and examples.
         ====
+      tags:
+        - settings
       security:
         - Default: []
       responses:
@@ -461,6 +523,8 @@ paths:
         ====
         Refer to xref:settings:query-settings.adoc[Query Settings] for more information and examples.
         ====
+      tags:
+        - settings
       security:
         - Default: []
       parameters:
