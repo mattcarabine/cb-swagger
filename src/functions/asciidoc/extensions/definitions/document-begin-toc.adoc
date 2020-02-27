@@ -1,4 +1,4 @@
-{toc-title}
+**{toc-title}**
 
 * <<_libraries>>
 * <<_functions>>

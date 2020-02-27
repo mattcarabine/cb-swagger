@@ -1,4 +1,4 @@
-{toc-title}
+**{toc-title}**
 
 * <<_collection_resource>>
 * <<_libraries_resource>>
