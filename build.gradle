@@ -24,7 +24,7 @@ repositories {
 }
 
 convertSwagger2markup {
-    swaggerInput file("src/docs/swagger/admin.yaml").getAbsolutePath()
+    swaggerInput file("src/admin/swagger/admin.yaml").getAbsolutePath()
     outputDir file("../docs-server/modules/n1ql/partials/n1ql-rest-api/admin")
     config = ['swagger2markup.markupLanguage' : 'ASCIIDOC',
               'swagger2markup.generatedExamplesEnabled' : false,
@@ -32,13 +32,13 @@ convertSwagger2markup {
               'swagger2markup.definitionOrderBy' : 'AS_IS',
               'swagger2markup.swaggerMarkupLanguage' : 'ASCIIDOC',
               'swagger2markup.flatBodyEnabled' : false,
-              'swagger2markup.extensions.springRestDocs.snippetBaseUri' : file('src/docs/asciidoc/extensions/paths').absolutePath,
+              'swagger2markup.extensions.springRestDocs.snippetBaseUri' : file('src/admin/asciidoc/extensions/paths').absolutePath,
               'swagger2markup.extensions.springRestDocs.markupLanguage' : 'ASCIIDOC',
               'swagger2markup.extensions.springRestDocs.defaultSnippets' : true,
-              'swagger2markup.extensions.dynamicDefinitions.contentPath' : file('src/docs/asciidoc/extensions/definitions').absolutePath,
-              'swagger2markup.extensions.dynamicOverview.contentPath' : file('src/docs/asciidoc/extensions/overview').absolutePath,
-              'swagger2markup.extensions.dynamicPaths.contentPath' : file('src/docs/asciidoc/extensions/paths').absolutePath,
-              'swagger2markup.extensions.dynamicSecurity.contentPath' : file('src/docs/asciidoc/extensions/security').absolutePath]
+              'swagger2markup.extensions.dynamicDefinitions.contentPath' : file('src/admin/asciidoc/extensions/definitions').absolutePath,
+              'swagger2markup.extensions.dynamicOverview.contentPath' : file('src/admin/asciidoc/extensions/overview').absolutePath,
+              'swagger2markup.extensions.dynamicPaths.contentPath' : file('src/admin/asciidoc/extensions/paths').absolutePath,
+              'swagger2markup.extensions.dynamicSecurity.contentPath' : file('src/admin/asciidoc/extensions/security').absolutePath]
 }
 
 task wrapper(type: Wrapper) {
