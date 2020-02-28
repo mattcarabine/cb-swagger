@@ -26,9 +26,9 @@ tags:
   - name: prepared
     description: Operations for prepared statements.
   - name: active
-    description: Operations for active statements.
+    description: Operations for active requests.
   - name: completed
-    description: Operations for completed statements.
+    description: Operations for completed requests.
   - name: statistics
     description: Operations for query statistics.
   - name: settings
