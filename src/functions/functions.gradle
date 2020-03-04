@@ -5,7 +5,8 @@ convertSwagger2markup {
     outputDir file("../../../docs-server/modules/n1ql/partials/n1ql-rest-api/functions")
     config = ['swagger2markup.markupLanguage' : 'ASCIIDOC',
               'swagger2markup.generatedExamplesEnabled' : false,
-              'swagger2markup.pathsGroupedBy' : 'AS_IS',
+              'swagger2markup.pathsGroupedBy' : 'TAGS',
+              'swagger2markup.tagOrderBy' : 'AS_IS',
               'swagger2markup.operationOrderBy' : 'NATURAL',
               'swagger2markup.definitionOrderBy' : 'AS_IS',
               'swagger2markup.parameterOrderBy' : 'AS_IS',

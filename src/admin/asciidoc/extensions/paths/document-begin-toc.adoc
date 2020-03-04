@@ -1,0 +1,9 @@
+**{toc-title}**
+
+* <<_configuration_resource>>
+* <<_prepared_resource>>
+* <<_active_resource>>
+* <<_completed_resource>>
+* <<_statistics_resource>>
+* <<_settings_resource>>
+* <<_default_resource>>
