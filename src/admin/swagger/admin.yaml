@@ -550,14 +550,25 @@ definitions:
   Statements:
     type: object
     title: Prepared Statements
+    required:
+      - encoded_plan
+      - name
+      - statement
+      - uses
     properties:
       encoded_plan:
         type: string
         description: The full prepared statement in encoded format.
       featureControls:
         type: integer
+        description: |
+          This property is provided for technical support only.
+          It is only returned when retrieving a specific prepared statement, not when retrieving all prepared statements.
       indexApiVersion:
         type: integer
+        description: |
+          This property is provided for technical support only.
+          It is only returned when retrieving a specific prepared statement, not when retrieving all prepared statements.
       name:
         type: string
         description: |
@@ -569,6 +580,64 @@ definitions:
       uses:
         type: integer
         description: The count of times the prepared statement has been executed.
+      avgElapsedTime:
+        type: string
+        format: duration
+        description: |
+          The mean time taken from when the request to execute the prepared statement was acknowledged by the service, to when the request was completed.
+          It includes the time taken by the service to schedule the request.
+
+          This property is only returned when the prepared statement has been executed.
+          It is only returned when retrieving a specific prepared statement, not when retrieving all prepared statements.
+      avgServiceTime:
+        type: string
+        format: duration
+        description: |
+          The mean amount of calendar time taken to complete the execution of the prepared statement.
+
+          This property is only returned when the prepared statement has been executed.
+          It is only returned when retrieving a specific prepared statement, not when retrieving all prepared statements.
+      lastUse:
+        type: string
+        format: date-time
+        description: |
+          Date and time of last use.
+
+          This property is only returned when the prepared statement has been executed.
+      maxElapsedTime:
+        type: string
+        format: duration
+        description: |
+          The maximum time taken from when the request to execute the prepared statement was acknowledged by the service, to when the request was completed.
+          It includes the time taken by the service to schedule the request.
+
+          This property is only returned when the prepared statement has been executed.
+          It is only returned when retrieving a specific prepared statement, not when retrieving all prepared statements.
+      maxServiceTime:
+        type: string
+        format: duration
+        description: |
+          The maximum amount of calendar time taken to complete the execution of the prepared statement.
+
+          This property is only returned when the prepared statement has been executed.
+          It is only returned when retrieving a specific prepared statement, not when retrieving all prepared statements.
+      minElapsedTime:
+        type: string
+        format: duration
+        description: |
+          The minimum time taken from when the request to execute the prepared statement was acknowledged by the service, to when the request was completed.
+          It includes the time taken by the service to schedule the request.
+
+          This property is only returned when the prepared statement has been executed.
+          It is only returned when retrieving a specific prepared statement, not when retrieving all prepared statements.
+      minServiceTime:
+        type: string
+        format: duration
+        description: |
+          The minimum amount of calendar time taken to complete the execution of the prepared statement.
+
+          This property is only returned when the prepared statement has been executed.
+          It is only returned when retrieving a specific prepared statement, not when retrieving all prepared statements.
 
   Vitals:
     type: object
