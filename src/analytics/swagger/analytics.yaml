@@ -321,7 +321,7 @@ definitions:
           `couchbase`: A remote link to a Couchbase cluster.
           `s3`: An external dataset in an AWS S3 bucket.
 
-          NOTE: Other properties are returned, depending on the link type: [Couchbase](#couchbase) or [S3](#s3).
+          Different properties are returned, depending on the link type: refer to [Couchbase](#couchbase) or [S3](#s3).
         enum:
           - s3
           - couchbase
@@ -497,10 +497,11 @@ definitions:
 
   Errors:
     type: object
+    required:
+      - error
     properties:
       error:
         type: string
-        required: true
         description: An error message.
 
 responses:
