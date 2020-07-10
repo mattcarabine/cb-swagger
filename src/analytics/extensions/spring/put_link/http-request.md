@@ -14,3 +14,6 @@ $ curl -v -u Administrator:password \
        --data-urlencode "clientCertificate=$(cat ./cert/clientCert.pem)" \
        --data-urlencode "clientKey=$(cat ./cert/client.key)"
 ```
+
+NOTE: The `certificate`, `clientCertificate`, and `clientKey` parameters use command substitution with the `cat` command to return the _content_ of the referenced files.
+The content of these files is then URL-encoded to escape any special characters.

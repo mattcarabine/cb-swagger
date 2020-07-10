@@ -14,7 +14,7 @@ $ curl -v -u Administrator:password \
        -d password=password
 ```
 
-The example below creates an AWS S3 link named `myAwsLink` in the `Default` dataverse.
+The example below creates an Amazon S3 link named `myAwsLink` in the `Default` dataverse.
 
 *Curl request*
 
@@ -28,3 +28,5 @@ $ curl -v -u Administrator:password \
        -d accessKeyId=myAccessKey \
        --data-urlencode secretAccessKey=mySecretKey
 ```
+
+NOTE: The `secretAccessKey` parameter is URL-encoded to escape any special characters.
