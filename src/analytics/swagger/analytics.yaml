@@ -4,7 +4,7 @@ info:
   version: '6.6'
   description: |
     The Analytics Links REST API is provided by the Analytics service.
-    This API enables you to manage the connections to remote links and external datasets.
+    This API enables you to manage the links to remote Couchbase clusters and external data sources.
 
     The API schemes and host URLs are as follows:
 
@@ -176,8 +176,8 @@ parameters:
     description: |
       The type of the link.
 
-      `couchbase`: A remote link to a Couchbase cluster.
-      `s3`: An external dataset in an AWS S3 bucket.
+      `couchbase`: A link to a remote Couchbase cluster.
+      `s3`: A link to the Amazon S3 service.
     enum:
       - s3
       - couchbase
@@ -189,7 +189,7 @@ parameters:
     required: true
     description: >
       For S3 links only.
-      The AWS S3 access key.
+      The Amazon S3 access key ID.
 
   S3SecretAccessKey:
     name: secretAccessKey
@@ -198,7 +198,7 @@ parameters:
     required: true
     description: >
       For S3 links only.
-      The AWS S3 secret key.
+      The Amazon S3 secret access key.
 
   S3Region:
     name: region
@@ -207,7 +207,7 @@ parameters:
     required: true
     description: >
       For S3 links only.
-      The AWS S3 region.
+      The Amazon S3 region.
 
   S3ServiceEndpoint:
     name: serviceEndpoint
@@ -216,7 +216,7 @@ parameters:
     required: false
     description: >
       For S3 links only.
-      The AWS S3 service endpoint.
+      The Amazon S3 service endpoint.
 
   CouchbaseHostname:
     name: hostname
@@ -297,9 +297,9 @@ parameters:
 
 definitions:
   Links:
-    description: These properties are returned for all links.
+    description: These properties are common to all links.
     type: object
-    descriminator: type
+    discriminator: type
     required:
       - dataverse
       - name
@@ -318,8 +318,8 @@ definitions:
         description: |
           The type of the link.
 
-          `couchbase`: A remote link to a Couchbase cluster.
-          `s3`: An external dataset in an AWS S3 bucket.
+          `couchbase`: A link to a remote Couchbase cluster.
+          `s3`: A link to the Amazon S3 service.
 
           Different properties are returned, depending on the link type: refer to [Couchbase](#couchbase) or [S3](#s3).
         enum:
@@ -327,7 +327,7 @@ definitions:
           - couchbase
 
   Couchbase:
-    description: These properties are returned for Couchbase links.
+    description: These properties are returned for remote Couchbase links.
     allOf:
       - $ref: "#/definitions/Links"
       - type: object
@@ -476,22 +476,22 @@ definitions:
         properties:
           accessKeyId:
             type: string
-            description: The AWS S3 access key.
+            description: The Amazon S3 access key ID.
             example: myAccessKey
           region:
             type: string
-            description: The AWS S3 region.
+            description: The Amazon S3 region.
             example: us-east-1
           secretAccessKey:
             type: string
             description: >
-              The AWS S3 secret key.
+              The Amazon S3 secret access key.
               This is redacted for the sake of security.
             example: <redacted sensitive entry>
           serviceEndpoint:
             type: string
             description: >
-              AW3 S3 service endpoint.
+              Amazon S3 service endpoint.
               If not set, this property returns `null`.
             example: myEndpointUri
 
