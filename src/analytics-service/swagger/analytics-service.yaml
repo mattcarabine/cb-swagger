@@ -1,0 +1,381 @@
+swagger: '2.0'
+info:
+  title: Analytics Service REST API
+  version: '6.6'
+  description: |
+    The Analytics Service REST API is provided by the Analytics service.
+    This API enables you to manage the links to remote Couchbase clusters and external data sources.
+
+    The API schemes and host URLs are as follows:
+
+    * `http://node:8095/`
+    * `https://node:18095/` (for secure access)
+
+    where `node` is the host name or IP address of a computer running the Analytics service.
+
+produces:
+  - application/json
+
+consumes:
+  - application/x-www-form-urlencoded
+  - application/json
+
+paths:
+  /analytics/service:
+    post:
+      operationId: post_service
+      summary: Query Service
+      description: Enables you to execute a N1QL for Analytics statement.
+      parameters:
+        - in: body
+          name: Parameters
+          description: An object specifying one or more query parameters.
+          schema:
+            $ref: "#/definitions/Parameters"
+      security:
+        - Default: []
+      responses:
+        "200":
+          $ref: '#/responses/OK'
+        "400":
+          $ref: '#/responses/BadRequest'
+        "401":
+          $ref: '#/responses/Unauthorized'
+
+  /query/service:
+    post:
+      operationId: post_query
+      summary: Query Service (Alternative)
+      description: An alternative to the [Query Service](#post_service) endpoint provided for tools compatibility.
+
+definitions:
+
+  # For the REST API reference
+  Parameters:
+    allOf:
+      - $ref: "#/definitions/Common Parameters"
+      - $ref: "#/definitions/Analytics Parameters"
+
+  # For the Query Responses page
+  Common Parameters:
+    type: object
+    required:
+      - statement
+    properties:
+      statement:
+        type: string
+        description: Specifies at least one valid N1QL for Analytics statement to run.
+      client_context_id:
+        type: string
+        description: >
+          An identifier passed by the client that is returned verbatim in the query response.
+          Useful for matching a particular query to a specific caller.
+      format:
+        type: string
+        default: JSON
+        description: |
+          Desired format for the query results.
+          
+          Note that the following values are deprecated and will be removed in a future release:
+          `application/x-adm`, `application/json`, `application/json;lossless`, and `text/csv`.
+        enum:
+          - JSON
+          - application/x-adm
+          - application/json
+          - application/json;lossless
+          - text/csv
+      pretty:
+        type: boolean
+        default: false
+        description: If `true`, the result is indented.
+      readonly:
+        type: boolean
+        default: false
+        description: If `true`, then DDL statements are not allowed.
+      scan_consistency:
+        type: string
+        default: not_bounded
+        description: >
+          The consistency guarantee constraint for index scanning.
+          If `not_bounded`, the query is executed immediately.
+          If `request_plus`, the required datasets are updated with data available from the Data service at the time of the request before the query is executed.
+        enum:
+          - not_bounded
+          - request_plus
+      scan_wait:
+        type: string
+        default: (no timeout)
+        description: >
+          The maximum time to wait for datasets to be updated before the query is executed.
+          The format includes an amount and a unit: `ns`, `us`, `ms`, `s`, `m`, or `h`.
+      timeout:
+        type: string
+        default: (no timeout)
+        description: >
+          Maximum time to spend on the request before timing out.
+          The format includes an amount and a unit: `ns`, `us`, `ms`, `s`, `m`, or `h`.
+      args:
+        type: array
+        description: An array of positional parameter values.
+      $_identifier_:
+        type: string
+        description: A named parameter value.
+
+  # For the Query Responses page
+  Analytics Parameters:
+    type: object
+    properties:
+      plan-format:
+        type: string
+        description: The plan format.
+        default: JSON
+        enum:
+          - JSON
+          - STRING
+      logical-plan:
+        type: boolean
+        description: If `true`, the logical plan is included in the query response.
+        default: false
+      optimized-logical-plan:
+        type: boolean
+        description: If `true`, the optimized logical plan is included in the query response.
+        default: true
+      expression-tree:
+        type: boolean
+        description: If `true`, the expression tree is included in the query response.
+        default: false
+      rewritten-expression-tree:
+        type: boolean
+        description: If `true`, the rewritten expression tree is included in the query response.
+        default: false
+      job:
+        type: boolean
+        description: If `true`, the job details are included in the query response.
+        default: false
+      max-warnings:
+        type: integer
+        description: An integer specifying the maximum number of warning messages to be included in the query response.
+        default: 0
+
+  # For the REST API reference
+  # This is more complex than the parameters, because we need to compose the nested metrics object.
+  # Use YAML anchors so the shared properties don't appear as a separate section in the output.
+  # Use reference-style links so they can point to different locations in different output files.
+  Responses:
+    allOf:
+      - type: object
+        properties: &common
+          requestID:
+            type: string
+            format: UUID
+            description: A unique identifier for the response.
+          clientContextID:
+            type: string
+            description: >
+              The client context ID of the request, if one was supplied —
+              refer to `client_context_id` in [Query Parameters][1].
+          signature:
+            type: object
+            description: >
+              The schema of the results.
+              Present only when the query completes successfully.
+          results:
+            type: array
+            description: >
+              An array of all the objects returned by the query.
+              An object can be any JSON value.
+          status:
+            type: string
+            description: The status of the request.
+            enum:
+              - success
+              - running
+              - errors
+              - completed
+              - stopped
+              - timeout
+              - fatal
+          errors:
+            type: array
+            description: >
+              An array of error objects.
+              Present only if 1 or more errors are returned during processing of the request.
+              Each error is represented by an object in this list.
+            items:
+              $ref: "#/definitions/Errors"
+          warnings:
+            type: array
+            description: |
+              An array of warning objects.
+              Present only if 1 or more warnings are returned during processing of the request.
+              Each warning is represented by an object in this list.
+
+              Note that you can specify the maximum number of warning messages to be returned in the query response —
+              refer to `max-warnings` in [Query Parameters][2].
+              By default, no warnings are returned, even if warnings have occurred during processing.
+            items:
+              $ref: "#/definitions/Warnings"
+      - type: object
+        properties: &analytics
+          plans:
+            description: An object containing the query plans, if requested.
+            $ref: "#/definitions/Plans"
+      - type: object
+        properties:
+          metrics:
+            title: &title >
+              Metrics
+            description: &description >
+              An object containing metrics about the request.
+            $ref: "#/definitions/Metrics"
+
+  # For the Query Responses page
+  Common Responses:
+    allOf:
+      - type: object
+        properties:
+          <<: *common
+      - type: object
+        properties:
+          metrics:
+            title: *title
+            description: *description
+            $ref: "#/definitions/Common Metrics"
+
+  # For the Query Responses page
+  Analytics Responses:
+    allOf:
+      - type: object
+        properties:
+          <<: *analytics
+      - type: object
+        properties:
+          metrics:
+            title: *title
+            description: *description
+            $ref: "#/definitions/Analytics Metrics"
+
+  # For both
+  Errors:
+    type: object
+    properties:
+      code:
+        type: integer
+        description: A number that identifies the error.
+      msg:
+        type: string
+        description: >
+          A message describing the error in detail.
+          Refer to [Error Codes](error-codes.html).
+
+  # For both
+  Warnings:
+    type: object
+    properties:
+      code:
+        type: integer
+        description: A number that identifies the warning.
+      msg:
+        type: string
+        description: A message describing the warning in detail.
+
+  # For both
+  Plans:
+    type: object
+    properties:
+      logicalPlan:
+        type: object
+        description: The logical plan.
+      optimizedLogicalPlan:
+        type: object
+        description: The optimized logical plan.
+      rewrittenExpressionTree:
+        type: string
+        description: The rewritten expression tree.
+      expressionTree:
+        type: string
+        description: The expression tree.
+      job:
+        type: object
+        description: The job details.
+
+  # For the REST API reference
+  Metrics:
+    allOf:
+      - $ref: "#/definitions/Common Metrics"
+      - $ref: "#/definitions/Analytics Metrics"
+
+  # For the Query Responses page
+  Common Metrics:
+    type: object
+    properties:
+      elapsedTime:
+        type: string
+        description: >
+          The total time taken for the request,
+          that is the time from when the request was received until the results were returned.
+      executionTime:
+        type: string
+        description: >
+          The time taken for the execution of the request,
+          that is the time from when query execution started until the results were returned.
+      resultCount:
+        type: integer
+        format: unsigned
+        description: The total number of objects in the results.
+      resultSize:
+        type: integer
+        format: unsigned
+        description: The total number of bytes in the results.
+      errorCount:
+        type: integer
+        format: unsigned
+        description: The number of errors that occurred during the request.
+      warningCount:
+        type: integer
+        format: unsigned
+        description: The number of warnings that occurred during the request.
+
+  # For the Query Responses page
+  Analytics Metrics:
+    type: object
+    properties:
+      processedObjects:
+        type: integer
+        format: long
+        description: Number of processed tuples during query execution.
+
+responses:
+  OK:
+    description: The operation was successful.
+    schema:
+      $ref: "#/definitions/Responses"
+
+  BadRequest:
+    description: >
+      Bad request.
+      A parameter has an incorrect value.
+    schema:
+      $ref: "#/definitions/Responses"
+
+  Unauthorized:
+    description: |
+      Unauthorized.
+      The user name or password may be incorrect.
+    schema:
+      $ref: "#/definitions/Responses"
+
+securityDefinitions:
+  Default:
+    type: basic
+    description: |
+      The Analytics Service REST API supports admin credentials.
+      Credentials can be passed via HTTP headers (HTTP basic authentication).
+
+      Users must have one of the following RBAC roles:
+      * Full Admin
+      * Cluster Admin
+      * Analytics Manager
+      * Analytics Reader
+
+      Refer to [Roles](../learn/security/roles.html) for more details.
