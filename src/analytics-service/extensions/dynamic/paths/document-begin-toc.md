@@ -1,4 +1,4 @@
 **Table of Contents**
 
-* [Query Service](#post_service)
-* [Query Service (Alternative)](#post_query)
+* [Query Service](#query-service)
+* [Query Service (Alternative)](#query-service-alternative)

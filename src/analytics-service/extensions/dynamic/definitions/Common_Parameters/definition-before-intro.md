@@ -1,7 +1,7 @@
 Common Parameters
 -----------------
 
-The Couchbase Analytics [Service API](rest-service.html#post_service)
+The Couchbase Analytics [Service API](rest-service.html#query-service)
 supports the following parameters in common with the N1QL for Query REST API.
 
 For more information on these common parameters, refer to

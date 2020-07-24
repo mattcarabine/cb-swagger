@@ -1,6 +1,6 @@
 **Table of Contents**
 
-* [Request Cancellation](#cancel_request)
-* [Cluster Restart](#restart_cluster)
-* [Node Restart](#restart_node)
-* [Pending Mutations](#monitor_node)
+* [Request Cancellation](#request-cancellation)
+* [Cluster Restart](#cluster-restart)
+* [Node Restart](#node-restart)
+* [Pending Mutations](#pending-mutations)

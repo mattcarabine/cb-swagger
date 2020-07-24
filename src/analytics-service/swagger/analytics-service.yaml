@@ -46,7 +46,7 @@ paths:
     post:
       operationId: post_query
       summary: Query Service (Alternative)
-      description: An alternative to the [Query Service](#post_service) endpoint provided for tools compatibility.
+      description: An alternative to the [Query Service](#query-service) endpoint provided for tools compatibility.
 
 definitions:
 

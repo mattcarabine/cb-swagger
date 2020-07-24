@@ -1,6 +1,6 @@
 **Table of Contents**
 
-* [View Service-Level Parameters](#get_service)
-* [Modify Service-Level Parameters](#put_service)
-* [View Node-Specific Parameters](#get_node)
-* [Modify Node-Specific Parameters](#put_node)
+* [View Service-Level Parameters](#view-service-level-parameters)
+* [Modify Service-Level Parameters](#modify-service-level-parameters)
+* [View Node-Specific Parameters](#view-node-specific-parameters)
+* [Modify Node-Specific Parameters](#modify-node-specific-parameters)

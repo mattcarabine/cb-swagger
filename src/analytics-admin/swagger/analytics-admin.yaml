@@ -144,7 +144,7 @@ securityDefinitions:
   Default:
     type: basic
     description: |
-      For the [Request Cancellation](#cancel_request) and [Pending Mutations](#monitor_node) operations,
+      For the [Request Cancellation](#request-cancellation) and [Pending Mutations](#pending-mutations) operations,
       users must have one of the following access roles:
 
       * Full Admin
@@ -155,7 +155,7 @@ securityDefinitions:
   Restart:
     type: basic
     description: |
-      For the [Cluster Restart](#restart_cluster) and [Node Restart](#restart_node) operations,
+      For the [Cluster Restart](#cluster-restart) and [Node Restart](#node-restart) operations,
       users must have one of the following RBAC roles:
 
       * Full Admin
