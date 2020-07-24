@@ -3,7 +3,7 @@ info:
   title: Analytics Administration REST APIs
   version: '6.6'
   description: |
-    The Analytics Administrative REST APIs are provided by the Analytics service.
+    The Analytics Administration REST APIs are provided by the Analytics service.
     These APIs enables you to manage and monitor the Analytics service.
 
     The API schemes and host URLs are as follows:
