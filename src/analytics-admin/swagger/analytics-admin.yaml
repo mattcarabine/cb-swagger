@@ -126,9 +126,10 @@ definitions:
 
 responses:
   Unauthorized:
-    description: |
+    description: >
       Unauthorized.
       The user name or password may be incorrect.
+
 
       Returns an object containing an error message.
       Refer to [Error Codes](error-codes.html).

@@ -168,7 +168,7 @@ definitions:
         format: int32
         default: 0
       compilerSortParallel:
-        description: Enabling/Disabling full parallel sort
+        description: Enables or disables full parallel sort.
         type: boolean
         default: false
       compilerSortmemory:
@@ -232,12 +232,12 @@ definitions:
         format: int32
         default: 1
       rebalancePullDatasetSizeFrequency:
-        description: The frequency at which the dataset size is pulled from nodes during rebalance in seconds
+        description: The frequency at which the dataset size is pulled from nodes during rebalance in seconds.
         type: integer
         format: int32
         default: 5
       requestsArchiveSize:
-        description: The maximum number of archived requests to maintain
+        description: The maximum number of archived requests to maintain.
         type: integer
         format: int32
         default: 50
@@ -262,7 +262,7 @@ definitions:
         format: int32
         default: 131072
       storageCompressionBlock:
-        description: The default compression scheme for the storage
+        description: The default compression scheme for the storage.
         type: string
         default: snappy
       storageMaxActiveWritableDatasets:
@@ -309,13 +309,16 @@ definitions:
           JVM args to pass to the Analytics Driver.
           Node-specific JVM arguments are appended to service-level JVM arguments.
           If the same JVM argument appears in both the service-level arguments and the node-specific arguments, the node-specific argument takes priority.
+
+
           The default is undefined (null).
         type: string
         default: null
       storageBuffercacheSize:
-        description: |
+        description: >
           The size of memory allocated to the disk buffer cache.
           The value should be a multiple of the buffer cache page size.
+
 
           The default is 1/4 of the allocated Analytics Service memory.
         type: integer
@@ -323,6 +326,7 @@ definitions:
         description: >
           The size of memory allocated to the memory components.
           The value should be a multiple of the memory component page size.
+
 
           The default is 1/4 of the allocated Analytics Service memory.
         type: integer
@@ -348,9 +352,10 @@ responses:
       $ref: "#/definitions/Errors"
 
   Unauthorized:
-    description: |
+    description: >
       Unauthorized.
       The user name or password may be incorrect.
+
 
       Returns an object containing an error message.
       Refer to [Error Codes](error-codes.html).

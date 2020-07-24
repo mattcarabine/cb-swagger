@@ -373,7 +373,7 @@ definitions:
             example: null
           clientKey:
             type: string
-            description:  >
+            description: >
               The content of the client key.
               Only set for links with full encryption using client certificate and client key.
               If not set, this property returns `null`.
