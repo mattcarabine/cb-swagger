@@ -456,7 +456,7 @@ definitions:
               The remote username.
               Not set for links with full encryption using client certificate and client key.
               If not set, this property returns `null`.
-            example: Administrator
+            example: remote.user
           uuid:
             type: string
             format: UUID
