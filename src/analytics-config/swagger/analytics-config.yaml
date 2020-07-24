@@ -107,46 +107,57 @@ definitions:
       activeMemoryGlobalBudget:
         description: The memory budget (in bytes) for the active runtime.
         type: integer
-        default: 67108864 (64 MB)
+        format: int32
+        default: 67108864
       activeStopTimeout:
         description: The maximum time (in seconds) to wait for a graceful stop of an active runtime.
         type: integer
+        format: int32
         default: 3600
       activeSuspendTimeout:
         description: The maximum time (in seconds) to wait for a graceful suspend of an active runtime.
         type: integer
+        format: int32
         default: 3600
       analyticsBroadcastDcpStateMutationCount:
         description: The number of processed mutations after which the DCP state is broadcast to storage
         type: integer
+        format: int32
         default: 10000
       analyticsHttpRequestQueueSize:
         description: The maximum number of HTTP requests to queue pending ability to execute.
         type: integer
+        format: int32
         default: 256
       analyticsHttpThreadCount:
         description: The number of threads to service HTTP requests.
         type: integer
+        format: int32
         default: 16
       clusterConnectRetries:
         description: Number of attempts to contact CC before giving up.
         type: integer
+        format: int32
         default: 5
       collectDcpStateFromNodesTimeout:
         description: The maximum time to wait to collect DCP state from all nodes in seconds.
         type: integer
+        format: int32
         default: 600
       compilerFramesize:
         description: The page size (in bytes) for computation.
         type: integer
+        format: int32
         default: 32768
       compilerGroupmemory:
         description: The memory budget (in bytes) for a group by operator instance in a partition.
         type: integer
+        format: int32
         default: 33554432
       compilerJoinmemory:
         description: The memory budget (in bytes) for a join operator instance in a partition.
         type: integer
+        format: int32
         default: 33554432
       compilerParallelism:
         description: >
@@ -154,6 +165,7 @@ definitions:
           Zero means to use the storage parallelism as the query execution parallelism, while other integer values dictate the number of query execution parallel partitions.
           The system will fall back to use the number of all available CPU cores in the cluster as the degree of parallelism if the number set by a user is too large or too small.
         type: integer
+        format: int32
         default: 0
       compilerSortParallel:
         description: Enabling/Disabling full parallel sort
@@ -162,30 +174,37 @@ definitions:
       compilerSortmemory:
         description: The memory budget (in bytes) for a sort operator instance in a partition.
         type: integer
+        format: int32
         default: 33554432
       compilerWindowmemory:
         description: The memory budget (in bytes) for a window operator instance in a partition.
         type: integer
+        format: int32
         default: 33554432
       coresMultiplier:
         description: The factor to multiply by the number of cores to determine maximum query concurrent execution level.
         type: integer
+        format: int32
         default: 3
       deadlockWatchdogHaltDelaySeconds:
         description: The delay (in seconds) to wait for graceful shutdown due to deadlocked threads, before halting.
         type: integer
+        format: int32
         default: 120
       deadlockWatchdogPollSeconds:
         description: The frequency (in seconds) to scan for deadlocked threads.
         type: integer
+        format: int32
         default: 300
       jobHistorySize:
         description: Limits the number of historical jobs remembered by the system to the specified value.
         type: integer
+        format: int32
         default: 10
       jobQueueCapacity:
         description: The maximum number of jobs to queue before rejecting new jobs.
         type: integer
+        format: int32
         default: 4096
       jvmArgs:
         description: >
@@ -200,38 +219,47 @@ definitions:
       maxWebRequestSize:
         description: The maximum accepted web request size in bytes.
         type: integer
+        format: int32
         default: 52428800
       netBufferCount:
         description: Number of network buffers per input/output channel.
         type: integer
+        format: int32
         default: 1
       netThreadCount:
         description: Number of threads to use for Network I/O.
         type: integer
+        format: int32
         default: 1
       rebalancePullDatasetSizeFrequency:
         description: The frequency at which the dataset size is pulled from nodes during rebalance in seconds
         type: integer
+        format: int32
         default: 5
       requestsArchiveSize:
         description: The maximum number of archived requests to maintain
         type: integer
+        format: int32
         default: 50
       resultSweepThreshold:
         description: The duration within which an instance of the result cleanup should be invoked in milliseconds.
         type: integer
+        format: int32
         default: 60000
       resultTtl:
         description: Limits the amount of time results for asynchronous jobs should be retained by the system in milliseconds.
         type: integer
+        format: int32
         default: 86400000
       storageBuffercacheMaxopenfiles:
         description: The maximum number of open files in the buffer cache.
         type: integer
+        format: int32
         default: 2147483647
       storageBuffercachePagesize:
         description: The page size in bytes for pages in the buffer cache.
         type: integer
+        format: int32
         default: 131072
       storageCompressionBlock:
         description: The default compression scheme for the storage
@@ -240,18 +268,22 @@ definitions:
       storageMaxActiveWritableDatasets:
         description: The maximum number of datasets that can be concurrently modified.
         type: integer
+        format: int32
         default: 8
       storageMemorycomponentNumcomponents:
         description: The number of memory components to be used per LSM index.
         type: integer
+        format: int32
         default: 2
       storageMemorycomponentPagesize:
         description: The page size in bytes for pages allocated to memory components.
         type: integer
+        format: int32
         default: 131072
       threaddumpFrequencySeconds:
         description: The frequency (in seconds) at which to log diagnostic thread dumps.
         type: integer
+        format: int32
         default: 300
       threaddumpLogLevel:
         description: The log level at which to emit diagnostic thread dumps.
@@ -266,6 +298,7 @@ definitions:
       txnDatasetCheckpointInterval:
         description: The interval (in seconds) after which a dataset is considered idle and persisted to disk.
         type: integer
+        format: int32
         default: 3600
   
   Node:

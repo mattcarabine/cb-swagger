@@ -154,6 +154,7 @@ definitions:
         default: false
       max-warnings:
         type: integer
+        format: int32
         description: An integer specifying the maximum number of warning messages to be included in the query response.
         default: 0
 
@@ -342,7 +343,7 @@ definitions:
     properties:
       processedObjects:
         type: integer
-        format: long
+        format: int64
         description: Number of processed tuples during query execution.
 
 responses:
