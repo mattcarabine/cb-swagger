@@ -1,4 +1,4 @@
 **Table of Contents**
 
-* [Parameters](#parameters)
-* [Responses](#responses)
+* [Query Parameters](#query-parameters)
+* [Query Responses](#query-responses)

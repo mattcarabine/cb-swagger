@@ -31,7 +31,7 @@ paths:
           name: Parameters
           description: An object specifying one or more query parameters.
           schema:
-            $ref: "#/definitions/Parameters"
+            $ref: "#/definitions/Query Parameters"
       security:
         - Default: []
       responses:
@@ -51,7 +51,7 @@ paths:
 definitions:
 
   # For the REST API reference
-  Parameters:
+  Query Parameters:
     allOf:
       - $ref: "#/definitions/Common Parameters"
       - $ref: "#/definitions/Analytics Parameters"
@@ -162,7 +162,7 @@ definitions:
   # This is more complex than the parameters, because we need to compose the nested metrics object.
   # Use YAML anchors so the shared properties don't appear as a separate section in the output.
   # Use reference-style links so they can point to different locations in different output files.
-  Responses:
+  Query Responses:
     allOf:
       - type: object
         properties: &common
@@ -350,21 +350,21 @@ responses:
   OK:
     description: The operation was successful.
     schema:
-      $ref: "#/definitions/Responses"
+      $ref: "#/definitions/Query Responses"
 
   BadRequest:
     description: >
       Bad request.
       A parameter has an incorrect value.
     schema:
-      $ref: "#/definitions/Responses"
+      $ref: "#/definitions/Query Responses"
 
   Unauthorized:
     description: |
       Unauthorized.
       The user name or password may be incorrect.
     schema:
-      $ref: "#/definitions/Responses"
+      $ref: "#/definitions/Query Responses"
 
 securityDefinitions:
   Default:
