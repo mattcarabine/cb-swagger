@@ -1,4 +1,4 @@
-The example below uses the `client_context_id` used in the `/analytics/service` example to identify the request.
+The example below uses the `client_context_id` used in the [Query Service](rest-service.html#query-service) example to identify the request.
 
 *Curl request*
 
