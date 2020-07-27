@@ -4,7 +4,7 @@ info:
   version: '6.6'
   description: |
     The Analytics Service REST API is provided by the Analytics service.
-    This API enables you to manage the links to remote Couchbase clusters and external data sources.
+    This API enables you to run Analytics queries and set request-level parameters.
 
     The API schemes and host URLs are as follows:
 

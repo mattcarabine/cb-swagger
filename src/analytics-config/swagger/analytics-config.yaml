@@ -66,6 +66,8 @@ paths:
       operationId: get_node
       summary: View Node-Specific Parameters
       description: Views node-specific parameters, which apply to the node receiving the request.
+      security:
+        - Default: []
       responses:
         "200":
           description: >
