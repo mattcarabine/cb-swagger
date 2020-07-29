@@ -25,7 +25,34 @@ paths:
     post:
       operationId: post_service
       summary: Query Service
-      description: Enables you to execute a N1QL for Analytics statement.
+      description: >
+        Enables you to execute a N1QL for Analytics statement.
+        This method allows you to run queries and modifying statements, and specify query parameters.
+      parameters:
+        - in: body
+          name: Parameters
+          description: An object specifying one or more query parameters.
+          schema:
+            $ref: "#/definitions/Query Parameters"
+      security:
+        - Default: []
+      responses:
+        "200":
+          $ref: '#/responses/OK'
+        "400":
+          $ref: '#/responses/BadRequest'
+        "401":
+          $ref: '#/responses/Unauthorized'
+    get:
+      operationId: get_service
+      summary: Read-Only Query Service
+      description: >
+        Enables you to execute a N1QL for Analytics statement.
+        This method only allows you to run queries and specify query parameters.
+        It does not allow you to run modifying statements.
+
+
+        This is intended for situations where use of the `POST` method is restricted.
       parameters:
         - in: body
           name: Parameters
@@ -46,7 +73,11 @@ paths:
     post:
       operationId: post_query
       summary: Query Service (Alternative)
-      description: An alternative to the [Query Service](#query-service) endpoint provided for tools compatibility.
+      description: An alternative endpoint for the [Query Service](#query-service), provided for tools compatibility.
+    get:
+      operationId: get_query
+      summary: Read-Only Query Service (Alternative)
+      description: An alternative endpoint for the [Read-Only Query Service](#read-only-query-service), provided for tools compatibility.
 
 definitions:
 
