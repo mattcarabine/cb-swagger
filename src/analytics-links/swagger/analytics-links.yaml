@@ -41,7 +41,7 @@ paths:
         - $ref: "#/parameters/S3Region"
         - $ref: "#/parameters/S3ServiceEndpoint"
       security:
-        - Default: []
+        - Manage: []
       responses:
         "200":
           $ref: '#/responses/OK'
@@ -80,7 +80,7 @@ paths:
             - S3
             - couchbase
       security:
-        - Default: []
+        - Manage: []
       responses:
         "200":
           description: >
@@ -125,7 +125,7 @@ paths:
         - $ref: "#/parameters/S3Region"
         - $ref: "#/parameters/S3ServiceEndpoint"
       security:
-        - Default: []
+        - Manage: []
       responses:
         "200":
           $ref: '#/responses/OK'
@@ -144,7 +144,7 @@ paths:
         - $ref: "#/parameters/CommonDataverse"
         - $ref: "#/parameters/CommonName"
       security:
-        - Default: []
+        - Manage: []
       responses:
         "200":
           $ref: '#/responses/OK'
@@ -523,11 +523,16 @@ responses:
       $ref: "#/definitions/Errors"
 
 securityDefinitions:
-  Default:
+  Manage:
     type: basic
     description: |
       The Analytics Links REST API supports admin credentials.
       Credentials can be passed via HTTP headers (HTTP basic authentication).
 
-      Users must have Analytics link management privileges.
+      Users must have one of the following RBAC roles:
+
+      * Full Admin
+      * Cluster Admin
+      * Analytics Admin
+
       Refer to [Roles](../learn/security/roles.html) for more details.

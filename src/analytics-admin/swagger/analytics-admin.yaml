@@ -32,7 +32,7 @@ paths:
           required: true
           description: Identifier passed by the client that is used to identify an active request to be cancelled.
       security:
-        - Default: []
+        - Manage / Select: []
       responses:
         "200":
           description: >
@@ -54,7 +54,7 @@ paths:
       summary: Cluster Restart
       description: Restarts all Analytics Service nodes in the cluster.
       security:
-        - Restart: []
+        - Manage: []
       responses:
         "202":
           description: >
@@ -73,7 +73,7 @@ paths:
       summary: Node Restart
       description: Restarts the specified Analytics Service node.
       security:
-        - Restart: []
+        - Manage: []
       responses:
         "202":
           description: >
@@ -92,7 +92,7 @@ paths:
       summary: Pending Mutations
       description: Shows the number of mutations in the DCP queue that have not yet been ingested by the Analytics service, for each dataset.
       security:
-        - Default: []
+        - Manage / Select: []
       responses:
         "200":
           description: >
@@ -142,7 +142,7 @@ responses:
       The path may be incorrect.
 
 securityDefinitions:
-  Default:
+  Manage / Select:
     type: basic
     description: |
       For the [Request Cancellation](#request-cancellation) and [Pending Mutations](#pending-mutations) operations,
@@ -152,8 +152,10 @@ securityDefinitions:
       * Cluster Admin
       * Analytics Manager
       * Analytics Reader
+      * Analytics Select
+      * Analytics Admin
 
-  Restart:
+  Manage:
     type: basic
     description: |
       For the [Cluster Restart](#cluster-restart) and [Node Restart](#node-restart) operations,
@@ -161,3 +163,4 @@ securityDefinitions:
 
       * Full Admin
       * Cluster Admin
+      * Analytics Admin
