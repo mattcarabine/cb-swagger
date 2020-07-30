@@ -35,7 +35,7 @@ paths:
           schema:
             $ref: "#/definitions/Query Parameters"
       security:
-        - Manage / Select: []
+        - Analytics Manage / Analytics Select: []
       responses:
         "200":
           $ref: '#/responses/OK'
@@ -60,7 +60,7 @@ paths:
           schema:
             $ref: "#/definitions/Query Parameters"
       security:
-        - Manage / Select: []
+        - Analytics Manage / Analytics Select: []
       responses:
         "200":
           $ref: '#/responses/OK'
@@ -401,11 +401,11 @@ responses:
       $ref: "#/definitions/Query Responses"
 
 securityDefinitions:
-  Manage / Select:
+  Analytics Manage / Analytics Select:
     type: basic
     description: |
-      The Analytics Service REST API supports admin credentials.
-      Credentials can be passed via HTTP headers (HTTP basic authentication).
+      The Analytics Service REST API supports HTTP basic authentication.
+      Credentials can be passed via HTTP headers.
 
       Users must have one of the following RBAC roles:
 

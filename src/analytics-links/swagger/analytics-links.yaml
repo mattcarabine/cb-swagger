@@ -41,7 +41,7 @@ paths:
         - $ref: "#/parameters/S3Region"
         - $ref: "#/parameters/S3ServiceEndpoint"
       security:
-        - Manage: []
+        - Analytics Manage: []
       responses:
         "200":
           $ref: '#/responses/OK'
@@ -80,7 +80,7 @@ paths:
             - S3
             - couchbase
       security:
-        - Manage: []
+        - Analytics Manage: []
       responses:
         "200":
           description: >
@@ -125,7 +125,7 @@ paths:
         - $ref: "#/parameters/S3Region"
         - $ref: "#/parameters/S3ServiceEndpoint"
       security:
-        - Manage: []
+        - Analytics Manage: []
       responses:
         "200":
           $ref: '#/responses/OK'
@@ -144,7 +144,7 @@ paths:
         - $ref: "#/parameters/CommonDataverse"
         - $ref: "#/parameters/CommonName"
       security:
-        - Manage: []
+        - Analytics Manage: []
       responses:
         "200":
           $ref: '#/responses/OK'
@@ -523,11 +523,11 @@ responses:
       $ref: "#/definitions/Errors"
 
 securityDefinitions:
-  Manage:
+  Analytics Manage:
     type: basic
     description: |
-      The Analytics Links REST API supports admin credentials.
-      Credentials can be passed via HTTP headers (HTTP basic authentication).
+      The Analytics Links REST API supports HTTP basic authentication.
+      Credentials can be passed via HTTP headers.
 
       Users must have one of the following RBAC roles:
 

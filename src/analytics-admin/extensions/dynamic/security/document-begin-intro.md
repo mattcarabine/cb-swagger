@@ -1,2 +1,2 @@
-The Analytics Administration REST APIs support admin credentials.
-Credentials can be passed via HTTP headers (HTTP basic authentication).
+The Analytics Administration REST APIs support HTTP basic authentication.
+Credentials can be passed via HTTP headers.

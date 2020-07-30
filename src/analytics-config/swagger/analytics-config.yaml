@@ -27,7 +27,7 @@ paths:
       summary: View Service-Level Parameters
       description: Views service-level parameters, which apply to all nodes running the Analytics service.
       security:
-        - Manage: []
+        - Analytics Manage: []
       responses:
         "200":
           description: >
@@ -52,7 +52,7 @@ paths:
           schema:
             $ref: "#/definitions/Service"
       security:
-        - Manage: []
+        - Analytics Manage: []
       responses:
         "200":
           $ref: '#/responses/OK'
@@ -67,7 +67,7 @@ paths:
       summary: View Node-Specific Parameters
       description: Views node-specific parameters, which apply to the node receiving the request.
       security:
-        - Manage: []
+        - Analytics Manage: []
       responses:
         "200":
           description: >
@@ -93,7 +93,7 @@ paths:
           schema:
             $ref: "#/definitions/Node"
       security:
-        - Manage: []
+        - Analytics Manage: []
       responses:
         "200":
           $ref: '#/responses/OK'
@@ -365,11 +365,11 @@ responses:
       type: object
 
 securityDefinitions:
-  Manage:
+  Analytics Manage:
     type: basic
     description: |
-      The Analytics Configuration REST API supports admin credentials.
-      Credentials can be passed via HTTP headers (HTTP basic authentication).
+      The Analytics Configuration REST API supports HTTP basic authentication.
+      Credentials can be passed via HTTP headers.
 
       Users must have one of the following RBAC roles:
 
