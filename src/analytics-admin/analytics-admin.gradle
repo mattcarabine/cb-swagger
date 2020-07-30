@@ -6,7 +6,7 @@ convertSwagger2markup {
     config = ['swagger2markup.markupLanguage' : 'MARKDOWN',
               'swagger2markup.generatedExamplesEnabled' : false,
               'swagger2markup.pathsGroupedBy' : 'AS_IS',
-              'swagger2markup.operationOrderBy' : 'NATURAL',
+              'swagger2markup.operationOrderBy' : 'AS_IS',
               'swagger2markup.definitionOrderBy' : 'AS_IS',
               'swagger2markup.parameterOrderBy' : 'AS_IS',
               'swagger2markup.propertyOrderBy' : 'AS_IS',
