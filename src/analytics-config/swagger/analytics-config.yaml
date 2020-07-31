@@ -136,6 +136,14 @@ definitions:
         type: integer
         format: int32
         default: 16
+      bindAddress:
+        type: string
+        description: The bind address to use.
+        default: null
+      bindToHost:
+        type: boolean
+        description: Bind to configured hostname instead of wildcard address.
+        default: false
       clusterConnectRetries:
         description: Number of attempts to contact CC before giving up.
         type: integer
@@ -188,6 +196,13 @@ definitions:
         type: integer
         format: int32
         default: 3
+      dcpChannelReconnectRemoteIdleSeconds:
+        type: integer
+        description: >
+          Reconnect remote DCP channels that are idle for the specified number of seconds to ensure permissions have not been lost.
+          A value of 0 disables reconnects on idle.
+        format: int32
+        default: 120
       deadlockWatchdogHaltDelaySeconds:
         description: The delay (in seconds) to wait for graceful shutdown due to deadlocked threads, before halting.
         type: integer
@@ -238,6 +253,13 @@ definitions:
         type: integer
         format: int32
         default: 5
+      remoteLinkConnectTimeoutSeconds:
+        description: >
+          The maximum time (in seconds) to wait for a remote link connection to establish.
+          A value of 0 disables timeout; a value of -1 sets timeout to the system default.
+        type: integer
+        format: int32
+        default: 60
       requestsArchiveSize:
         description: The maximum number of archived requests to maintain.
         type: integer
