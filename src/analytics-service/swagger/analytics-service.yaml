@@ -31,6 +31,7 @@ paths:
       parameters:
         - in: body
           name: Parameters
+          required: true
           description: An object specifying one or more query parameters.
           schema:
             $ref: "#/definitions/Query Parameters"
@@ -451,7 +452,7 @@ parameters:
     required: false
     items:
       type: string
-      format: URL-encoded values
+      format: URL-encoded
 
   CommonIdentifier:
     <<: *identifier

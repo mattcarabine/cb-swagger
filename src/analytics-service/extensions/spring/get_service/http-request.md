@@ -3,7 +3,7 @@ The example below uses a URL-encoded query parameter.
 *Curl request*
 
 ``` shell
-$ curl -v -u Administrator:password -X GET http://10.143.202.102:8095/analytics/service/analytics/service?statement=SELECT%20%22hello%2C%20beer%21%22%20AS%20greeting
+$ curl -v -u Administrator:password -X GET http://10.143.202.102:8095/analytics/service?statement=SELECT%20%22hello%2C%20beer%21%22%20AS%20greeting
 ```
 
 The example below makes exactly the same request in a more human-readable form.
