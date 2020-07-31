@@ -54,11 +54,24 @@ paths:
 
         This is intended for situations where use of the `POST` method is restricted.
       parameters:
-        - in: body
-          name: Parameters
-          description: An object specifying one or more query parameters.
-          schema:
-            $ref: "#/definitions/Query Parameters"
+        - $ref: "#/parameters/CommonStatement"
+        - $ref: "#/parameters/CommonClientContextId"
+        - $ref: "#/parameters/CommonFormat"
+        - $ref: "#/parameters/CommonPretty"
+        - $ref: "#/parameters/CommonReadonly"
+        - $ref: "#/parameters/CommonScanConsistency"
+        - $ref: "#/parameters/CommonScanWait"
+        - $ref: "#/parameters/CommonTimeout"
+        - $ref: "#/parameters/CommonArgs"
+        - $ref: "#/parameters/CommonIdentifier"
+        - $ref: "#/parameters/AnalyticsPlanFormat"
+        - $ref: "#/parameters/AnalyticsLogicalPlan"
+        - $ref: "#/parameters/AnalyticsOptimizedLogicalPlan"
+        - $ref: "#/parameters/AnalyticsExpressionTree"
+        - $ref: "#/parameters/AnalyticsRewrittenExpressionTree"
+        - $ref: "#/parameters/AnalyticsJob"
+        - $ref: "#/parameters/AnalyticsMaxWarnings"
+
       security:
         - Analytics Manage / Analytics Select: []
       responses:
@@ -87,21 +100,22 @@ definitions:
       - $ref: "#/definitions/Common Parameters"
       - $ref: "#/definitions/Analytics Parameters"
 
-  # For the Query Responses page
+  # For the Query Parameters page
+  # Use YAML anchors for properties which are also available as query parameters
   Common Parameters:
     type: object
     required:
       - statement
     properties:
-      statement:
+      statement: &statement
         type: string
         description: Specifies at least one valid N1QL for Analytics statement to run.
-      client_context_id:
+      client_context_id: &client_context_id
         type: string
         description: >
           An identifier passed by the client that is returned verbatim in the query response.
           Useful for matching a particular query to a specific caller.
-      format:
+      format: &format
         type: string
         default: JSON
         description: |
@@ -115,15 +129,15 @@ definitions:
           - application/json
           - application/json;lossless
           - text/csv
-      pretty:
+      pretty: &pretty
         type: boolean
         default: false
         description: If `true`, the result is indented.
-      readonly:
+      readonly: &readonly
         type: boolean
         default: false
         description: If `true`, then DDL statements are not allowed.
-      scan_consistency:
+      scan_consistency: &scan_consistency
         type: string
         default: not_bounded
         description: >
@@ -133,59 +147,60 @@ definitions:
         enum:
           - not_bounded
           - request_plus
-      scan_wait:
+      scan_wait: &scan_wait
         type: string
         default: ""
         description: >
           The maximum time to wait for datasets to be updated before the query is executed.
           The format includes an amount and a unit: `ns`, `us`, `ms`, `s`, `m`, or `h`.
           The default is `""` (no timeout).
-      timeout:
+      timeout: &timeout
         type: string
         default: ""
         description: >
           Maximum time to spend on the request before timing out.
           The format includes an amount and a unit: `ns`, `us`, `ms`, `s`, `m`, or `h`.
           The default is `""` (no timeout).
-      args:
+      args: &args
         type: array
         description: An array of positional parameter values.
-      $_identifier_:
+      $_identifier_: &identifier
         type: string
         description: A named parameter value.
 
-  # For the Query Responses page
+  # For the Query Parameters page
+  # Use YAML anchors for properties which are also available as query parameters
   Analytics Parameters:
     type: object
     properties:
-      plan-format:
+      plan-format: &plan_format
         type: string
         description: The plan format.
         default: JSON
         enum:
           - JSON
           - STRING
-      logical-plan:
+      logical-plan: &logical_plan
         type: boolean
         description: If `true`, the logical plan is included in the query response.
         default: false
-      optimized-logical-plan:
+      optimized-logical-plan: &organized_logical_plan
         type: boolean
         description: If `true`, the optimized logical plan is included in the query response.
         default: true
-      expression-tree:
+      expression-tree: &expression_tree
         type: boolean
         description: If `true`, the expression tree is included in the query response.
         default: false
-      rewritten-expression-tree:
+      rewritten-expression-tree: &rewritten_expression_tree
         type: boolean
         description: If `true`, the rewritten expression tree is included in the query response.
         default: false
-      job:
+      job: &job
         type: boolean
         description: If `true`, the job details are included in the query response.
         default: false
-      max-warnings:
+      max-warnings: &max_warnings
         type: integer
         format: int32
         description: An integer specifying the maximum number of warning messages to be included in the query response.
@@ -379,6 +394,112 @@ definitions:
         type: integer
         format: int64
         description: Number of processed tuples during query execution.
+
+parameters:
+  CommonStatement:
+    <<: *statement
+    name: statement
+    in: query
+    required: true
+
+  CommonClientContextId:
+    <<: *client_context_id
+    name: client_context_id
+    in: query
+    required: false
+
+  CommonFormat:
+    <<: *format
+    name: format
+    in: query
+    required: false
+
+  CommonPretty:
+    <<: *pretty
+    name: pretty
+    in: query
+    required: false
+
+  CommonReadonly:
+    <<: *readonly
+    name: readonly
+    in: query
+    required: false
+
+  CommonScanConsistency:
+    <<: *scan_consistency
+    name: scan_consistency
+    in: query
+    required: false
+
+  CommonScanWait:
+    <<: *scan_wait
+    name: scan_wait
+    in: query
+    required: false
+
+  CommonTimeout:
+    <<: *timeout
+    name: timeout
+    in: query
+    required: false
+
+  CommonArgs:
+    <<: *args
+    name: args
+    in: query
+    required: false
+    items:
+      type: string
+      format: URL-encoded values
+
+  CommonIdentifier:
+    <<: *identifier
+    name: $_identifier_
+    in: query
+    required: false
+
+  AnalyticsPlanFormat:
+    <<: *plan_format
+    name: plan-format
+    in: query
+    required: false
+
+  AnalyticsLogicalPlan:
+    <<: *logical_plan
+    name: logical-plan
+    in: query
+    required: false
+
+  AnalyticsOptimizedLogicalPlan:
+    <<: *organized_logical_plan
+    name: organized-logical-plan
+    in: query
+    required: false
+
+  AnalyticsExpressionTree:
+    <<: *expression_tree
+    name: expression-tree
+    in: query
+    required: false
+
+  AnalyticsRewrittenExpressionTree:
+    <<: *rewritten_expression_tree
+    name: rewritten-expression-tree
+    in: query
+    required: false
+
+  AnalyticsJob:
+    <<: *job
+    name: job
+    in: query
+    required: false
+
+  AnalyticsMaxWarnings:
+    <<: *max_warnings
+    name: max-warnings
+    in: query
+    required: false
 
 responses:
   OK:
