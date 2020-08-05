@@ -1,0 +1,402 @@
+swagger: '2.0'
+info:
+  title: Analytics Configuration REST API
+  version: '6.6'
+  description: |
+    The Analytics Configuration REST API is provided by the Analytics service.
+    This API enables you to configure Analytics nodes and clusters.
+
+    The API schemes and host URLs are as follows:
+
+    * `http://node:8095/`
+    * `https://node:18095/` (for secure access)
+
+    where `node` is the host name or IP address of a node running the Analytics service.
+
+produces:
+  - application/json
+
+consumes:
+  - application/x-www-form-urlencoded
+  - application/json
+
+paths:
+  /analytics/config/service:
+    get:
+      operationId: get_service
+      summary: View Service-Level Parameters
+      description: Views service-level parameters, which apply to all nodes running the Analytics service.
+      security:
+        - Analytics Manage: []
+      responses:
+        "200":
+          description: >
+            Success.
+            Returns an object listing the configurable service-level parameters and their current values.
+          schema:
+            $ref: '#/definitions/Service'
+        "401":
+          $ref: '#/responses/Unauthorized'
+    put:
+      operationId: put_service
+      summary: Modify Service-Level Parameters
+      description: |
+        Modifies service-level parameters, which apply to all nodes running the Analytics service.
+
+        IMPORTANT: For the configuration changes to take effect,
+        you must restart the Analytics cluster using the [Cluster Restart API](rest_admin.html#cluster-restart).
+      parameters:
+        - in: body
+          name: Service
+          description: An object specifying one or more of the configurable service-level parameters.
+          schema:
+            $ref: "#/definitions/Service"
+      security:
+        - Analytics Manage: []
+      responses:
+        "200":
+          $ref: '#/responses/OK'
+        "400":
+          $ref: '#/responses/BadRequest'
+        "401":
+          $ref: '#/responses/Unauthorized'
+
+  /analytics/config/node:
+    get:
+      operationId: get_node
+      summary: View Node-Specific Parameters
+      description: Views node-specific parameters, which apply to the node receiving the request.
+      security:
+        - Analytics Manage: []
+      responses:
+        "200":
+          description: >
+            Success.
+            Returns an object listing the configurable node-level parameters and their current values.
+          schema:
+            $ref: '#/definitions/Node'
+        "401":
+          $ref: '#/responses/Unauthorized'
+    put:
+      operationId: put_node
+      summary: Modify Node-Specific Parameters
+      description: |
+        Views node-specific parameters, which apply to the node receiving the request.
+
+        IMPORTANT: For the configuration changes to take effect,
+        you must restart the node using the [Node Restart API](rest-admin.html#node-restart),
+        or restart the Analytics cluster using the [Cluster Restart API](rest_admin.html#cluster-restart).
+      parameters:
+        - in: body
+          name: Node
+          description: An object specifying one or more of the configurable node-level parameters on this node.
+          schema:
+            $ref: "#/definitions/Node"
+      security:
+        - Analytics Manage: []
+      responses:
+        "200":
+          $ref: '#/responses/OK'
+        "400":
+          $ref: '#/responses/BadRequest'
+        "401":
+          $ref: '#/responses/Unauthorized'
+
+definitions:
+  Service:
+    type: object
+    properties:
+      activeMemoryGlobalBudget:
+        description: The memory budget (in bytes) for the active runtime.
+        type: integer
+        format: int32
+        default: 67108864
+      activeStopTimeout:
+        description: The maximum time (in seconds) to wait for a graceful stop of an active runtime.
+        type: integer
+        format: int32
+        default: 3600
+      activeSuspendTimeout:
+        description: The maximum time (in seconds) to wait for a graceful suspend of an active runtime.
+        type: integer
+        format: int32
+        default: 3600
+      analyticsBroadcastDcpStateMutationCount:
+        description: The number of processed mutations after which the DCP state is broadcast to storage
+        type: integer
+        format: int32
+        default: 10000
+      analyticsHttpRequestQueueSize:
+        description: The maximum number of HTTP requests to queue pending ability to execute.
+        type: integer
+        format: int32
+        default: 256
+      analyticsHttpThreadCount:
+        description: The number of threads to service HTTP requests.
+        type: integer
+        format: int32
+        default: 16
+      bindAddress:
+        type: string
+        description: The bind address to use.
+        default: null
+      bindToHost:
+        type: boolean
+        description: Bind to configured hostname instead of wildcard address.
+        default: false
+      clusterConnectRetries:
+        description: Number of attempts to contact CC before giving up.
+        type: integer
+        format: int32
+        default: 5
+      collectDcpStateFromNodesTimeout:
+        description: The maximum time to wait to collect DCP state from all nodes in seconds.
+        type: integer
+        format: int32
+        default: 600
+      compilerFramesize:
+        description: The page size (in bytes) for computation.
+        type: integer
+        format: int32
+        default: 32768
+      compilerGroupmemory:
+        description: The memory budget (in bytes) for a group by operator instance in a partition.
+        type: integer
+        format: int32
+        default: 33554432
+      compilerJoinmemory:
+        description: The memory budget (in bytes) for a join operator instance in a partition.
+        type: integer
+        format: int32
+        default: 33554432
+      compilerParallelism:
+        description: >
+          The degree of parallelism for query execution.
+          Zero means to use the storage parallelism as the query execution parallelism, while other integer values dictate the number of query execution parallel partitions.
+          The system will fall back to use the number of all available CPU cores in the cluster as the degree of parallelism if the number set by a user is too large or too small.
+        type: integer
+        format: int32
+        default: 0
+      compilerSortParallel:
+        description: Enables or disables full parallel sort.
+        type: boolean
+        default: false
+      compilerSortmemory:
+        description: The memory budget (in bytes) for a sort operator instance in a partition.
+        type: integer
+        format: int32
+        default: 33554432
+      compilerWindowmemory:
+        description: The memory budget (in bytes) for a window operator instance in a partition.
+        type: integer
+        format: int32
+        default: 33554432
+      coresMultiplier:
+        description: The factor to multiply by the number of cores to determine maximum query concurrent execution level.
+        type: integer
+        format: int32
+        default: 3
+      dcpChannelReconnectRemoteIdleSeconds:
+        type: integer
+        description: >
+          Reconnect remote DCP channels that are idle for the specified number of seconds to ensure permissions have not been lost.
+          A value of 0 disables reconnects on idle.
+        format: int32
+        default: 120
+      deadlockWatchdogHaltDelaySeconds:
+        description: The delay (in seconds) to wait for graceful shutdown due to deadlocked threads, before halting.
+        type: integer
+        format: int32
+        default: 120
+      deadlockWatchdogPollSeconds:
+        description: The frequency (in seconds) to scan for deadlocked threads.
+        type: integer
+        format: int32
+        default: 300
+      jobHistorySize:
+        description: Limits the number of historical jobs remembered by the system to the specified value.
+        type: integer
+        format: int32
+        default: 10
+      jobQueueCapacity:
+        description: The maximum number of jobs to queue before rejecting new jobs.
+        type: integer
+        format: int32
+        default: 4096
+      jvmArgs:
+        description: >
+          JVM args to pass to the Analytics Driver.
+          The default is undefined (null).
+        type: string
+        default: null
+      logLevel:
+        description: The logging level.
+        type: string
+        default: DEBUG
+      maxWebRequestSize:
+        description: The maximum accepted web request size in bytes.
+        type: integer
+        format: int32
+        default: 52428800
+      netBufferCount:
+        description: Number of network buffers per input/output channel.
+        type: integer
+        format: int32
+        default: 1
+      netThreadCount:
+        description: Number of threads to use for Network I/O.
+        type: integer
+        format: int32
+        default: 1
+      rebalancePullDatasetSizeFrequency:
+        description: The frequency at which the dataset size is pulled from nodes during rebalance in seconds.
+        type: integer
+        format: int32
+        default: 5
+      remoteLinkConnectTimeoutSeconds:
+        description: >
+          The maximum time (in seconds) to wait for a remote link connection to establish.
+          A value of 0 disables timeout; a value of -1 sets timeout to the system default.
+        type: integer
+        format: int32
+        default: 60
+      requestsArchiveSize:
+        description: The maximum number of archived requests to maintain.
+        type: integer
+        format: int32
+        default: 50
+      resultSweepThreshold:
+        description: The duration within which an instance of the result cleanup should be invoked in milliseconds.
+        type: integer
+        format: int32
+        default: 60000
+      resultTtl:
+        description: Limits the amount of time results for asynchronous jobs should be retained by the system in milliseconds.
+        type: integer
+        format: int32
+        default: 86400000
+      storageBuffercacheMaxopenfiles:
+        description: The maximum number of open files in the buffer cache.
+        type: integer
+        format: int32
+        default: 2147483647
+      storageBuffercachePagesize:
+        description: The page size in bytes for pages in the buffer cache.
+        type: integer
+        format: int32
+        default: 131072
+      storageCompressionBlock:
+        description: The default compression scheme for the storage.
+        type: string
+        default: snappy
+      storageMaxActiveWritableDatasets:
+        description: The maximum number of datasets that can be concurrently modified.
+        type: integer
+        format: int32
+        default: 8
+      storageMemorycomponentNumcomponents:
+        description: The number of memory components to be used per LSM index.
+        type: integer
+        format: int32
+        default: 2
+      storageMemorycomponentPagesize:
+        description: The page size in bytes for pages allocated to memory components.
+        type: integer
+        format: int32
+        default: 131072
+      threaddumpFrequencySeconds:
+        description: The frequency (in seconds) at which to log diagnostic thread dumps.
+        type: integer
+        format: int32
+        default: 300
+      threaddumpLogLevel:
+        description: The log level at which to emit diagnostic thread dumps.
+        type: string
+        default: DEBUG
+      traceCategories:
+        description: >
+          Categories for tracing.
+          The default is the empty array — no categories.
+        type: array
+        default: []
+      txnDatasetCheckpointInterval:
+        description: The interval (in seconds) after which a dataset is considered idle and persisted to disk.
+        type: integer
+        format: int32
+        default: 3600
+  
+  Node:
+    type: object
+    properties:
+      jvmArgs:
+        description: >
+          JVM args to pass to the Analytics Driver.
+          Node-specific JVM arguments are appended to service-level JVM arguments.
+          If the same JVM argument appears in both the service-level arguments and the node-specific arguments, the node-specific argument takes priority.
+
+
+          The default is undefined (null).
+        type: string
+        default: null
+      storageBuffercacheSize:
+        description: >
+          The size of memory allocated to the disk buffer cache.
+          The value should be a multiple of the buffer cache page size.
+
+
+          The default is 1/4 of the allocated Analytics Service memory.
+        type: integer
+      storageMemorycomponentGlobalbudget:
+        description: >
+          The size of memory allocated to the memory components.
+          The value should be a multiple of the memory component page size.
+
+
+          The default is 1/4 of the allocated Analytics Service memory.
+        type: integer
+
+  Errors:
+    type: object
+    required:
+      - error
+    properties:
+      error:
+        type: string
+        description: An error message.
+
+responses:
+  OK:
+    description: The operation was successful.
+
+  BadRequest:
+    description: >
+      Bad request.
+      Unknown parameter or incorrect value.
+    schema:
+      $ref: "#/definitions/Errors"
+
+  Unauthorized:
+    description: >
+      Unauthorized.
+      The user name or password may be incorrect.
+
+
+      Returns an object containing an error message.
+      Refer to [Error Codes](error-codes.html).
+    schema:
+      type: object
+
+securityDefinitions:
+  Analytics Manage:
+    type: basic
+    description: |
+      The Analytics Configuration REST API supports HTTP basic authentication.
+      Credentials can be passed via HTTP headers.
+
+      Users must have one of the following RBAC roles:
+
+      * Full Admin
+      * Cluster Admin
+      * Analytics Admin
+
+      Refer to [Roles](../learn/security/roles.html) for more details.

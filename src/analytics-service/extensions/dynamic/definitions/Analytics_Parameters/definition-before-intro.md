@@ -1,0 +1,1 @@
+In addition, the Service API supports the following parameters which are unique to Analytics.

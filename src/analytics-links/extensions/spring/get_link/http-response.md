@@ -34,7 +34,7 @@
   } ],
   "password" : "<redacted sensitive entry>",
   "type" : "couchbase",
-  "username" : "Administrator",
+  "username" : "remote.user",
   "uuid" : "6331e2a390125b662f7bcfd63ecb3a73"
 } ]
 ```

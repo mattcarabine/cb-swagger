@@ -10,8 +10,8 @@ $ curl -v -u Administrator:password \
        -d type=couchbase \
        -d hostname=remoteHostName:8091 \
        -d encryption=none \
-       -d username=Administrator \
-       -d password=password
+       -d username=remote.user \
+       -d password=remote.p4ssw0rd
 ```
 
 The example below creates an Amazon S3 link named `myAwsLink` in the `Default` dataverse.

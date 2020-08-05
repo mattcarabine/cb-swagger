@@ -1,0 +1,166 @@
+swagger: '2.0'
+info:
+  title: Analytics Administration REST APIs
+  version: '6.6'
+  description: |
+    The Analytics Administration REST APIs are provided by the Analytics service.
+    These APIs enables you to manage and monitor the Analytics service.
+
+    The API schemes and host URLs are as follows:
+
+    * `http://node:8095/`
+    * `https://node:18095/` (for secure access)
+
+    where `node` is the host name or IP address of a node running the Analytics service.
+
+produces:
+  - application/json
+
+consumes:
+  - application/x-www-form-urlencoded
+
+paths:
+  /analytics/admin/active_requests:
+    delete:
+      operationId: cancel_request
+      summary: Request Cancellation
+      description: Cancels an active request.
+      parameters:
+        - name: client_context_id
+          in: formData
+          type: string
+          required: true
+          description: Identifier passed by the client that is used to identify an active request to be cancelled.
+      security:
+        - Analytics Manage / Analytics Select: []
+      responses:
+        "200":
+          description: >
+            The operation was successful.
+        "400":
+          description: >
+            Bad request.
+            Incorrect parameter or missing value.
+        "401":
+          $ref: '#/responses/Unauthorized'
+        "404":
+          description: >
+            Not found.
+            The path may be incorrect, or there is no active request with the specified identifier.
+
+  /analytics/cluster/restart:
+    post:
+      operationId: restart_cluster
+      summary: Cluster Restart
+      description: Restarts all Analytics Service nodes in the cluster.
+      security:
+        - Analytics Manage: []
+      responses:
+        "202":
+          description: >
+            Accepted.
+            Returns an object showing the status of the cluster.
+          schema:
+            type: object
+        "401":
+          $ref: '#/responses/Unauthorized'
+        "404":
+          $ref: '#/responses/NotFound'
+
+  /analytics/node/restart:
+    post:
+      operationId: restart_node
+      summary: Node Restart
+      description: Restarts the specified Analytics Service node.
+      security:
+        - Analytics Manage: []
+      responses:
+        "202":
+          description: >
+            Accepted.
+            Returns an object showing the status of the node.
+          schema:
+            type: object
+        "401":
+          $ref: '#/responses/Unauthorized'
+        "404":
+          $ref: '#/responses/NotFound'
+
+  /analytics/node/agg/stats/remaining:
+    get:
+      operationId: monitor_node
+      summary: Pending Mutations
+      description: Shows the number of mutations in the DCP queue that have not yet been ingested by the Analytics service, for each dataset.
+      security:
+        - Analytics Manage / Analytics Select: []
+      responses:
+        "200":
+          description: >
+            Success.
+            Returns an object containing one or more nested dataverse objects, one for each available dataverse.
+          schema:
+            $ref: "#/definitions/Dataverses"
+        "401":
+          $ref: '#/responses/Unauthorized'
+        "404":
+          $ref: '#/responses/NotFound'
+
+definitions:
+  Dataverses:
+    description: An object containing one or more nested dataverse objects, one for each available dataverse.
+    type: object
+    title: Dataverses
+    properties:
+      _dataverse_:
+        type: object
+        description: >
+          A nested object containing one or more dataset properties, one for each dataset in the dataverse.
+          The name of the object is the name of the dataverse.
+        title: Datasets
+        properties:
+          _dataset_:
+            type: integer
+            description: >
+              The number of mutations in the DCP queue that have not yet been ingested.
+              The name of the property is the name of the dataset.
+
+responses:
+  Unauthorized:
+    description: >
+      Unauthorized.
+      The user name or password may be incorrect.
+
+
+      Returns an object containing an error message.
+      Refer to [Error Codes](error-codes.html).
+    schema:
+      type: object
+
+  NotFound:
+    description: >
+      Not found.
+      The path may be incorrect.
+
+securityDefinitions:
+  Analytics Manage / Analytics Select:
+    type: basic
+    description: |
+      For the [Request Cancellation](#request-cancellation) and [Pending Mutations](#pending-mutations) operations,
+      users must have one of the following access roles:
+
+      * Full Admin
+      * Cluster Admin
+      * Analytics Manager
+      * Analytics Reader
+      * Analytics Select
+      * Analytics Admin
+
+  Analytics Manage:
+    type: basic
+    description: |
+      For the [Cluster Restart](#cluster-restart) and [Node Restart](#node-restart) operations,
+      users must have one of the following RBAC roles:
+
+      * Full Admin
+      * Cluster Admin
+      * Analytics Admin

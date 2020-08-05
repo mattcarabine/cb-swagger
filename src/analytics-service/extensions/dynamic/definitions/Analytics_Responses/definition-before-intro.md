@@ -1,0 +1,1 @@
+In addition, the Service API returns the following responses which are unique to Analytics.
