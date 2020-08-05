@@ -56,14 +56,14 @@ paths:
       parameters:
         - name: dataverse
           type: string
-          in: formData
+          in: query
           required: false
           description: >
             The name of the dataverse containing the link.
             If this parameter is omitted, all dataverses are queried for links.
         - name: name
           type: string
-          in: formData
+          in: query
           required: false
           description: >
             The name of the link.
@@ -71,7 +71,7 @@ paths:
             If this parameter is omitted, all links will be retrieved from the specified dataverses.
         - name: type
           type: string
-          in: formData
+          in: query
           required: false
           description: >
             The type of the link.
