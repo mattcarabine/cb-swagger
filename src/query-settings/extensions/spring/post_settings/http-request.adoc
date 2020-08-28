@@ -1,0 +1,12 @@
+====
+The example below changes the temp file directory to `/tmp` and the temp file size to 2048 MB.
+
+.Curl request
+[source,shell]
+----
+$ curl -v -X POST -u Administrator:password \
+  http://localhost:8091/settings/querySettings \
+  -d 'queryTmpSpaceDir=/tmp' \
+  -d 'queryTmpSpaceSize=2048'
+----
+====
