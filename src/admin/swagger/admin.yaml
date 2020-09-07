@@ -454,7 +454,7 @@ paths:
         200:
           description: |
             An object containing all statistics.
-            Each statistic consist of a top-level statistic name and a metric name.
+            Each statistic consists of a top-level statistic name and a metric name.
             Each statistic has a different set of metrics.
           schema:
             $ref: "#/definitions/Statistics"
