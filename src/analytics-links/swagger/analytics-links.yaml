@@ -200,6 +200,9 @@ parameters:
       For S3 links only.
       The Amazon S3 secret access key.
 
+
+      You should URL-encode this parameter to escape any special characters.
+
   S3Region:
     name: region
     type: string
@@ -238,6 +241,9 @@ parameters:
       Required for links with no encryption or half encryption.
       Required for links with full encryption if using a password.
 
+
+      You should URL-encode this parameter to escape any special characters.
+
   CouchbasePassword:
     name: password
     type: string
@@ -248,6 +254,9 @@ parameters:
       The remote password.
       Required for links with no encryption or half encryption.
       Required for links with full encryption if using a username.
+
+
+      You should URL-encode this parameter to escape any special characters.
 
   CouchbaseEncryption:
     name: encryption
@@ -275,6 +284,9 @@ parameters:
       The content of the target cluster root certificate.
       Required for links with full encryption.
 
+
+      You should URL-encode this parameter to escape any special characters.
+
   CouchbaseClientCertificate:
     name: clientCertificate
     type: string
@@ -285,6 +297,9 @@ parameters:
       The content of the client certificate.
       Required for links with full encryption if using a client key.
 
+
+      You should URL-encode this parameter to escape any special characters.
+
   CouchbaseClientKey:
     name: clientKey
     type: string
@@ -294,6 +309,9 @@ parameters:
       For Couchbase links only.
       The content of the client key.
       Required for links with full encryption if using a client certificate.
+
+
+      You should URL-encode this parameter to escape any special characters.
 
 definitions:
   Links:
