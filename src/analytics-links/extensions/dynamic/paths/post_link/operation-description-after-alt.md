@@ -4,3 +4,5 @@ When creating or altering a remote link using an alternate address, note the fol
 * Furthermore, *all* data nodes in the remote cluster must expose the `kv` port (`memcached_port`, default 11210) or the `kvSSL` port (`memcached_ssl_port`, default 11207).
 
 Failure to do so will result in a 400 (Bad Request) error.
+
+NOTE: The SSL ports are required when the **encryption** mode is set to `full`; the non-SSL ports are required otherwise.
