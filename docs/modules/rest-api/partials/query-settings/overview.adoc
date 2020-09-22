@@ -23,7 +23,7 @@ where `node` is the host name or IP address of a node running the Query service.
 
 === Version information
 [%hardbreaks]
-__Version__ : 6.6
+__Version__ : 6.5
 
 
 === Consumes
