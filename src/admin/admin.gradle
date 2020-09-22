@@ -2,7 +2,7 @@ apply plugin: 'io.github.swagger2markup'
 
 convertSwagger2markup {
     swaggerInput file("swagger/admin.yaml").getAbsolutePath()
-    outputDir file("${N1QLAdminBuildDir}")
+    outputDir file("${rootDir}/docs/modules/n1ql/partials/n1ql-rest-api/admin")
     config = ['swagger2markup.markupLanguage' : 'ASCIIDOC',
               'swagger2markup.generatedExamplesEnabled' : false,
               'swagger2markup.pathsGroupedBy' : 'TAGS',
