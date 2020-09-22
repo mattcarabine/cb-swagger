@@ -2,7 +2,7 @@ apply plugin: 'io.github.swagger2markup'
 
 convertSwagger2markup {
     swaggerInput file("swagger/analytics-config.yaml").getAbsolutePath()
-    outputDir file("${AnalyticsConfigBuildDir}")
+    outputDir file("${buildDir}")
     config = ['swagger2markup.markupLanguage' : 'MARKDOWN',
               'swagger2markup.generatedExamplesEnabled' : false,
               'swagger2markup.pathsGroupedBy' : 'AS_IS',
