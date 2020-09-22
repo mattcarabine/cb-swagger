@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Analytics Configuration REST API
-  version: '6.6'
+  version: '6.5'
   description: |
     The Analytics Configuration REST API is provided by the Analytics service.
     This API enables you to configure Analytics nodes and clusters.
