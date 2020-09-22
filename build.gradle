@@ -25,7 +25,7 @@ repositories {
 
 convertSwagger2markup {
     swaggerInput file("src/admin/swagger/admin.yaml").getAbsolutePath()
-    outputDir file("../docs-server/modules/n1ql/partials/n1ql-rest-api/admin")
+    outputDir file("${rootDir}/docs/modules/n1ql/partials/n1ql-rest-api/admin")
     config = ['swagger2markup.markupLanguage' : 'ASCIIDOC',
               'swagger2markup.generatedExamplesEnabled' : false,
               'swagger2markup.operationOrderBy' : 'AS_IS',
