@@ -6,8 +6,6 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ release/6.5 ]
-  pull_request:
-    branches: [ release/6.5 ]
 
 jobs:
   build:
