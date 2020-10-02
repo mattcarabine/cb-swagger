@@ -27,5 +27,5 @@ jobs:
           git config user.name cb-docs-robot
           git config user.email cb-docs-robot@github.com
           git add .
-          git commit -m "Generated output documentation"
+          git commit -m "Generated output documentation" || echo "No changes to commit"
           git push
