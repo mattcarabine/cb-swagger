@@ -24,8 +24,8 @@ jobs:
       run: ./gradlew --rerun-tasks
     - name: Push output
       run: |
-          git config user.name cb-docs-robot
-          git config user.email cb-docs-robot@github.com
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git add .
-          git commit -m "Generated output documentation" || echo "No changes to commit"
+          git commit -m "Build output documentation" || echo "No changes to push"
           git push
