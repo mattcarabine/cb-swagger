@@ -1,11 +1,11 @@
-name: Java CI with Gradle
+name: Gradle CI
 
 on:
   pull_request:
     branches: [ release/7.0 ]
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
 
