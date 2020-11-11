@@ -1350,6 +1350,7 @@ definitions:
       n1ql-feat-ctrl:
         type: integer
         format: int32
+        default: 76
         description: |
           [[n1ql-feat-ctrl]]
           N1QL feature control.
