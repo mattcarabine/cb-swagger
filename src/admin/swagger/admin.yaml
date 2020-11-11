@@ -1486,6 +1486,26 @@ definitions:
 
           The node-level `timeout` setting is an integer, representing a duration in nanoseconds.
           It must not be delimited by quotes, and must not include a unit.
+      txtimeout:
+        type: integer
+        format: int64
+        default: 0
+        example: 500000000
+        description: |
+          [[txtimeout-srv]]
+          Maximum time to spend on a transaction before timing out (ns).
+
+          Specify `0` (the default value) to disable.
+          When disabled, no timeout is applied and the transaction runs for however long it takes.
+
+          This setting only applies to requests containing the `BEGIN TRANSACTION` statement, or to requests where the {tximplicit}[tximplicit] parameter is set.
+          For all other requests, it is ignored.
+
+          The {txtimeout_req}[request-level] `txtimeout` parameter specifies this property per request.
+          The minimum of that and the node-level `txtimeout` setting is applied.
+
+          The node-level `txtimeout` setting is an integer, representing a duration in nanoseconds.
+          It must not be delimited by quotes, and must not include a unit.
 
 parameters:
   PathStat:
