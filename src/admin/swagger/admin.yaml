@@ -1230,6 +1230,14 @@ definitions:
           This field is only available with the POST method.
           When specified alongside other settings, this field instructs the node that is processing the request to cascade those settings to all other query nodes.
           The actual value of this field is ignored.
+      functions-limit:
+        type: integer
+        format: int32
+        default: 16384
+        example: 7000
+        description: |
+          [[functions-limit]]
+          Maximum number of user-defined functions.
       keep-alive-length:
         type: integer
         format: int32
