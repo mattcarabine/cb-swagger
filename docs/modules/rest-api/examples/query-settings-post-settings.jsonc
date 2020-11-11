@@ -1,8 +1,8 @@
-// tag:tmpSpace[]
+// tag::tmpSpace[]
 {
   "queryTmpSpaceDir": "/tmp",
   "queryTmpSpaceSize": 2048,
-// end:tmpSpace[]
+// end::tmpSpace[]
   "queryPipelineBatch": 16,
   "queryPipelineCap": 512,
   "queryScanCap": 512,
@@ -13,9 +13,9 @@
   "queryLogLevel": "info",
   "queryMaxParallelism": 1,
   "queryN1QLFeatCtrl": 12,
-// tag:access[]
+// tag::access[]
   "queryCurlWhitelist": {
     "all_access": false
   }
 }
-// end:access[]
+// end::access[]
