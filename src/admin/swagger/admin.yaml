@@ -1506,6 +1506,16 @@ definitions:
 
           The node-level `txtimeout` setting is an integer, representing a duration in nanoseconds.
           It must not be delimited by quotes, and must not include a unit.
+      use-cbo:
+        type: boolean
+        default: true
+        example: false
+        description: |
+          [[use-cbo-srv]]
+          Specifies whether the cost-based optimizer is enabled.
+
+          The {use_cbo_req}[request-level] `use_cbo` parameter specifies this property per request.
+          If a request does not include this parameter, the node-level setting is used, which defaults to `true`.
 
 parameters:
   PathStat:
