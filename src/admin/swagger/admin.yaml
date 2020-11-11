@@ -1407,7 +1407,7 @@ definitions:
           Specifies whether query results are returned in pretty format.
 
           The {pretty_req}[request-level] `pretty` parameter specifies this property per request.
-          If a request does not include this parameter, the node-level `pretty` setting will be used, which defaults to `false`.
+          If a request does not include this parameter, the node-level setting is used, which defaults to `false`.
       profile:
         type: string
         default: "off"
