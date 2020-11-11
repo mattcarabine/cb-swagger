@@ -1312,6 +1312,20 @@ definitions:
           To enable queries to run in parallel, you must specify the cluster-level `queryMaxParallelism` parameter, or specify the node-level `max-parallelism` parameter on all Query nodes.
 
           Refer to xref:n1ql:n1ql-language-reference/index-partitioning.adoc#max-parallelism[Max Parallelism] for more information.
+      memory-quota:
+        type: integer
+        format: int32
+        default: 0
+        example: 4
+        description: |
+          [[memory-quota-srv]]
+          Specifies the maximum document memory consumption for each request on this node, in MB.
+
+          Specify `0` (the default value) to disable.
+          When disabled, there is no quota.
+
+          The {memory_quota_req}[request-level] `memory_quota` parameter specifies this property per request.
+          If a request includes this parameter, it will be capped by the node-level `memory-quota` setting.
       memprofile:
         type: string
         default: ""
