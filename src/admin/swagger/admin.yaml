@@ -1230,6 +1230,14 @@ definitions:
           This field is only available with the POST method.
           When specified alongside other settings, this field instructs the node that is processing the request to cascade those settings to all other query nodes.
           The actual value of this field is ignored.
+      functions-limit:
+        type: integer
+        format: int32
+        default: 16384
+        example: 7000
+        description: |
+          [[functions-limit]]
+          Maximum number of user-defined functions.
       keep-alive-length:
         type: integer
         format: int32
@@ -1304,6 +1312,20 @@ definitions:
           To enable queries to run in parallel, you must specify the cluster-level `queryMaxParallelism` parameter, or specify the node-level `max-parallelism` parameter on all Query nodes.
 
           Refer to xref:n1ql:n1ql-language-reference/index-partitioning.adoc#max-parallelism[Max Parallelism] for more information.
+      memory-quota:
+        type: integer
+        format: int32
+        default: 0
+        example: 4
+        description: |
+          [[memory-quota-srv]]
+          Specifies the maximum document memory consumption for each request on this node, in MB.
+
+          Specify `0` (the default value) to disable.
+          When disabled, there is no quota.
+
+          The {memory_quota_req}[request-level] `memory_quota` parameter specifies this property per request.
+          If a request includes this parameter, it will be capped by the node-level `memory-quota` setting.
       memprofile:
         type: string
         default: ""
@@ -1328,6 +1350,7 @@ definitions:
       n1ql-feat-ctrl:
         type: integer
         format: int32
+        default: 76
         description: |
           [[n1ql-feat-ctrl]]
           N1QL feature control.
@@ -1384,7 +1407,7 @@ definitions:
           Specifies whether query results are returned in pretty format.
 
           The {pretty_req}[request-level] `pretty` parameter specifies this property per request.
-          If a request does not include this parameter, the node-level `pretty` setting will be used, which defaults to `false`.
+          If a request does not include this parameter, the node-level setting is used, which defaults to `false`.
       profile:
         type: string
         default: "off"
@@ -1464,6 +1487,36 @@ definitions:
 
           The node-level `timeout` setting is an integer, representing a duration in nanoseconds.
           It must not be delimited by quotes, and must not include a unit.
+      txtimeout:
+        type: integer
+        format: int64
+        default: 0
+        example: 500000000
+        description: |
+          [[txtimeout-srv]]
+          Maximum time to spend on a transaction before timing out (ns).
+
+          Specify `0` (the default value) to disable.
+          When disabled, no timeout is applied and the transaction runs for however long it takes.
+
+          This setting only applies to requests containing the `BEGIN TRANSACTION` statement, or to requests where the {tximplicit}[tximplicit] parameter is set.
+          For all other requests, it is ignored.
+
+          The {txtimeout_req}[request-level] `txtimeout` parameter specifies this property per request.
+          The minimum of that and the node-level `txtimeout` setting is applied.
+
+          The node-level `txtimeout` setting is an integer, representing a duration in nanoseconds.
+          It must not be delimited by quotes, and must not include a unit.
+      use-cbo:
+        type: boolean
+        default: true
+        example: false
+        description: |
+          [[use-cbo-srv]]
+          Specifies whether the cost-based optimizer is enabled.
+
+          The {use_cbo_req}[request-level] `use_cbo` parameter specifies this property per request.
+          If a request does not include this parameter, the node-level setting is used, which defaults to `true`.
 
 parameters:
   PathStat:

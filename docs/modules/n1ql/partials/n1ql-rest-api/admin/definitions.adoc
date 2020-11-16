@@ -521,6 +521,11 @@ This field is only available with the POST method.
 When specified alongside other settings, this field instructs the node that is processing the request to cascade those settings to all other query nodes.
 The actual value of this field is ignored. +
 **Example** : `true`|boolean
+|**functions-limit** +
+__optional__|[[functions-limit]]
+Maximum number of user-defined functions. +
+**Default** : `16384` +
+**Example** : `7000`|integer (int32)
 |**keep-alive-length** +
 __optional__|[[keep-alive-length]]
 Maximum size of buffered result. +
@@ -583,6 +588,17 @@ To enable queries to run in parallel, you must specify the cluster-level `queryM
 Refer to xref:n1ql:n1ql-language-reference/index-partitioning.adoc#max-parallelism[Max Parallelism] for more information. +
 **Default** : `1` +
 **Example** : `0`|integer (int32)
+|**memory-quota** +
+__optional__|[[memory-quota-srv]]
+Specifies the maximum document memory consumption for each request on this node, in MB.
+
+Specify `0` (the default value) to disable.
+When disabled, there is no quota.
+
+The {memory_quota_req}[request-level] `memory_quota` parameter specifies this property per request.
+If a request includes this parameter, it will be capped by the node-level `memory-quota` setting. +
+**Default** : `0` +
+**Example** : `4`|integer (int32)
 |**memprofile** +
 __optional__|[[memprofile]]
 Filename to write the diagnostic memory usage log.
@@ -606,7 +622,8 @@ N1QL feature control.
 This setting is provided for technical support only.
 
 The {queryN1qlFeatCtrl}[cluster-level] `queryN1qlFeatCtrl` setting specifies this property for the whole cluster.
-When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.|integer (int32)
+When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster. +
+**Default** : `76`|integer (int32)
 |**pipeline-batch** +
 __optional__|[[pipeline-batch-srv]]
 Controls the number of items execution operators can batch for Fetch from the KV.
@@ -643,7 +660,7 @@ __optional__|[[pretty-srv]]
 Specifies whether query results are returned in pretty format.
 
 The {pretty_req}[request-level] `pretty` parameter specifies this property per request.
-If a request does not include this parameter, the node-level `pretty` setting will be used, which defaults to `false`. +
+If a request does not include this parameter, the node-level setting is used, which defaults to `false`. +
 **Default** : `false` +
 **Example** : `true`|boolean
 |**profile** +
@@ -710,6 +727,31 @@ The node-level `timeout` setting is an integer, representing a duration in nanos
 It must not be delimited by quotes, and must not include a unit. +
 **Default** : `0` +
 **Example** : `500000000`|integer (int64)
+|**txtimeout** +
+__optional__|[[txtimeout-srv]]
+Maximum time to spend on a transaction before timing out (ns).
+
+Specify `0` (the default value) to disable.
+When disabled, no timeout is applied and the transaction runs for however long it takes.
+
+This setting only applies to requests containing the `BEGIN TRANSACTION` statement, or to requests where the {tximplicit}[tximplicit] parameter is set.
+For all other requests, it is ignored.
+
+The {txtimeout_req}[request-level] `txtimeout` parameter specifies this property per request.
+The minimum of that and the node-level `txtimeout` setting is applied.
+
+The node-level `txtimeout` setting is an integer, representing a duration in nanoseconds.
+It must not be delimited by quotes, and must not include a unit. +
+**Default** : `0` +
+**Example** : `500000000`|integer (int64)
+|**use-cbo** +
+__optional__|[[use-cbo-srv]]
+Specifies whether the cost-based optimizer is enabled.
+
+The {use_cbo_req}[request-level] `use_cbo` parameter specifies this property per request.
+If a request does not include this parameter, the node-level setting is used, which defaults to `true`. +
+**Default** : `true` +
+**Example** : `false`|boolean
 |===
 
 [[_logging_parameters]]
