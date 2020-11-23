@@ -1494,6 +1494,8 @@ definitions:
         example: 500000000
         description: |
           [[txtimeout-srv]]
+          [.edition]#{enterprise}#
+
           Maximum time to spend on a transaction before timing out (ns).
 
           Specify `0` (the default value) to disable.
