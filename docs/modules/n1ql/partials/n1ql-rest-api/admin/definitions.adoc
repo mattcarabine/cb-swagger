@@ -729,6 +729,8 @@ It must not be delimited by quotes, and must not include a unit. +
 **Example** : `500000000`|integer (int64)
 |**txtimeout** +
 __optional__|[[txtimeout-srv]]
+[.edition]#{enterprise}#
+
 Maximum time to spend on a transaction before timing out (ns).
 
 Specify `0` (the default value) to disable.
