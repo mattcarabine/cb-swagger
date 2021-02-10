@@ -23,11 +23,11 @@ consumes:
 tags:
   - name: configuration
     description: Operations for cluster and node configuration.
-  - name: prepared
+  - name: prepared statements
     description: Operations for prepared statements.
-  - name: active
+  - name: active requests
     description: Operations for active requests.
-  - name: completed
+  - name: completed requests
     description: Operations for completed requests.
   - name: statistics
     description: Operations for query statistics.
@@ -134,7 +134,7 @@ paths:
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-prepared-get[Get Prepared Statements] for examples.
         ====
       tags:
-        - prepared
+        - prepared statements
       security:
         - Default: []
       responses:
@@ -158,7 +158,7 @@ paths:
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-prepared-get[Get Prepared Statements] for examples.
         ====
       tags:
-        - prepared
+        - prepared statements
       security:
         - Default: []
       responses:
@@ -178,7 +178,7 @@ paths:
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-prepared-delete[Delete Prepared Statements] for examples.
         ====
       tags:
-        - prepared
+        - prepared statements
       security:
         - Default: []
       responses:
@@ -202,7 +202,7 @@ paths:
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-active-get[Get Active Requests] for examples.
         ====
       tags:
-        - active
+        - active requests
       security:
         - Default: []
       responses:
@@ -226,7 +226,7 @@ paths:
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-active-get[Get Active Requests] for examples.
         ====
       tags:
-        - active
+        - active requests
       security:
         - Default: []
       responses:
@@ -246,7 +246,7 @@ paths:
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-active-delete[Terminate an Active Request] for examples.
         ====
       tags:
-        - active
+        - active requests
       security:
         - Default: []
       responses:
@@ -270,7 +270,7 @@ paths:
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-completed-get[Get Completed Requests] for examples.
         ====
       tags:
-        - completed
+        - completed requests
       security:
         - Default: []
       responses:
@@ -294,7 +294,7 @@ paths:
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-completed-get[Get Completed Requests] for examples.
         ====
       tags:
-        - completed
+        - completed requests
       security:
         - Default: []
       responses:
@@ -314,7 +314,7 @@ paths:
         Refer to xref:manage:monitor/monitoring-n1ql-query.adoc#sys-completed-delete[Purge the Completed Requests] for examples.
         ====
       tags:
-        - completed
+        - completed requests
       security:
         - Default: []
       responses:
@@ -339,7 +339,7 @@ paths:
         * Use <<_delete_prepared>> to delete a prepared index statement.
         ====
       tags:
-        - prepared
+        - prepared statements
       security:
         - Default: []
       responses:
@@ -365,7 +365,7 @@ paths:
         * Use <<_delete_active_request>> to terminate an active index request.
         ====
       tags:
-        - active
+        - active requests
       security:
         - Default: []
       responses:
@@ -389,7 +389,7 @@ paths:
         * Use <<_delete_completed_request>> to purge a completed index request.
         ====
       tags:
-        - completed
+        - completed requests
       security:
         - Default: []
       responses:
