@@ -29,9 +29,9 @@ __Version__ : 7.0
 === Tags
 
 * configuration : Operations for cluster and node configuration.
-* prepared : Operations for prepared statements.
-* active : Operations for active requests.
-* completed : Operations for completed requests.
+* prepared statements : Operations for prepared statements.
+* active requests : Operations for active requests.
+* completed requests : Operations for completed requests.
 * statistics : Operations for query statistics.
 * settings : Operations for query settings.
 * default : Other operations.

@@ -9,9 +9,9 @@
 **{toc-title}**
 
 * <<_configuration_resource>>
-* <<_prepared_resource>>
-* <<_active_resource>>
-* <<_completed_resource>>
+* <<_prepared_statements_resource>>
+* <<_active_requests_resource>>
+* <<_completed_requests_resource>>
 * <<_statistics_resource>>
 * <<_settings_resource>>
 * <<_default_resource>>
@@ -206,8 +206,8 @@ Returns the configuration of the query service on the cluster.
 |===
 
 
-[[_prepared_resource]]
-=== Prepared
+[[_prepared_statements_resource]]
+=== Prepared Statements
 Operations for prepared statements.
 
 
@@ -373,8 +373,8 @@ Returns all prepared index statements.
 |===
 
 
-[[_active_resource]]
-=== Active
+[[_active_requests_resource]]
+=== Active Requests
 Operations for active requests.
 
 
@@ -540,8 +540,8 @@ Returns all active index requests.
 |===
 
 
-[[_completed_resource]]
-=== Completed
+[[_completed_requests_resource]]
+=== Completed Requests
 Operations for completed requests.
 
 
