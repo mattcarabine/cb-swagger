@@ -289,11 +289,6 @@ definitions:
         description: The default compression scheme for the storage.
         type: string
         default: snappy
-      storageMaxActiveWritableDatasets:
-        description: The maximum number of datasets that can be concurrently modified.
-        type: integer
-        format: int32
-        default: 8
       storageMemorycomponentNumcomponents:
         description: The number of memory components to be used per LSM index.
         type: integer
