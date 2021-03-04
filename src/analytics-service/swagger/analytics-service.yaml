@@ -59,6 +59,7 @@ paths:
         - $ref: "#/parameters/CommonClientContextId"
         - $ref: "#/parameters/CommonFormat"
         - $ref: "#/parameters/CommonPretty"
+        - $ref: "#/parameters/CommonQueryContext"
         - $ref: "#/parameters/CommonReadonly"
         - $ref: "#/parameters/CommonScanConsistency"
         - $ref: "#/parameters/CommonScanWait"
@@ -134,6 +135,10 @@ definitions:
         type: boolean
         default: false
         description: If `true`, the result is indented.
+      query_context: &query_context
+        type: string
+        description: A scope for the statement.
+        default: default:Default
       readonly: &readonly
         type: boolean
         default: false
@@ -418,6 +423,12 @@ parameters:
   CommonPretty:
     <<: *pretty
     name: pretty
+    in: query
+    required: false
+
+  CommonQueryContext:
+    <<: *query_context
+    name: query_context
     in: query
     required: false
 
