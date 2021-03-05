@@ -212,6 +212,15 @@ definitions:
           A value of 0 disables reconnects on idle.
         format: int32
         default: 120
+      dcpConnectionBufferSize:
+        type: integer
+        description: >
+          DCP connection buffer size (in bytes).
+
+
+          If the JVM maximum heap size is less than 8GB, the default for this parameter is 100 MB divided by the number of IO Devices on the node.
+          Otherwise, the default is 10 MB divided by the number of IO Devices on the node.
+        format: int32
       deadlockWatchdogHaltDelaySeconds:
         description: The delay (in seconds) to wait for graceful shutdown due to deadlocked threads, before halting.
         type: integer
