@@ -317,6 +317,13 @@ definitions:
         type: integer
         format: int32
         default: 131072
+      storageWriteRateLimit:
+        description: >
+          The maximum disk write rate for each storage partition in bytes per second.
+          Disabled if the provided value is less than or equal to 0.
+        type: integer
+        format: int64
+        default: 0
       threaddumpFrequencySeconds:
         description: The frequency (in seconds) at which to log diagnostic thread dumps.
         type: integer
