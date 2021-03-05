@@ -25,7 +25,6 @@
   "dcpConnectionBufferSize" : 10485760,
   "deadlockWatchdogHaltDelaySeconds" : 120,
   "deadlockWatchdogPollSeconds" : 300,
-  "enableOutOfOrderSnapshots" : true,
   "jobHistorySize" : 10,
   "jobQueueCapacity" : 4096,
   "jvmArgs" : null,
