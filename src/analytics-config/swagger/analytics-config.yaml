@@ -196,6 +196,15 @@ definitions:
         type: integer
         format: int32
         default: 3
+      dcpBufferAckWatermark:
+        type: integer
+        description: >
+          The percentage of DCP connection buffer size at which to acknowledge bytes consumed to DCP producer.
+          A value of 0 disables flow control.
+        format: int32
+        minimum: 0
+        maximum: 100
+        default: 0
       dcpChannelReconnectRemoteIdleSeconds:
         type: integer
         description: >
