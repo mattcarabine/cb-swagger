@@ -10,6 +10,15 @@
   "serviceEndpoint" : null,
   "type" : "s3"
 }, {
+  "accessKeyId" : "myTempAccessKey",
+  "dataverse" : "Default",
+  "name" : "myTempLink",
+  "region" : "eu-west-1",
+  "secretAccessKey" : "<redacted sensitive entry>",
+  "serviceEndpoint" : null,
+  "sessionToken" : "<redacted sensitive entry>",
+  "type" : "s3"
+}, {
   "activeHostname" : "remoteHostName:8091",
   "bootstrapAlternateAddress" : false,
   "bootstrapHostname" : "remoteHostName:8091",
