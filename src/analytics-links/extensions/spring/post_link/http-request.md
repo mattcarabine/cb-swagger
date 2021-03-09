@@ -32,3 +32,21 @@ $ curl -v -u Administrator:password \
 ```
 
 NOTE: The `secretAccessKey` parameter is URL-encoded to escape any special characters.
+
+The example below creates an Amazon S3 link named `myTempLink` with temporary credentials in the `Default` dataverse.
+
+*Curl request*
+
+``` shell
+$ curl -v -u Administrator:password \
+       -X POST http://localhost:8095/analytics/link \
+       -d dataverse=Default \
+       -d name=myTempLink \
+       -d type=s3 \
+       -d region=eu-west-1 \
+       -d accessKeyId=myTempAccessKey \
+       -d sessionToken=mySessionToken \
+       --data-urlencode secretAccessKey=myTempSecretKey
+```
+
+NOTE: The `secretAccessKey` parameter is URL-encoded to escape any special characters.
