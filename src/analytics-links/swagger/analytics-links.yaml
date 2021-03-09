@@ -38,6 +38,7 @@ paths:
         - $ref: "#/parameters/CouchbaseClientKey"
         - $ref: "#/parameters/S3AccessKeyID"
         - $ref: "#/parameters/S3SecretAccessKey"
+        - $ref: "#/parameters/S3SessionToken"
         - $ref: "#/parameters/S3Region"
         - $ref: "#/parameters/S3ServiceEndpoint"
       security:
@@ -122,6 +123,7 @@ paths:
         - $ref: "#/parameters/CouchbaseClientKey"
         - $ref: "#/parameters/S3AccessKeyID"
         - $ref: "#/parameters/S3SecretAccessKey"
+        - $ref: "#/parameters/S3SessionToken"
         - $ref: "#/parameters/S3Region"
         - $ref: "#/parameters/S3ServiceEndpoint"
       security:
@@ -202,6 +204,20 @@ parameters:
 
 
       You should URL-encode this parameter to escape any special characters.
+
+  S3SessionToken:
+    name: sessionToken
+    type: string
+    in: formData
+    required: false
+    description: >
+      For S3 links only.
+      The Amazon S3 session token.
+      Use this parameter if you want the link to have temporary access.
+
+
+      Passing this parameter indicates that the `accessKeyId` and `secretAccessKey` are temporary credentials.
+      The Amazon S3 service validates the session token with each request to check whether the provided credentials have expired or are still valid.
 
   S3Region:
     name: region
@@ -504,6 +520,14 @@ definitions:
             type: string
             description: >
               The Amazon S3 secret access key.
+              This is redacted for the sake of security.
+            example: <redacted sensitive entry>
+          sessionToken:
+            type: string
+            description: >
+              For S3 links only.
+              The Amazon S3 session token.
+              Indicates that the link has temporary access, and that that the `accessKeyId` and `secretAccessKey` are temporary credentials.
               This is redacted for the sake of security.
             example: <redacted sensitive entry>
           serviceEndpoint:
