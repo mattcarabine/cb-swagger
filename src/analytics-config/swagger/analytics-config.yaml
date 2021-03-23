@@ -266,13 +266,21 @@ definitions:
         format: int32
         default: 1
       rebalancePullDatasetSizeFrequency:
-        description: The frequency at which the dataset size is pulled from nodes during rebalance in seconds.
+        description: The frequency at which the Analytics collection size is pulled from nodes during rebalance in seconds.
         type: integer
         format: int32
         default: 5
       remoteLinkConnectTimeoutSeconds:
         description: >
           The maximum time (in seconds) to wait for a remote link connection to establish.
+          A value of 0 disables timeout; a value of -1 sets timeout to the system default.
+        type: integer
+        format: int32
+        default: 60
+      remoteLinkSocketTimeoutSeconds:
+        description: >
+          The maximum time (in seconds) to wait after establishing the connection for remote links;
+          the maximum time of inactivity between two data packets.
           A value of 0 disables timeout; a value of -1 sets timeout to the system default.
         type: integer
         format: int32
@@ -339,7 +347,7 @@ definitions:
         type: array
         default: []
       txnDatasetCheckpointInterval:
-        description: The interval (in seconds) after which a dataset is considered idle and persisted to disk.
+        description: The interval (in seconds) after which an Analytics collection is considered idle and persisted to disk.
         type: integer
         format: int32
         default: 3600

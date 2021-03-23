@@ -34,7 +34,7 @@
   "netThreadCount" : 1,
   "rebalancePullDatasetSizeFrequency" : 5,
   "remoteLinkConnectTimeoutSeconds" : 60,
-  "remoteLinkRestoredBucketPollDelay" : 120,
+  "remoteLinkSocketTimeoutSeconds" : 60,
   "requestsArchiveSize" : 50,
   "resultSweepThreshold" : 60000,
   "resultTtl" : 86400000,
