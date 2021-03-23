@@ -196,6 +196,14 @@ definitions:
         type: integer
         format: int32
         default: 3
+      dcpBufferAckWatermark:
+        type: integer
+        description: >
+          The percentage of DCP connection buffer size at which to acknowledge bytes consumed to DCP producer.
+        format: int32
+        minimum: 1
+        maximum: 100
+        default: 20
       dcpChannelReconnectRemoteIdleSeconds:
         type: integer
         description: >
@@ -203,6 +211,15 @@ definitions:
           A value of 0 disables reconnects on idle.
         format: int32
         default: 120
+      dcpConnectionBufferSize:
+        type: integer
+        description: >
+          DCP connection buffer size (in bytes).
+
+
+          If the JVM maximum heap size is less than 8GB, the default for this parameter is 10 MB divided by the number of IO Devices on the node.
+          Otherwise, the default is 1% of the JVM maximum heap size divided by the number of IO Devices on the node.
+        format: int32
       deadlockWatchdogHaltDelaySeconds:
         description: The delay (in seconds) to wait for graceful shutdown due to deadlocked threads, before halting.
         type: integer
@@ -249,13 +266,21 @@ definitions:
         format: int32
         default: 1
       rebalancePullDatasetSizeFrequency:
-        description: The frequency at which the dataset size is pulled from nodes during rebalance in seconds.
+        description: The frequency at which the Analytics collection size is pulled from nodes during rebalance in seconds.
         type: integer
         format: int32
         default: 5
       remoteLinkConnectTimeoutSeconds:
         description: >
           The maximum time (in seconds) to wait for a remote link connection to establish.
+          A value of 0 disables timeout; a value of -1 sets timeout to the system default.
+        type: integer
+        format: int32
+        default: 60
+      remoteLinkSocketTimeoutSeconds:
+        description: >
+          The maximum time (in seconds) to wait after establishing the connection for remote links;
+          the maximum time of inactivity between two data packets.
           A value of 0 disables timeout; a value of -1 sets timeout to the system default.
         type: integer
         format: int32
@@ -289,11 +314,6 @@ definitions:
         description: The default compression scheme for the storage.
         type: string
         default: snappy
-      storageMaxActiveWritableDatasets:
-        description: The maximum number of datasets that can be concurrently modified.
-        type: integer
-        format: int32
-        default: 8
       storageMemorycomponentNumcomponents:
         description: The number of memory components to be used per LSM index.
         type: integer
@@ -304,6 +324,13 @@ definitions:
         type: integer
         format: int32
         default: 131072
+      storageWriteRateLimit:
+        description: >
+          The maximum disk write rate for each storage partition in bytes per second.
+          Disabled if the provided value is less than or equal to 0.
+        type: integer
+        format: int64
+        default: 0
       threaddumpFrequencySeconds:
         description: The frequency (in seconds) at which to log diagnostic thread dumps.
         type: integer
@@ -320,7 +347,7 @@ definitions:
         type: array
         default: []
       txnDatasetCheckpointInterval:
-        description: The interval (in seconds) after which a dataset is considered idle and persisted to disk.
+        description: The interval (in seconds) after which an Analytics collection is considered idle and persisted to disk.
         type: integer
         format: int32
         default: 3600
