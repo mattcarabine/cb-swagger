@@ -26,6 +26,7 @@ paths:
       summary: Create Link
       description: Creates a link.
       parameters:
+        - $ref: "#/parameters/CommonScope"
         - $ref: "#/parameters/CommonDataverse"
         - $ref: "#/parameters/CommonName"
         - $ref: "#/parameters/CommonType"
@@ -55,21 +56,40 @@ paths:
       summary: Query Links
       description: Returns information about the specified link or links.
       parameters:
+        - name: scope
+          type: string
+          in: query
+          required: false
+          description: >
+            The name of the Analytics scope containing the link.
+            Prohibited if the `dataverse` parameter is specified.
+            If both the `scope` parameter and the `dataverse` parameter are omitted, all scopes are queried for links.
+
+            
+            With this parameter, the scope name may contain one or two identifiers, separated by a dot.
+            The scope name must be given in its [display form](appendix_3_resolution.html#Resolving_database_entities); that is, if any identifier contains a special character such as a hyphen, that identifier must be wrapped in backticks (`).
         - name: dataverse
           type: string
           in: query
           required: false
           description: >
-            The name of the dataverse containing the link.
-            If this parameter is omitted, all dataverses are queried for links.
+            The name of the Analytics scope containing the link.
+            Prohibited if the `scope` parameter is specified.
+            If both the `scope` parameter and the `dataverse` parameter are omitted, all scopes are queried for links.
+
+
+            With this parameter, the scope name may only contain a single identifier.
+
+
+            Note that this parameter is deprecated, and will be removed in a future release.
         - name: name
           type: string
           in: query
           required: false
           description: >
             The name of the link.
-            If this parameter is specified, the dataverse name must be specified also.
-            If this parameter is omitted, all links will be retrieved from the specified dataverses.
+            If this parameter is specified, the scope name must be specified also.
+            If this parameter is omitted, all links will be retrieved from the specified scopes.
         - name: type
           type: string
           in: query
@@ -100,8 +120,9 @@ paths:
       summary: Edit Link
       description: >
         Edits an existing link with the provided information.
-        The link name, type, and dataverse name cannot be modified.
+        The link name, type, and scope name cannot be modified.
       parameters:
+        - $ref: "#/parameters/CommonScope"
         - $ref: "#/parameters/CommonDataverse"
         - $ref: "#/parameters/CommonName"
         - name: type
@@ -140,9 +161,10 @@ paths:
       summary: Delete Link
       description: >
         Deletes a link using the provided parameters.
-        The link cannot be deleted if any other entities, such as datasets, are using it.
+        The link cannot be deleted if any other entities are using it, such as an Analytics collection.
         The entities using the link need to be disconnected from the link, otherwise, the delete operation fails.
       parameters:
+        - $ref: "#/parameters/CommonScope"
         - $ref: "#/parameters/CommonDataverse"
         - $ref: "#/parameters/CommonName"
       security:
@@ -156,12 +178,33 @@ paths:
           $ref: '#/responses/InternalServerError'
 
 parameters:
+  CommonScope:
+    name: scope
+    type: string
+    in: formData
+    required: true
+    description: >
+      The name of the Analytics scope containing the link.
+      Required if the `dataverse` parameter is not specified; prohibited otherwise.
+
+      
+      With this parameter, the scope name may contain one or two identifiers, separated by a dot.
+      The scope name must be given in its [display form](appendix_3_resolution.html#Resolving_database_entities); that is, if any identifier contains a special character such as a hyphen, that identifier must be wrapped in backticks (`).
+
   CommonDataverse:
     name: dataverse
     type: string
     in: formData
-    required: true
-    description: The name of the dataverse containing the link.
+    required: false
+    description: >
+      The name of the Analytics scope containing the link.
+      Required if the `scope` parameter is not specified; prohibited otherwise.
+
+
+      With this parameter, the scope name may only contain a single identifier.
+
+
+      Note that this parameter is deprecated, and will be removed in a future release.
 
   CommonName:
     name: name
@@ -341,7 +384,9 @@ definitions:
     properties:
       dataverse:
         type: string
-        description: The name of the dataverse containing the link.
+        description: >
+          The name of the Analytics scope containing the link.
+          The scope name is given in its [canonical form](appendix_3_resolution.html#Resolving_database_entities).
         example: Default
       name:
         type: string
