@@ -3,7 +3,7 @@
 ``` json
 [ {
   "accessKeyId" : "myAccessKey",
-  "dataverse" : "Default",
+  "dataverse" : "travel-sample.inventory",
   "name" : "myAwsLink",
   "region" : "us-east-1",
   "secretAccessKey" : "<redacted sensitive entry>",
@@ -11,7 +11,7 @@
   "type" : "s3"
 }, {
   "accessKeyId" : "myTempAccessKey",
-  "dataverse" : "Default",
+  "dataverse" : "travel-sample.inventory",
   "name" : "myTempLink",
   "region" : "eu-west-1",
   "secretAccessKey" : "<redacted sensitive entry>",
@@ -26,7 +26,7 @@
   "clientCertificate" : null,
   "clientKey" : null,
   "clusterCompatibility" : 393221,
-  "dataverse" : "Default",
+  "dataverse" : "travel-sample.inventory",
   "encryption" : "none",
   "name" : "myCbLink",
   "nodes" : [ {

@@ -1,21 +1,25 @@
-The example below deletes the link named `myCbLink` from the `Default` dataverse.
+The example below deletes the link named `myCbLink` from the `travel-sample.inventory` scope.
 
 *Curl request*
 
 ``` shell
 $ curl -v -u Administrator:password \
        -X DELETE http://localhost:8095/analytics/link \
-       -d dataverse=Default \
+       -d scope='`travel-sample`.inventory' \
        -d name=myCbLink
 ```
 
-The example below deletes the link named `myAwsLink` from the `Default` dataverse.
+NOTE: The `scope` value is wrapped in single quotes to escape the backticks.
+
+The example below deletes the link named `myAwsLink` from the `travel-sample.inventory` scope.
 
 *Curl request*
 
 ``` shell
 $ curl -v -u Administrator:password \
        -X DELETE http://localhost:8095/analytics/link \
-       -d dataverse=Default \
+       -d scope='`travel-sample`.inventory' \
        -d name=myAwsLink
 ```
+
+NOTE: The `scope` value is wrapped in single quotes to escape the backticks.

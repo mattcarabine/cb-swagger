@@ -1,11 +1,11 @@
-The example below edits the link named `myCbLink` in the `Default` dataverse to use full encryption with a client certificate and client key.
+The example below edits the link named `myCbLink` in the `travel-sample.inventory` scope to use full encryption with a client certificate and client key.
 
 *Curl request*
 
 ``` shell
 $ curl -v -u Administrator:password \
        -X PUT http://localhost:8095/analytics/link \
-       -d dataverse=Default \
+       -d scope='`travel-sample`.inventory' \
        -d name=myCbLink \
        -d type=couchbase \
        -d hostname=remoteHostName:8091 \
@@ -15,5 +15,6 @@ $ curl -v -u Administrator:password \
        --data-urlencode "clientKey=$(cat ./cert/client.key)"
 ```
 
-NOTE: The `certificate`, `clientCertificate`, and `clientKey` parameters use command substitution with the `cat` command to return the _content_ of the referenced files.
+NOTE: The `scope` value is wrapped in single quotes to escape the backticks.
+The `certificate`, `clientCertificate`, and `clientKey` parameters use command substitution with the `cat` command to return the _content_ of the referenced files.
 The content of these files is then URL-encoded to escape any special characters.
