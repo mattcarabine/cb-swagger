@@ -67,7 +67,7 @@ paths:
 
             
             With this parameter, the scope name may contain one or two identifiers, separated by a dot.
-            The scope name must be given in its [display form](appendix_3_resolution.html#Resolving_database_entities); that is, if any identifier contains a special character such as a hyphen, that identifier must be wrapped in backticks (`).
+            The scope name must be given in its [display form](appendix_3_resolution.html#Resolving_database_entities); that is, if any identifier contains a special character such as a hyphen, that identifier must be wrapped in backticks (&grave;).
         - name: dataverse
           type: string
           in: query
@@ -189,7 +189,7 @@ parameters:
 
       
       With this parameter, the scope name may contain one or two identifiers, separated by a dot.
-      The scope name must be given in its [display form](appendix_3_resolution.html#Resolving_database_entities); that is, if any identifier contains a special character such as a hyphen, that identifier must be wrapped in backticks (`).
+      The scope name must be given in its [display form](appendix_3_resolution.html#Resolving_database_entities); that is, if any identifier contains a special character such as a hyphen, that identifier must be wrapped in backticks (&grave;).
 
   CommonDataverse:
     name: dataverse
