@@ -132,7 +132,10 @@ definitions:
         description: If `true`, the result is indented.
       query_context: &query_context
         type: string
-        description: A scope for the statement.
+        description: >
+          A scope for the statement.
+          The value of this parameter must start with `default:`, followed by an Analytics scope name.
+          The `default:` prefix is a dummy and is ignored when resolving an Analytics collection name or synonym name.
         default: default:Default
       readonly: &readonly
         type: boolean
