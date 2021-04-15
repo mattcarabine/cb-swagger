@@ -177,7 +177,7 @@ definitions:
           In Community Edition, the number of allowed cores cannot be greater than 4.
           In Enterprise Edition, there is no limit to the number of allowed cores.)
 
-          The {max-parallelism-srv}[node-level] `max_parallelism` setting specifies this property for a single node.
+          The {max-parallelism-srv}[node-level] `max-parallelism` setting specifies this property for a single node.
           When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
 
           In addition, there is a {max_parallelism_req}[request-level] `max_parallelism` parameter.
@@ -187,6 +187,20 @@ definitions:
           To enable queries to run in parallel, you must specify the cluster-level `queryMaxParallelism` parameter, or specify the node-level `max-parallelism` parameter on all Query nodes.
 
           Refer to xref:n1ql:n1ql-language-reference/index-partitioning.adoc#max-parallelism[Max Parallelism] for more information.
+      queryMemoryQuota:
+        type: integer
+        format: int32
+        default: 0
+        example: 4
+        description: |
+          [[queryMemoryQuota]]
+          Specifies the maximum document memory consumption for queries on all Query nodes in the cluster, in MB.
+
+          The {memory-quota-srv}[node-level] `memory-quota` setting specifies this property for a single node.
+          When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+
+          In addition, there is a {memory_quota_req}[request-level] `memory_quota` parameter.
+          If a request includes this parameter, it will be capped by the node-level `memory-quota` setting.
       queryN1qlFeatCtrl:
         type: integer
         format: int32
@@ -197,6 +211,24 @@ definitions:
 
           The {n1ql-feat-ctrl}[node-level] `n1ql-feat-ctrl` setting specifies this property for a single node.
           When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+      queryNumAtrs:
+        type: integer
+        format: int32
+        minimum: 0
+        exclusiveMinimum: true
+        default: 1024
+        example: 512
+        description: |
+          [[queryNumAtrs]]
+          [.edition]#{enterprise}#
+
+          Specifies the total number of xref:learn:data/transactions.adoc#understanding-transactions[active transaction records] for all Query nodes in the cluster.
+
+          The {numatrs-srv}[node-level] `numatrs` setting specifies this property for a single node.
+          When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+
+          In addition, there is a {numatrs_req}[request-level] `numatrs` parameter.
+          If a request includes this parameter, it will be capped by the node-level `numatrs` setting.
       queryPipelineBatch:
         type: integer
         format: int32
@@ -275,6 +307,39 @@ definitions:
 
           The cluster-level `queryTimeout` setting is an integer, representing a duration in nanoseconds.
           It must not be delimited by quotes, and must not include a unit.
+      queryTxTimeout:
+        type: string
+        format: duration
+        default: "0ms"
+        example: "0.5s"
+        description: |
+          [[queryTxTimeout]]
+          [.edition]#{enterprise}#
+
+          Maximum time to spend on a transaction before timing out.
+
+          Specify `0ms` (the default value) to disable.
+          When disabled, no timeout is applied and the transaction runs for however long it takes.
+
+          This setting only applies to requests containing the `BEGIN TRANSACTION` statement, or to requests where the {tximplicit}[tximplicit] parameter is set.
+          For all other requests, it is ignored.
+
+          The value for this setting is a string.
+          Its format includes an amount and a mandatory unit, e.g. `10ms` (10 milliseconds) or `0.5s` (half a second).
+          Valid units are:
+
+          * `ns` (nanoseconds)
+          * `us` (microseconds)
+          * `ms` (milliseconds)
+          * `s` (seconds)
+          * `m` (minutes)
+          * `h` (hours)
+
+          The {txtimeout-srv}[node-level] `txtimeout` setting specifies this property for a single node.
+          When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+
+          In addition, there is a {txtimeout_req}[request-level] `txtimeout` parameter.
+          If a request includes this parameter, it will be capped by the node-level `txtimeout` setting.
       queryTmpSpaceDir:
         type: string
         example: "/opt/couchbase/var/lib/couchbase/tmp"
@@ -299,6 +364,19 @@ definitions:
           Setting the size to `-1` means the size is unlimited.
 
           The maximum size is limited only by the available disk space.
+      queryUseCBO:
+        type: boolean
+        default: true
+        example: false
+        description: |
+          [[queryUseCBO]]
+          Specifies whether the cost-based optimizer is enabled.
+
+          The {use-cbo-srv}[node-level] `use-cbo` setting specifies this property for a single node.
+          When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+
+          In addition, the {use_cbo_req}[request-level] `use_cbo` parameter specifies this property per request.
+          If a request does not include this parameter, the node-level setting is used, which defaults to `true`.
       queryCurlWhitelist:
         description: |
           [[queryCurlWhitelist]]
