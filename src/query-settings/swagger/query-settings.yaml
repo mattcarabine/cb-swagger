@@ -95,6 +95,55 @@ definitions:
     type: object
     title: Settings
     properties:
+      queryCleanupClientAttempts:
+        type: boolean
+        default: true
+        example: false
+        description: |
+          [[queryCleanupClientAttempts]]
+          [.edition]#{enterprise}#
+
+          When enabled, the Query service preferentially aims to clean up just transactions that it has created, leaving transactions for the distributed cleanup process only when it is forced to.
+
+          The {cleanupclientattempts}[node-level] `cleanupclientattempts` setting specifies this property for a single node.
+          When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+      queryCleanupLostAttempts:
+        type: boolean
+        default: true
+        example: false
+        description: |
+          [[queryCleanupLostAttempts]]
+          [.edition]#{enterprise}#
+
+          When enabled, the Query service takes part in the distributed cleanup process, and cleans up expired transactions created by any client.
+
+          The {cleanuplostattempts}[node-level] `cleanuplostattempts` setting specifies this property for a single node.
+          When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+      queryCleanupWindow:
+        type: string
+        format: duration
+        default: 60s
+        example: 30s
+        description: |
+          [[queryCleanupWindow]]
+          [.edition]#{enterprise}#
+
+          Specifies how frequently the Query service checks its subset of xref:learn:data/transactions.adoc#understanding-transactions[active transaction records] for cleanup.
+          Decreasing this setting causes expiration transactions to be found more swiftly, with the tradeoff of increasing the number of reads per second used for the scanning process.
+
+          The value for this setting is a string.
+          Its format includes an amount and a mandatory unit, e.g. `10ms` (10 milliseconds) or `0.5s` (half a second).
+          Valid units are:
+
+          * `ns` (nanoseconds)
+          * `us` (microseconds)
+          * `ms` (milliseconds)
+          * `s` (seconds)
+          * `m` (minutes)
+          * `h` (hours)
+
+          The {cleanupwindow}[node-level] `cleanupwindow` setting specifies this property for a single node.
+          When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
       queryCompletedLimit:
         type: integer
         format: int32
