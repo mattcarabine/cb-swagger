@@ -1076,6 +1076,23 @@ definitions:
     type: object
     title: Settings
     properties:
+      atrcollection:
+        type: string
+        default: ""
+        example: default:`travel-sample`.transaction.test
+        description: |
+          [[atrcollection-srv]]
+          [.edition]#{enterprise}#
+
+          Specifies the collection where xref:learn:data/transactions.adoc#understanding-transactions[active transaction records] are stored.
+          The collection must be present.
+          If not specified, the active transaction record is stored in the default collection in the default scope in the bucket containing the first mutated document within the transaction.
+
+          The value must be a string in the form `"bucket.scope.collection"` or `"namespace:bucket.scope.collection"`.
+          If any part of the path contains a special character, that part of the path must be delimited in backticks `pass:c[``]`.
+
+          The {atrcollection_req}[request-level] `atrcollection` parameter specifies this property per request.
+          If a request does not include this parameter, the node-level `atrcollection` setting will be used.
       auto-prepare:
         type: boolean
         default: false
@@ -1085,6 +1102,56 @@ definitions:
           Specifies whether the query engine should create a prepared statement every time a N1QL request is submitted, whether the PREPARE statement is included or not.
           
           Refer to xref:n1ql:n1ql-language-reference/prepare.adoc#auto-prepare[Auto-Prepare] for more information.
+
+      cleanupclientattempts:
+        type: boolean
+        default: true
+        example: false
+        description: |
+          [[cleanupclientattempts]]
+          [.edition]#{enterprise}#
+
+          When enabled, the Query service preferentially aims to clean up just transactions that it has created, leaving transactions for the distributed cleanup process only when it is forced to.
+
+          The {queryCleanupClientAttempts}[cluster-level] `queryCleanupClientAttempts` setting specifies this property for the whole cluster.
+          When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+      cleanuplostattempts:
+        type: boolean
+        default: true
+        example: false
+        description: |
+          [[cleanuplostattempts]]
+          [.edition]#{enterprise}#
+
+          When enabled, the Query service takes part in the distributed cleanup process, and cleans up expired transactions created by any client.
+
+          The {queryCleanupLostAttempts}[cluster-level] `queryCleanupLostAttempts` setting specifies this property for the whole cluster.
+          When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+      cleanupwindow:
+        type: string
+        format: duration
+        default: 60s
+        example: 30s
+        description: |
+          [[cleanupwindow]]
+          [.edition]#{enterprise}#
+
+          Specifies how frequently the Query service checks its subset of xref:learn:data/transactions.adoc#understanding-transactions[active transaction records] for cleanup.
+          Decreasing this setting causes expiration transactions to be found more swiftly, with the tradeoff of increasing the number of reads per second used for the scanning process.
+
+          The value for this setting is a string.
+          Its format includes an amount and a mandatory unit, e.g. `10ms` (10 milliseconds) or `0.5s` (half a second).
+          Valid units are:
+
+          * `ns` (nanoseconds)
+          * `us` (microseconds)
+          * `ms` (milliseconds)
+          * `s` (seconds)
+          * `m` (minutes)
+          * `h` (hours)
+
+          The {queryCleanupWindow}[cluster-level] `queryCleanupWindow` setting specifies this property for the whole cluster.
+          When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
       completed:
         type: object
         title: Logging parameters
@@ -1347,6 +1414,19 @@ definitions:
           [[mutexprofile]]
           Mutex profile.
           This setting is provided for technical support only.
+      numatrs:
+        type: string
+        description: |
+          [[numatrs-srv]]
+          [.edition]#{enterprise}#
+
+          Specifies the total number of xref:learn:data/transactions.adoc#understanding-transactions[active transaction records].
+
+          The {queryNumAtrs}[cluster-level] `queryNumAtrs` setting specifies this property for the whole cluster.
+          When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+
+          In addition, the {numatrs_req}[request-level] `numatrs` parameter specifies this property per request.
+          The minimum of that and the node-level `numatrs` setting is applied.
       n1ql-feat-ctrl:
         type: integer
         format: int32
@@ -1386,6 +1466,12 @@ definitions:
 
           In addition, the {pipeline_cap_req}[request-level] `pipeline_cap` parameter specifies this property per request.
           The minimum of that and the node-level `pipeline-cap` setting is applied.
+      plus-servicers:
+        type: integer
+        format: int32
+        default: 16
+        # description: |
+        #   FIXME: [[plus-servicers]]
       prepared-limit:
         type: integer
         format: int32
