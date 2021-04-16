@@ -1391,7 +1391,10 @@ definitions:
           Specify `0` (the default value) to disable.
           When disabled, there is no quota.
 
-          The {memory_quota_req}[request-level] `memory_quota` parameter specifies this property per request.
+          The {queryMemoryQuota}[cluster-level] `queryMemoryQuota` setting specifies this property for the whole cluster.
+          When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+
+          In addition, the {memory_quota_req}[request-level] `memory_quota` parameter specifies this property per request.
           If a request includes this parameter, it will be capped by the node-level `memory-quota` setting.
       memprofile:
         type: string
@@ -1565,14 +1568,14 @@ definitions:
           Specify `0` (the default value) or a negative integer to disable.
           When disabled, no timeout is applied and the request runs for however long it takes.
 
+          This setting is an integer, representing a duration in nanoseconds.
+          It must not be delimited by quotes, and must not include a unit.
+
           The {queryTimeout}[cluster-level] `queryTimeout` setting specifies this property for the whole cluster.
           When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
 
           In addition, the {timeout_req}[request-level] `timeout` parameter specifies this property per request.
           The minimum of that and the node-level `timeout` setting is applied.
-
-          The node-level `timeout` setting is an integer, representing a duration in nanoseconds.
-          It must not be delimited by quotes, and must not include a unit.
       txtimeout:
         type: integer
         format: int64
@@ -1590,11 +1593,14 @@ definitions:
           This setting only applies to requests containing the `BEGIN TRANSACTION` statement, or to requests where the {tximplicit}[tximplicit] parameter is set.
           For all other requests, it is ignored.
 
-          The {txtimeout_req}[request-level] `txtimeout` parameter specifies this property per request.
-          The minimum of that and the node-level `txtimeout` setting is applied.
-
-          The node-level `txtimeout` setting is an integer, representing a duration in nanoseconds.
+          This setting is an integer, representing a duration in nanoseconds.
           It must not be delimited by quotes, and must not include a unit.
+
+          The {queryTxTimeout}[cluster-level] `queryTxTimeout` setting specifies this property for the whole cluster.
+          When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+
+          In addition, the {txtimeout_req}[request-level] `txtimeout` parameter specifies this property per request.
+          The minimum of that and the node-level `txtimeout` setting is applied.
       use-cbo:
         type: boolean
         default: true
@@ -1603,7 +1609,10 @@ definitions:
           [[use-cbo-srv]]
           Specifies whether the cost-based optimizer is enabled.
 
-          The {use_cbo_req}[request-level] `use_cbo` parameter specifies this property per request.
+          The {queryUseCBO}[cluster-level] `queryUseCBO` setting specifies this property for the whole cluster.
+          When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+
+          In addition, the {use_cbo_req}[request-level] `use_cbo` parameter specifies this property per request.
           If a request does not include this parameter, the node-level setting is used, which defaults to `true`.
 
 parameters:
