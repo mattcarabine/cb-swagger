@@ -1079,7 +1079,7 @@ definitions:
       atrcollection:
         type: string
         default: ""
-        example: default:`travel-sample`.transaction.test
+        example: pass:c[default:`travel-sample`.transaction.test]
         description: |
           [[atrcollection-srv]]
           [.edition]#{enterprise}#
