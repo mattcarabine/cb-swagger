@@ -245,6 +245,9 @@ definitions:
           [[queryMemoryQuota]]
           Specifies the maximum document memory consumption for queries on all Query nodes in the cluster, in MB.
 
+          Within a transaction, this setting enforces the memory quota for the transaction.
+          The transaction memory quota tracks only the delta table and the transaction log (approximately).
+
           The {memory-quota-srv}[node-level] `memory-quota` setting specifies this property for a single node.
           When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
 

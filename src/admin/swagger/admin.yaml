@@ -1391,6 +1391,9 @@ definitions:
           Specify `0` (the default value) to disable.
           When disabled, there is no quota.
 
+          Within a transaction, this setting enforces the memory quota for the transaction.
+          The transaction memory quota tracks only the delta table and the transaction log (approximately).
+
           The {queryMemoryQuota}[cluster-level] `queryMemoryQuota` setting specifies this property for the whole cluster.
           When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
 
