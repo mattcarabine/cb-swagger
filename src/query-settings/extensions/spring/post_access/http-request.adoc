@@ -4,6 +4,6 @@ The example below specifies that `+++https://company1.com+++` is allowed, and `+
 .Curl request
 [source,shell]
 ----
-include::rest-api:example$query-settings-post-access.txt[]
+include::rest-api:example$query-settings-post-access.sh[]
 ----
 ====
