@@ -1565,11 +1565,11 @@ definitions:
           [[timeout-srv]]
           Maximum time to spend on the request before timing out (ns).
 
+          The value for this setting is an integer, representing a duration in nanoseconds.
+          It must not be delimited by quotes, and must not include a unit.
+
           Specify `0` (the default value) or a negative integer to disable.
           When disabled, no timeout is applied and the request runs for however long it takes.
-
-          This setting is an integer, representing a duration in nanoseconds.
-          It must not be delimited by quotes, and must not include a unit.
 
           The {queryTimeout}[cluster-level] `queryTimeout` setting specifies this property for the whole cluster.
           When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
@@ -1586,15 +1586,14 @@ definitions:
           [.edition]#{enterprise}#
 
           Maximum time to spend on a transaction before timing out (ns).
-
-          Specify `0` (the default value) to disable.
-          When disabled, no timeout is applied and the transaction runs for however long it takes.
-
           This setting only applies to requests containing the `BEGIN TRANSACTION` statement, or to requests where the {tximplicit}[tximplicit] parameter is set.
           For all other requests, it is ignored.
 
-          This setting is an integer, representing a duration in nanoseconds.
+          The value for this setting is an integer, representing a duration in nanoseconds.
           It must not be delimited by quotes, and must not include a unit.
+
+          Specify `0` (the default value) to disable.
+          When disabled, no timeout is applied and the transaction runs for however long it takes.
 
           The {queryTxTimeout}[cluster-level] `queryTxTimeout` setting specifies this property for the whole cluster.
           When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
