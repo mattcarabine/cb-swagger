@@ -3,6 +3,9 @@
   "queryTmpSpaceDir": "/tmp",
   "queryTmpSpaceSize": 2048,
 // end::tmpSpace[]
+// tag::ellipsis[]
+// ...
+// end::ellipsis[]
   "queryPipelineBatch": 16,
   "queryPipelineCap": 512,
   "queryScanCap": 512,
