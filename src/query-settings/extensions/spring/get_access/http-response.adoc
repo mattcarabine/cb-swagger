@@ -3,6 +3,10 @@
 .Response 200
 [source,json]
 ----
-{"all_access":false}
+{
+  "all_access": false,
+  "allowed_urls": [],
+  "disallowed_urls": []
+}
 ----
 ====

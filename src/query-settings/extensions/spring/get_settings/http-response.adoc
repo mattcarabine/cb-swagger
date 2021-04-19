@@ -15,9 +15,18 @@
   "queryCompletedThreshold": 1000,
   "queryLogLevel": "info",
   "queryMaxParallelism": 1,
-  "queryN1QLFeatCtrl": 12,
+  "queryN1QLFeatCtrl": 76,
+  "queryTxTimeout": "0ms",
+  "queryMemoryQuota": 0,
+  "queryUseCBO": true,
+  "queryCleanupClientAttempts": true,
+  "queryCleanupLostAttempts": true,
+  "queryCleanupWindow": "60s",
+  "queryNumAtrs": 1024,
   "queryCurlWhitelist": {
-    "all_access": false
+    "all_access": false,
+    "allowed_urls": [],
+    "disallowed_urls": []
   }
 }
 ----
