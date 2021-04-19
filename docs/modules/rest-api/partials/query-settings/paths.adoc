@@ -51,8 +51,8 @@ The example below gets the current cluster-level query settings.
 .Curl request
 [source,shell]
 ----
-$ curl -v -u Administrator:password \
-  http://localhost:8091/settings/querySettings
+curl -v -u Administrator:password \
+http://localhost:8091/settings/querySettings
 ----
 ====
 
@@ -76,9 +76,18 @@ $ curl -v -u Administrator:password \
   "queryCompletedThreshold": 1000,
   "queryLogLevel": "info",
   "queryMaxParallelism": 1,
-  "queryN1QLFeatCtrl": 12,
+  "queryN1QLFeatCtrl": 76,
+  "queryTxTimeout": "0ms",
+  "queryMemoryQuota": 0,
+  "queryUseCBO": true,
+  "queryCleanupClientAttempts": true,
+  "queryCleanupLostAttempts": true,
+  "queryCleanupWindow": "60s",
+  "queryNumAtrs": 1024,
   "queryCurlWhitelist": {
-    "all_access": false
+    "all_access": false,
+    "allowed_urls": [],
+    "disallowed_urls": []
   }
 }
 ----
@@ -133,7 +142,7 @@ The example below changes the temp file directory to `/tmp` and the temp file si
 .Curl request
 [source,shell]
 ----
-include::rest-api:example$query-settings-post-settings.txt[]
+include::rest-api:example$query-settings-post-settings.sh[]
 ----
 ====
 
@@ -145,7 +154,7 @@ include::rest-api:example$query-settings-post-settings.txt[]
 .Response 200
 [source,json]
 ----
-include::rest-api:example$query-settings-post-settings.jsonc[tags=**]
+include::rest-api:example$query-settings-post-settings.jsonc[tags=!ellipsis]
 ----
 ====
 
@@ -187,8 +196,8 @@ The example below gets the current cluster-level CURL access settings.
 .Curl request
 [source,shell]
 ----
-$ curl -v -u Administrator:password \
-  http://localhost:8091/settings/querySettings/curlWhitelist
+curl -v -u Administrator:password \
+http://localhost:8091/settings/querySettings/curlWhitelist
 ----
 ====
 
@@ -200,7 +209,11 @@ $ curl -v -u Administrator:password \
 .Response 200
 [source,json]
 ----
-{"all_access":false}
+{
+  "all_access": false,
+  "allowed_urls": [],
+  "disallowed_urls": []
+}
 ----
 ====
 
@@ -253,7 +266,7 @@ The example below specifies that `+++https://company1.com+++` is allowed, and `+
 .Curl request
 [source,shell]
 ----
-include::rest-api:example$query-settings-post-access.txt[]
+include::rest-api:example$query-settings-post-access.sh[]
 ----
 ====
 
