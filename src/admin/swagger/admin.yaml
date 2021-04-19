@@ -1472,9 +1472,11 @@ definitions:
       plus-servicers:
         type: integer
         format: int32
-        default: 16
-        # description: |
-        #   FIXME: [[plus-servicers]]
+        example: 16
+        description: |
+          [[plus-servicers]]
+          The number of service threads for transactions where the scan consistency is `request_plus` or `at_plus`.
+          The default is 16 times the number of logical cores.
       prepared-limit:
         type: integer
         format: int32
