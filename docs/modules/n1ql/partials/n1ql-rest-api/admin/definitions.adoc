@@ -437,6 +437,21 @@ __optional__|The standard deviation.|number
 [options="header", cols=".^3a,.^11a,.^4a"]
 |===
 |Name|Description|Schema
+|**atrcollection** +
+__optional__|[[atrcollection-srv]]
+[.edition]#{enterprise}#
+
+Specifies the collection where xref:learn:data/transactions.adoc#understanding-transactions[active transaction records] are stored.
+The collection must be present.
+If not specified, the active transaction record is stored in the default collection in the default scope in the bucket containing the first mutated document within the transaction.
+
+The value must be a string in the form `"bucket.scope.collection"` or `"namespace:bucket.scope.collection"`.
+If any part of the path contains a special character, that part of the path must be delimited in backticks `pass:c[``]`.
+
+The {atrcollection_req}[request-level] `atrcollection` parameter specifies this property per request.
+If a request does not include this parameter, the node-level `atrcollection` setting will be used. +
+**Default** : `""` +
+**Example** : `"pass:c[default:`travel-sample`.transaction.test]"`|string
 |**auto-prepare** +
 __optional__|[[auto-prepare]]
 Specifies whether the query engine should create a prepared statement every time a N1QL request is submitted, whether the PREPARE statement is included or not.
@@ -444,6 +459,48 @@ Specifies whether the query engine should create a prepared statement every time
 Refer to xref:n1ql:n1ql-language-reference/prepare.adoc#auto-prepare[Auto-Prepare] for more information. +
 **Default** : `false` +
 **Example** : `true`|boolean
+|**cleanupclientattempts** +
+__optional__|[[cleanupclientattempts]]
+[.edition]#{enterprise}#
+
+When enabled, the Query service preferentially aims to clean up just transactions that it has created, leaving transactions for the distributed cleanup process only when it is forced to.
+
+The {queryCleanupClientAttempts}[cluster-level] `queryCleanupClientAttempts` setting specifies this property for the whole cluster.
+When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster. +
+**Default** : `true` +
+**Example** : `false`|boolean
+|**cleanuplostattempts** +
+__optional__|[[cleanuplostattempts]]
+[.edition]#{enterprise}#
+
+When enabled, the Query service takes part in the distributed cleanup process, and cleans up expired transactions created by any client.
+
+The {queryCleanupLostAttempts}[cluster-level] `queryCleanupLostAttempts` setting specifies this property for the whole cluster.
+When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster. +
+**Default** : `true` +
+**Example** : `false`|boolean
+|**cleanupwindow** +
+__optional__|[[cleanupwindow]]
+[.edition]#{enterprise}#
+
+Specifies how frequently the Query service checks its subset of xref:learn:data/transactions.adoc#understanding-transactions[active transaction records] for cleanup.
+Decreasing this setting causes expiration transactions to be found more swiftly, with the tradeoff of increasing the number of reads per second used for the scanning process.
+
+The value for this setting is a string.
+Its format includes an amount and a mandatory unit, e.g. `10ms` (10 milliseconds) or `0.5s` (half a second).
+Valid units are:
+
+* `ns` (nanoseconds)
+* `us` (microseconds)
+* `ms` (milliseconds)
+* `s` (seconds)
+* `m` (minutes)
+* `h` (hours)
+
+The {queryCleanupWindow}[cluster-level] `queryCleanupWindow` setting specifies this property for the whole cluster.
+When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster. +
+**Default** : `"60s"` +
+**Example** : `"30s"`|string (duration)
 |**completed** +
 __optional__|[[completed]]
 A nested object that sets the parameters for the completed requests catalog.
@@ -595,7 +652,13 @@ Specifies the maximum document memory consumption for each request on this node,
 Specify `0` (the default value) to disable.
 When disabled, there is no quota.
 
-The {memory_quota_req}[request-level] `memory_quota` parameter specifies this property per request.
+Within a transaction, this setting enforces the memory quota for the transaction.
+The transaction memory quota tracks only the delta table and the transaction log (approximately).
+
+The {queryMemoryQuota}[cluster-level] `queryMemoryQuota` setting specifies this property for the whole cluster.
+When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+
+In addition, the {memory_quota_req}[request-level] `memory_quota` parameter specifies this property per request.
 If a request includes this parameter, it will be capped by the node-level `memory-quota` setting. +
 **Default** : `0` +
 **Example** : `4`|integer (int32)
@@ -624,6 +687,17 @@ This setting is provided for technical support only.
 The {queryN1qlFeatCtrl}[cluster-level] `queryN1qlFeatCtrl` setting specifies this property for the whole cluster.
 When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster. +
 **Default** : `76`|integer (int32)
+|**numatrs** +
+__optional__|[[numatrs-srv]]
+[.edition]#{enterprise}#
+
+Specifies the total number of xref:learn:data/transactions.adoc#understanding-transactions[active transaction records].
+
+The {queryNumAtrs}[cluster-level] `queryNumAtrs` setting specifies this property for the whole cluster.
+When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+
+In addition, the {numatrs_req}[request-level] `numatrs` parameter specifies this property per request.
+The minimum of that and the node-level `numatrs` setting is applied.|string
 |**pipeline-batch** +
 __optional__|[[pipeline-batch-srv]]
 Controls the number of items execution operators can batch for Fetch from the KV.
@@ -646,6 +720,11 @@ In addition, the {pipeline_cap_req}[request-level] `pipeline_cap` parameter spec
 The minimum of that and the node-level `pipeline-cap` setting is applied. +
 **Default** : `512` +
 **Example** : `1024`|integer (int32)
+|**plus-servicers** +
+__optional__|[[plus-servicers]]
+The number of service threads for transactions where the scan consistency is `request_plus` or `at_plus`.
+The default is 16 times the number of logical cores. +
+**Example** : `16`|integer (int32)
 |**prepared-limit** +
 __optional__|[[prepared-limit]]
 Maximum number of prepared statements in the cache.
@@ -714,6 +793,9 @@ The number of service threads for the query. +
 __optional__|[[timeout-srv]]
 Maximum time to spend on the request before timing out (ns).
 
+The value for this setting is an integer, representing a duration in nanoseconds.
+It must not be delimited by quotes, and must not include a unit.
+
 Specify `0` (the default value) or a negative integer to disable.
 When disabled, no timeout is applied and the request runs for however long it takes.
 
@@ -721,10 +803,7 @@ The {queryTimeout}[cluster-level] `queryTimeout` setting specifies this property
 When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
 
 In addition, the {timeout_req}[request-level] `timeout` parameter specifies this property per request.
-The minimum of that and the node-level `timeout` setting is applied.
-
-The node-level `timeout` setting is an integer, representing a duration in nanoseconds.
-It must not be delimited by quotes, and must not include a unit. +
+The minimum of that and the node-level `timeout` setting is applied. +
 **Default** : `0` +
 **Example** : `500000000`|integer (int64)
 |**txtimeout** +
@@ -732,25 +811,30 @@ __optional__|[[txtimeout-srv]]
 [.edition]#{enterprise}#
 
 Maximum time to spend on a transaction before timing out (ns).
+This setting only applies to requests containing the `BEGIN TRANSACTION` statement, or to requests where the {tximplicit}[tximplicit] parameter is set.
+For all other requests, it is ignored.
+
+The value for this setting is an integer, representing a duration in nanoseconds.
+It must not be delimited by quotes, and must not include a unit.
 
 Specify `0` (the default value) to disable.
 When disabled, no timeout is applied and the transaction runs for however long it takes.
 
-This setting only applies to requests containing the `BEGIN TRANSACTION` statement, or to requests where the {tximplicit}[tximplicit] parameter is set.
-For all other requests, it is ignored.
+The {queryTxTimeout}[cluster-level] `queryTxTimeout` setting specifies this property for the whole cluster.
+When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
 
-The {txtimeout_req}[request-level] `txtimeout` parameter specifies this property per request.
-The minimum of that and the node-level `txtimeout` setting is applied.
-
-The node-level `txtimeout` setting is an integer, representing a duration in nanoseconds.
-It must not be delimited by quotes, and must not include a unit. +
+In addition, the {txtimeout_req}[request-level] `txtimeout` parameter specifies this property per request.
+The minimum of that and the node-level `txtimeout` setting is applied. +
 **Default** : `0` +
 **Example** : `500000000`|integer (int64)
 |**use-cbo** +
 __optional__|[[use-cbo-srv]]
 Specifies whether the cost-based optimizer is enabled.
 
-The {use_cbo_req}[request-level] `use_cbo` parameter specifies this property per request.
+The {queryUseCBO}[cluster-level] `queryUseCBO` setting specifies this property for the whole cluster.
+When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+
+In addition, the {use_cbo_req}[request-level] `use_cbo` parameter specifies this property per request.
 If a request does not include this parameter, the node-level setting is used, which defaults to `true`. +
 **Default** : `true` +
 **Example** : `false`|boolean

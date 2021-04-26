@@ -58,6 +58,48 @@ endif::[]
 [options="header", cols=".^3a,.^11a,.^4a"]
 |===
 |Name|Description|Schema
+|**queryCleanupClientAttempts** +
+__optional__|[[queryCleanupClientAttempts]]
+[.edition]#{enterprise}#
+
+When enabled, the Query service preferentially aims to clean up just transactions that it has created, leaving transactions for the distributed cleanup process only when it is forced to.
+
+The {cleanupclientattempts}[node-level] `cleanupclientattempts` setting specifies this property for a single node.
+When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster. +
+**Default** : `true` +
+**Example** : `false`|boolean
+|**queryCleanupLostAttempts** +
+__optional__|[[queryCleanupLostAttempts]]
+[.edition]#{enterprise}#
+
+When enabled, the Query service takes part in the distributed cleanup process, and cleans up expired transactions created by any client.
+
+The {cleanuplostattempts}[node-level] `cleanuplostattempts` setting specifies this property for a single node.
+When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster. +
+**Default** : `true` +
+**Example** : `false`|boolean
+|**queryCleanupWindow** +
+__optional__|[[queryCleanupWindow]]
+[.edition]#{enterprise}#
+
+Specifies how frequently the Query service checks its subset of xref:learn:data/transactions.adoc#understanding-transactions[active transaction records] for cleanup.
+Decreasing this setting causes expiration transactions to be found more swiftly, with the tradeoff of increasing the number of reads per second used for the scanning process.
+
+The value for this setting is a string.
+Its format includes an amount and a mandatory unit, e.g. `10ms` (10 milliseconds) or `0.5s` (half a second).
+Valid units are:
+
+* `ns` (nanoseconds)
+* `us` (microseconds)
+* `ms` (milliseconds)
+* `s` (seconds)
+* `m` (minutes)
+* `h` (hours)
+
+The {cleanupwindow}[node-level] `cleanupwindow` setting specifies this property for a single node.
+When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster. +
+**Default** : `"60s"` +
+**Example** : `"30s"`|string (duration)
 |**queryCompletedLimit** +
 __optional__|[[queryCompletedLimit]]
 Sets the number of requests to be logged in the completed requests catalog.
@@ -126,7 +168,7 @@ Similarly, if the value is greater than the number of allowed cores, the maximum
 In Community Edition, the number of allowed cores cannot be greater than 4.
 In Enterprise Edition, there is no limit to the number of allowed cores.)
 
-The {max-parallelism-srv}[node-level] `max_parallelism` setting specifies this property for a single node.
+The {max-parallelism-srv}[node-level] `max-parallelism` setting specifies this property for a single node.
 When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
 
 In addition, there is a {max_parallelism_req}[request-level] `max_parallelism` parameter.
@@ -138,6 +180,20 @@ To enable queries to run in parallel, you must specify the cluster-level `queryM
 Refer to xref:n1ql:n1ql-language-reference/index-partitioning.adoc#max-parallelism[Max Parallelism] for more information. +
 **Default** : `1` +
 **Example** : `0`|integer (int32)
+|**queryMemoryQuota** +
+__optional__|[[queryMemoryQuota]]
+Specifies the maximum document memory consumption for queries on all Query nodes in the cluster, in MB.
+
+Within a transaction, this setting enforces the memory quota for the transaction.
+The transaction memory quota tracks only the delta table and the transaction log (approximately).
+
+The {memory-quota-srv}[node-level] `memory-quota` setting specifies this property for a single node.
+When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+
+In addition, there is a {memory_quota_req}[request-level] `memory_quota` parameter.
+If a request includes this parameter, it will be capped by the node-level `memory-quota` setting. +
+**Default** : `0` +
+**Example** : `4`|integer (int32)
 |**queryN1qlFeatCtrl** +
 __optional__|[[queryN1qlFeatCtrl]]
 N1QL feature control.
@@ -145,6 +201,20 @@ This setting is provided for technical support only.
 
 The {n1ql-feat-ctrl}[node-level] `n1ql-feat-ctrl` setting specifies this property for a single node.
 When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.|integer (int32)
+|**queryNumAtrs** +
+__optional__|[[queryNumAtrs]]
+[.edition]#{enterprise}#
+
+Specifies the total number of xref:learn:data/transactions.adoc#understanding-transactions[active transaction records] for all Query nodes in the cluster.
+
+The {numatrs-srv}[node-level] `numatrs` setting specifies this property for a single node.
+When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+
+In addition, there is a {numatrs_req}[request-level] `numatrs` parameter.
+If a request includes this parameter, it will be capped by the node-level `numatrs` setting. +
+**Default** : `1024` +
+**Minimum value (exclusive)** : `0` +
+**Example** : `512`|integer (int32)
 |**queryPipelineBatch** +
 __optional__|[[queryPipelineBatch]]
 Controls the number of items execution operators can batch for Fetch from the KV.
@@ -195,6 +265,9 @@ The minimum of that and the node-level `scan-cap` setting is applied. +
 __optional__|[[queryTimeout]]
 Maximum time to spend on the request before timing out (ns).
 
+The value for this setting is an integer, representing a duration in nanoseconds.
+It must not be delimited by quotes, and must not include a unit.
+
 Specify `0` (the default value) or a negative integer to disable.
 When disabled, no timeout is applied and the request runs for however long it takes.
 
@@ -202,12 +275,38 @@ The {timeout-srv}[node-level] `timeout` setting specifies this property for a si
 When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
 
 In addition, the {timeout_req}[request-level] `timeout` parameter specifies this property per request.
-The minimum of that and the node-level `timeout` setting is applied.
-
-The cluster-level `queryTimeout` setting is an integer, representing a duration in nanoseconds.
-It must not be delimited by quotes, and must not include a unit. +
+The minimum of that and the node-level `timeout` setting is applied. +
 **Default** : `0` +
 **Example** : `500000000`|integer (int64)
+|**queryTxTimeout** +
+__optional__|[[queryTxTimeout]]
+[.edition]#{enterprise}#
+
+Maximum time to spend on a transaction before timing out.
+This setting only applies to requests containing the `BEGIN TRANSACTION` statement, or to requests where the {tximplicit}[tximplicit] parameter is set.
+For all other requests, it is ignored.
+
+The value for this setting is a string.
+Its format includes an amount and a mandatory unit, e.g. `10ms` (10 milliseconds) or `0.5s` (half a second).
+Valid units are:
+
+* `ns` (nanoseconds)
+* `us` (microseconds)
+* `ms` (milliseconds)
+* `s` (seconds)
+* `m` (minutes)
+* `h` (hours)
+
+Specify `0ms` (the default value) to disable.
+When disabled, no timeout is applied and the transaction runs for however long it takes.
+
+The {txtimeout-srv}[node-level] `txtimeout` setting specifies this property for a single node.
+When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+
+In addition, there is a {txtimeout_req}[request-level] `txtimeout` parameter.
+If a request includes this parameter, it will be capped by the node-level `txtimeout` setting. +
+**Default** : `"0ms"` +
+**Example** : `"0.5s"`|string (duration)
 |**queryTmpSpaceDir** +
 __optional__|[[queryTmpSpaceDir]]
 The path to which the indexer writes temporary backfill files, to store any transient data during query processing.
@@ -227,6 +326,17 @@ Setting the size to `-1` means the size is unlimited.
 The maximum size is limited only by the available disk space. +
 **Default** : `5120` +
 **Example** : `2048`|integer (int32)
+|**queryUseCBO** +
+__optional__|[[queryUseCBO]]
+Specifies whether the cost-based optimizer is enabled.
+
+The {use-cbo-srv}[node-level] `use-cbo` setting specifies this property for a single node.
+When you change the cluster-level setting, the node-level setting is over-written for all nodes in the cluster.
+
+In addition, the {use_cbo_req}[request-level] `use_cbo` parameter specifies this property per request.
+If a request does not include this parameter, the node-level setting is used, which defaults to `true`. +
+**Default** : `true` +
+**Example** : `false`|boolean
 |**queryCurlWhitelist** +
 __optional__|[[queryCurlWhitelist]]
 An object which determines which URLs may be accessed by the `CURL()` function.|<<_access,Access>>
