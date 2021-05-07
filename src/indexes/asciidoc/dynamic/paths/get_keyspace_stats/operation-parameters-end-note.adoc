@@ -1,0 +1,9 @@
+[NOTE]
+====
+If the <<_get_keyspace_stats_parameters,keyspace>> path parameter specifies just a bucket name, the response contains statistics for all indexes in all collections in all scopes within that bucket.
+If the <<_get_keyspace_stats_parameters,keyspace>> path parameter specifies a bucket name and a scope name, the response contains statistics for all indexes in all collections within that scope.
+Similarly, if the <<_get_keyspace_stats_parameters,keyspace>> path parameter specifies a bucket name, a scope name, and a collection, the response contains statistics for all indexes in that collection.
+
+To get statistics for the indexes in the default collection in the default scope within a bucket only, you must specify the scope and collection explicitly.
+For example, `bucket._default._default`.
+====
