@@ -1,0 +1,23 @@
+[[keyspace-example-1,request {counter:xref}]]
+====
+Request {counter:example}: Return statistics for all indexes in a scope, omit empty results, and format the output.
+
+.Curl request
+[source,shell]
+----
+curl -X GET -u Administrator:password \
+"http://localhost:9102/api/v1/stats/travel-sample.inventory?pretty=true&skipEmpty=true"
+----
+====
+
+[[keyspace-example-2,request {counter:xref}]]
+====
+Request {counter:example}: Return statistics for all indexes in a collection, omit empty results, and format the output.
+
+.Curl request
+[source,shell]
+----
+curl -X GET -u Administrator:password \
+"http://localhost:9102/api/v1/stats/travel-sample.inventory.airline?pretty=true&skipEmpty=true"
+----
+====

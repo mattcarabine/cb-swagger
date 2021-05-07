@@ -5,7 +5,8 @@ Request {counter:example}: Return statistics for an index and format the output.
 .Curl request
 [source,shell]
 ----
-$ curl -X GET -u Administrator:password "http://localhost:9102/api/v1/stats/travel-sample/over1000?pretty=true"
+curl -X GET -u Administrator:password \
+"http://localhost:9102/api/v1/stats/travel-sample.inventory.route/def_sourceairport_partn?pretty=true"
 ----
 ====
 
@@ -16,6 +17,7 @@ Request {counter:example}: Return statistics for an index, include partitions, a
 .Curl request
 [source,shell]
 ----
-$ curl -X GET -u Administrator:password "http://localhost:9102/api/v1/stats/travel-sample/over1000?partition=true&pretty=true"
+curl -X GET -u Administrator:password \
+"http://localhost:9102/api/v1/stats/travel-sample.inventory.route/def_sourceairport_partn?partition=true&pretty=true"
 ----
 ====
