@@ -5,7 +5,7 @@ Result of <<index-example-1>>.
 [source,json]
 ----
 {
-   "travel-sample:def_sourceairport_partn": {
+   "travel-sample:inventory:route:def_sourceairport_partn": {
       "avg_drain_rate": 0,
       "avg_item_size": 41,
       "avg_scan_latency": 0,
@@ -156,7 +156,7 @@ Result of <<index-example-2>>.
       "scan_bytes_read": 0,
       "total_scan_duration": 0
    },
-   "travel-sample:def_sourceairport_partn": {
+   "travel-sample:inventory:route:def_sourceairport_partn": {
       "avg_drain_rate": 0,
       "avg_item_size": 41,
       "avg_scan_latency": 0,

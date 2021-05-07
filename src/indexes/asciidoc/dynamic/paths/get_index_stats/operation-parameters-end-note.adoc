@@ -1,1 +1,7 @@
-NOTE: It is not possible to specify an individual index partition in the path.
+[NOTE]
+====
+In most cases, the <<_get_index_stats_parameters,keyspace>> path parameter must specify the complete name of the keyspace containing the index.
+It may not omit the scope name or the collection name.
+
+However, if the specified index is stored in the default collection in the default scope within a bucket, then the <<_get_index_stats_parameters,keyspace>> path parameter may specify just the bucket name alone.
+====

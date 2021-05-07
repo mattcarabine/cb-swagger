@@ -1,0 +1,72 @@
+====
+Result of <<keyspace-example-1>>.
+
+.Response 200
+[source,json]
+----
+{
+   "travel-sample:inventory:airline:def_inventory_airline_primary": {
+      "avg_item_size": 12,
+      "avg_scan_latency": 2898606,
+      "cache_hit_percent": 75,
+      "cache_hits": 3,
+      "cache_misses": 1,
+      "data_size": 213281,
+      "disk_size": 747993,
+      "frag_percent": 79,
+      "initial_build_progress": 100,
+      "items_count": 187,
+      "last_known_scan_time": 1620385003874921293,
+      "memory_used": 12258,
+      "num_requests": 4,
+      "num_rows_returned": 748,
+      "recs_in_mem": 187,
+      "resident_percent": 100,
+      "scan_bytes_read": 9016,
+      "total_scan_duration": 12789504
+   },
+   "travel-sample:inventory:airport:def_inventory_airport_airportname": {
+      "avg_item_size": 73,
+      "data_size": 514569,
+      "disk_size": 1664271,
+      "frag_percent": 72,
+      "initial_build_progress": 100,
+      "items_count": 1968,
+      "memory_used": 3880,
+      "recs_on_disk": 1968
+   },
+   ...
+}
+----
+====
+
+====
+Result of <<keyspace-example-2>>.
+
+.Response 200
+[source,json]
+----
+{
+   "travel-sample:inventory:airline:def_inventory_airline_primary": {
+      "avg_item_size": 12,
+      "avg_scan_latency": 2898606,
+      "cache_hit_percent": 75,
+      "cache_hits": 3,
+      "cache_misses": 1,
+      "data_size": 213281,
+      "disk_size": 747993,
+      "frag_percent": 79,
+      "initial_build_progress": 100,
+      "items_count": 187,
+      "last_known_scan_time": 1620385003874921293,
+      "memory_used": 12258,
+      "num_requests": 4,
+      "num_rows_returned": 748,
+      "recs_in_mem": 187,
+      "resident_percent": 100,
+      "scan_bytes_read": 9016,
+      "total_scan_duration": 12789504
+   }
+}
+----
+====

@@ -1,4 +1,5 @@
 **{toc-title}**
 
 * <<_get_node_stats>>
+* <<_get_keyspace_stats>>
 * <<_get_index_stats>>

@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Index Statistics REST API
-  version: '1.0'
+  version: '7.0'
   description: |
     The Index Statistics REST API is provided by the Index service.
     This API enables you to get Index service statistics.
@@ -31,6 +31,23 @@ paths:
         "200":
           $ref: '#/responses/Node'
 
+  /api/v1/stats/{keyspace}:
+    parameters:
+      - $ref: "#/parameters/PathKeyspace"
+      - $ref: "#/parameters/QueryPretty"
+      - $ref: "#/parameters/QuerySkipEmpty"
+    get:
+      operationId: get_keyspace_stats
+      summary: Get Statistics for Indexes in a Keyspace
+      description: Returns statistics for all indexes within a bucket, scope, or collection.
+      security:
+        - Default: []
+      responses:
+        "200":
+          $ref: '#/responses/Keyspace'
+        "404":
+          $ref: '#/responses/NotFound'
+
   /api/v1/stats/{keyspace}/{index}:
     parameters:
       - $ref: "#/parameters/PathKeyspace"
@@ -48,7 +65,7 @@ paths:
         "200":
           $ref: '#/responses/Index'
         "404":
-          $ref: '#/responses/IndexNotFound'
+          $ref: '#/responses/NotFound'
 
 parameters:
   PathKeyspace:
@@ -56,7 +73,14 @@ parameters:
     type: string
     in: path
     required: true
-    description: The name of a keyspace.
+    description: |
+      The name of a keyspace.
+      This must contain a bucket name, optionally which may be followed by an optional scope name and an optional collection name, separated by dots.
+      For example, `bucket.scope.collection`.
+
+
+      If any part of the keyspace name contains a dot, that part of the keyspace name must be wrapped in backticks.
+      For example, `pass:c[`bucket.1`.scope.collection]`.
 
   PathIndex:
     name: index
@@ -242,12 +266,12 @@ definitions:
         description: Total time spent by the indexer in scanning rows since last startup.
 
 responses:
-  IndexNotFound:
+  NotFound:
     description: |
       Not found.
-      Returns the path with the specified keyspace and index name.
+      Returns the complete specified keyspace name, and the specified index name if provided.
 
-      The keyspace name may be incorrect, the index may not be located on the specified node, or the index may be warming up after a restart.
+      The keyspace name may be incorrect, the keyspace may contain no indexes, the index may not be located in the specified keyspace, or the index may be warming up after a restart.
     schema:
       type: string
 
@@ -268,7 +292,25 @@ responses:
           description: |
             A nested object containing statistics for an entire index.
             
-            * `__keyspace__` is the name of the keyspace.
+            * `__keyspace__` is the bucket, scope, and collection containing the index.
+            * `__index__` is the name of the index.
+          $ref: "#/definitions/Index"
+
+  Keyspace:
+    description: |
+      Success.
+      Returns an object containing one or more nested `__keyspace:index__` objects -- one for each index found within the specified bucket, scope, or collection.
+    schema:
+      type: object
+      title: Indexes
+      required:
+        - __keyspace:index__
+      properties:
+        __keyspace:index__:
+          description: |
+            A nested object containing statistics for an entire index.
+            
+            * `__keyspace__` is the bucket, scope, and collection containing the index.
             * `__index__` is the name of the index.
           $ref: "#/definitions/Index"
 
@@ -288,7 +330,7 @@ responses:
           description: |
             A nested object containing statistics for an entire index.
             
-            * `__keyspace__` is the name of the keyspace.
+            * `__keyspace__` is the bucket, scope, and collection containing the index.
             * `__index__` is the name of the index.
           $ref: "#/definitions/Index"
         Partition-__num__:
